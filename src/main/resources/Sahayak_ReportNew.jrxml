@@ -1,0 +1,2166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="arthavedika" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db63feb5-ee2f-443e-887d-a8310c86fc57">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="shayak.jrdax"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value=""/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value=""/>
+	<subDataset name="Graph Dataset" uuid="e955b40b-4601-4c03-bed0-5be1259ba023">
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="GraphDataset"/>
+		<queryString language="SQL">
+			<![CDATA[Select * from arthavedika_v1.applicant_psycho_result where   arthavedika_v1.applicant_psycho_result.applicant_id = 6001]]>
+		</queryString>
+		<field name="applicant_id" class="java.lang.Integer">
+			<property name="com.jaspersoft.studio.field.name" value="applicant_id"/>
+			<property name="com.jaspersoft.studio.field.label" value="applicant_id"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="applicant_psycho_result"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="psycho_result" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.name" value="psycho_result"/>
+			<property name="com.jaspersoft.studio.field.label" value="psycho_result"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="applicant_psycho_result"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<field name="psycho_score" class="java.lang.Double">
+			<property name="com.jaspersoft.studio.field.name" value="psycho_score"/>
+			<property name="com.jaspersoft.studio.field.label" value="psycho_score"/>
+			<property name="com.jaspersoft.studio.field.tree.path" value="applicant_psycho_result"/>
+			<fieldDescription><![CDATA[]]></fieldDescription>
+		</field>
+		<group name="applicant_id">
+			<groupExpression><![CDATA[$F{applicant_id}]]></groupExpression>
+		</group>
+		<group name="psycho_result">
+			<groupExpression><![CDATA[$F{psycho_result}]]></groupExpression>
+		</group>
+		<group name="psycho_score">
+			<groupExpression><![CDATA[$F{psycho_score}]]></groupExpression>
+		</group>
+	</subDataset>
+	<parameter name="applicant_id" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[Select * FROM arthavedika_v1.applicant_table where applicant_id=$P{applicant_id}]]>
+	</queryString>
+	<field name="applicant_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_pin" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_pin"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_pin"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_address_line_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_address_line_2"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_address_line_2"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_city_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_city_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_city_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_date_of_birth" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_date_of_birth"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_date_of_birth"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_email_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_email_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_email_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_family_mobile_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_family_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_family_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_father_firstname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_father_firstname"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_father_firstname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_father_lastname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_father_lastname"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_father_lastname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_father_middle_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_father_middle_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_father_middle_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_firstname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_firstname"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_firstname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_lastname" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_lastname"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_lastname"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_middle_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_middle_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_middle_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_mobile_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_state" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_state"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_state"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="gender" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="gender"/>
+		<property name="com.jaspersoft.studio.field.label" value="gender"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="published" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="published"/>
+		<property name="com.jaspersoft.studio.field.label" value="published"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="user_id_str" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="user_id_str"/>
+		<property name="com.jaspersoft.studio.field.label" value="user_id_str"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="user_id" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="user_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="family_covered_under_aayushman_or_similar_scheme" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="family_covered_under_aayushman_or_similar_scheme"/>
+		<property name="com.jaspersoft.studio.field.label" value="family_covered_under_aayushman_or_similar_scheme"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_agr_land_owned" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_agr_land_owned"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_agr_land_owned"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_alcoholic" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_alcoholic"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_alcoholic"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_bank_loan" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_bank_loan"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_bank_loan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_business" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_business"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_business"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_business_income" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_business_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_business_income"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_business_other" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_business_other"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_business_other"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_business_product" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_business_product"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_business_product"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_business_turnover" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_business_turnover"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_business_turnover"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_children_school_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_children_school_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_children_school_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_customer" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_customer"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_customer"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_education_expense_monthly" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_education_expense_monthly"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_education_expense_monthly"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_employment_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_employment_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_employment_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_expense_monthly" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_expense_monthly"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_expense_monthly"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_have_agriculture_machinery" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_have_agriculture_machinery"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_have_agriculture_machinery"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_have_non_agriculture_machinery" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_have_non_agriculture_machinery"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_have_non_agriculture_machinery"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_hold_bank_account" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_hold_bank_account"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_hold_bank_account"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_income" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_income"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_income_agriculture" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_income_agriculture"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_income_agriculture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_income_non_agriculture" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_income_non_agriculture"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_income_non_agriculture"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_industry_stable" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_industry_stable"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_industry_stable"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_invest" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_invest"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_invest"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_job" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_job"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_job"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_land_area" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_land_area"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_land_area"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_loan_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_loan_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_loan_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_loan_amount_sahukar" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_loan_amount_sahukar"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_loan_amount_sahukar"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_medical_expense" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_medical_expense"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_medical_expense"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_non_agriculture_income_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_non_agriculture_income_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_non_agriculture_income_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_organisation_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_organisation_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_organisation_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_owned_auto" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_owned_auto"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_owned_auto"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_owned_bicycle" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_owned_bicycle"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_owned_bicycle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_owned_car" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_owned_car"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_owned_car"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_owned_scooter_motorcycle" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_owned_scooter_motorcycle"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_owned_scooter_motorcycle"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_owned_tractor" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_owned_tractor"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_owned_tractor"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_qualification" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_qualification"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_qualification"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_rasan_card_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_rasan_card_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_rasan_card_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_role" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_role"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_role"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_sahukar_loan" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_sahukar_loan"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_sahukar_loan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_shop_owned" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_shop_owned"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_shop_owned"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_tobacco_smoking_or_chewing" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_tobacco_smoking_or_chewing"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_tobacco_smoking_or_chewing"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_total_income_agriculture_crop" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_total_income_agriculture_crop"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_total_income_agriculture_crop"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_total_income_agriculture_session" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_total_income_agriculture_session"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_total_income_agriculture_session"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="education_expenses_on_children" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="education_expenses_on_children"/>
+		<property name="com.jaspersoft.studio.field.label" value="education_expenses_on_children"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend1_job" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend1_job"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend1_job"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend1_mobile_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend1_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend1_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend1_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend1_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend1_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend2_job" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend2_job"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend2_job"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend2_mobile_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend2_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend2_mobile_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="friend2_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="friend2_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="friend2_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="house_locality" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="house_locality"/>
+		<property name="com.jaspersoft.studio.field.label" value="house_locality"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="house_rent_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="house_rent_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="house_rent_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="house_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="house_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="house_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="no_of_children" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_children"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_children"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="no_of_children_studying" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_children_studying"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_children_studying"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="no_of_earning_member" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_earning_member"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_earning_member"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="no_of_family_member" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_family_member"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_family_member"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="no_of_sick_members" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="no_of_sick_members"/>
+		<property name="com.jaspersoft.studio.field.label" value="no_of_sick_members"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="type_of_income" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="type_of_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="type_of_income"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="dataFetched" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="dataFetched"/>
+		<property name="com.jaspersoft.studio.field.label" value="dataFetched"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="latitude" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="latitude"/>
+		<property name="com.jaspersoft.studio.field.label" value="latitude"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="longitude" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="longitude"/>
+		<property name="com.jaspersoft.studio.field.label" value="longitude"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="predicted_score" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="predicted_score"/>
+		<property name="com.jaspersoft.studio.field.label" value="predicted_score"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="dataentdt" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dataentdt"/>
+		<property name="com.jaspersoft.studio.field.label" value="dataentdt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="datamoddt" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="datamoddt"/>
+		<property name="com.jaspersoft.studio.field.label" value="datamoddt"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="prediciton" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="prediciton"/>
+		<property name="com.jaspersoft.studio.field.label" value="prediciton"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="submited" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="submited"/>
+		<property name="com.jaspersoft.studio.field.label" value="submited"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_address_line_1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_address_line_1"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_address_line_1"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applicant_address_line_3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_address_line_3"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_address_line_3"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="psycho_page" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="psycho_page"/>
+		<property name="com.jaspersoft.studio.field.label" value="psycho_page"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="applcnt_default_prob_number" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="applcnt_default_prob_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="applcnt_default_prob_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="estimated_income" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="estimated_income"/>
+		<property name="com.jaspersoft.studio.field.label" value="estimated_income"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="loan_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="loan_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="loan_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="purpose_of_loan" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="purpose_of_loan"/>
+		<property name="com.jaspersoft.studio.field.label" value="purpose_of_loan"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="houserent" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="houserent"/>
+		<property name="com.jaspersoft.studio.field.label" value="houserent"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="landunit" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="landunit"/>
+		<property name="com.jaspersoft.studio.field.label" value="landunit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="maritalstatus" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="maritalstatus"/>
+		<property name="com.jaspersoft.studio.field.label" value="maritalstatus"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="applicant_bill_amount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_bill_amount"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_bill_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="applicant_bill_paid" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_bill_paid"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_bill_paid"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="applicant_kisan_card" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="applicant_kisan_card"/>
+		<property name="com.jaspersoft.studio.field.label" value="applicant_kisan_card"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="loanskill" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="loanskill"/>
+		<property name="com.jaspersoft.studio.field.label" value="loanskill"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_familymember" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_familymember"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_familymember"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_earningmember" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_earningmember"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_earningmember"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_agriculturelandsize" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_agriculturelandsize"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_agriculturelandsize"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_bankaccount" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_bankaccount"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_bankaccount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_kisancard" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_kisancard"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_kisancard"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_educationexpenditure" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_educationexpenditure"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_educationexpenditure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_healthexpenditure" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_healthexpenditure"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_healthexpenditure"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_loanamountApplied" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_loanamountApplied"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_loanamountApplied"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_potentialincome" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_potentialincome"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_potentialincome"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="avg_expenditureskill" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="avg_expenditureskill"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_expenditureskill"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="income_verified" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="income_verified"/>
+		<property name="com.jaspersoft.studio.field.label" value="income_verified"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="billname_frequency" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="billname_frequency"/>
+		<property name="com.jaspersoft.studio.field.label" value="billname_frequency"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="flag" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="flag"/>
+		<property name="com.jaspersoft.studio.field.label" value="flag"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="postoff_acc" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="postoff_acc"/>
+		<property name="com.jaspersoft.studio.field.label" value="postoff_acc"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="remittance" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="remittance"/>
+		<property name="com.jaspersoft.studio.field.label" value="remittance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="avg_inc_livestock" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="avg_inc_livestock"/>
+		<property name="com.jaspersoft.studio.field.label" value="avg_inc_livestock"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="migration" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="migration"/>
+		<property name="com.jaspersoft.studio.field.label" value="migration"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="livestock" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="livestock"/>
+		<property name="com.jaspersoft.studio.field.label" value="livestock"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="cell" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="cell"/>
+		<property name="com.jaspersoft.studio.field.label" value="cell"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="computer" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="computer"/>
+		<property name="com.jaspersoft.studio.field.label" value="computer"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="lpg" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="lpg"/>
+		<property name="com.jaspersoft.studio.field.label" value="lpg"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="anygroup" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="anygroup"/>
+		<property name="com.jaspersoft.studio.field.label" value="anygroup"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="group_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="group_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="group_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="q1_ans" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="q1_ans"/>
+		<property name="com.jaspersoft.studio.field.label" value="q1_ans"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="q2_ans" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="q2_ans"/>
+		<property name="com.jaspersoft.studio.field.label" value="q2_ans"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="q3_ans" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="q3_ans"/>
+		<property name="com.jaspersoft.studio.field.label" value="q3_ans"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="q4_ans" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="q4_ans"/>
+		<property name="com.jaspersoft.studio.field.label" value="q4_ans"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="q5_ans" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="q5_ans"/>
+		<property name="com.jaspersoft.studio.field.label" value="q5_ans"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="Is_transfered" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Is_transfered"/>
+		<property name="com.jaspersoft.studio.field.label" value="Is_transfered"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="job_others" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="job_others"/>
+		<property name="com.jaspersoft.studio.field.label" value="job_others"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="is_having_lpg" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_having_lpg"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_having_lpg"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="is_having_cell" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_having_cell"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_having_cell"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="is_having_livestock" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_having_livestock"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_having_livestock"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="is_having_electricit" class="java.lang.Boolean">
+		<property name="com.jaspersoft.studio.field.name" value="is_having_electricit"/>
+		<property name="com.jaspersoft.studio.field.label" value="is_having_electricit"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="food_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="food_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="food_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="utilities_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="utilities_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="utilities_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="transport_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="transport_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="transport_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="clothing_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="clothing_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="clothing_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="house_renovation_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="house_renovation_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="house_renovation_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="functions_expenses" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="functions_expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="functions_expenses"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="land_area_inacres" class="java.lang.Float">
+		<property name="com.jaspersoft.studio.field.name" value="land_area_inacres"/>
+		<property name="com.jaspersoft.studio.field.label" value="land_area_inacres"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="appl_main_income_src" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="appl_main_income_src"/>
+		<property name="com.jaspersoft.studio.field.label" value="appl_main_income_src"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="stress_one" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stress_one"/>
+		<property name="com.jaspersoft.studio.field.label" value="stress_one"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="stress_two" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stress_two"/>
+		<property name="com.jaspersoft.studio.field.label" value="stress_two"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="stress_three" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stress_three"/>
+		<property name="com.jaspersoft.studio.field.label" value="stress_three"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="stress_four" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stress_four"/>
+		<property name="com.jaspersoft.studio.field.label" value="stress_four"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<field name="stress_five" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="stress_five"/>
+		<property name="com.jaspersoft.studio.field.label" value="stress_five"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="applicant_table"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="142" splitType="Stretch">
+			<staticText>
+				<reportElement x="360" y="100" width="80" height="20" uuid="d2451d8d-5446-4e90-8a0c-e306f80cf663"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Powered by :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="440" y="90" width="60" height="30" forecolor="#7DC2FF" uuid="4bcb71b8-92dd-47f8-a373-83fcdcd70d88"/>
+				<textElement markup="styled">
+					<font fontName="Palatino Linotype" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Artha]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="490" y="90" width="70" height="30" forecolor="#FA0C34" uuid="1fc4f28a-0013-4050-b369-3d38ec18bac1"/>
+				<textElement>
+					<font fontName="Palatino Linotype" size="20" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Vedika]]></text>
+			</staticText>
+			<line>
+				<reportElement x="-10" y="130" width="571" height="1" forecolor="#7DC2FF" uuid="3bfa2d29-7691-4e8d-b452-e8b63726d800"/>
+			</line>
+			<image>
+				<reportElement x="-40" y="0" width="230" height="80" uuid="e6a26524-da58-41e6-bc0d-cd9e49a3b03f"/>
+				<imageExpression><![CDATA["C:/phase 2/Arthavedika.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="360" y="40" width="80" height="30" forecolor="#7CADFC" uuid="2d2a6211-f669-4b62-a4d3-8c2df50b6b3c"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Report Date :]]></text>
+			</staticText>
+			<textField pattern="MMMMM dd, yyyy">
+				<reportElement x="440" y="40" width="119" height="30" uuid="43ca47e7-90d1-4443-9ca8-4cddbac1a459"/>
+				<textElement textAlignment="Right">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="90" width="159" height="30" forecolor="#0883FF" uuid="3c4983f7-d416-433c-aede-3858b1d87033"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[APPLICATION NO. :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="150" y="90" width="80" height="30" forecolor="#000205" uuid="d1302eb0-760e-4307-a54d-669d00229d72"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_id}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="587" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="-6" y="80" width="280" height="30" uuid="9e7bfb6a-090c-4f21-8f6b-0edffaa5cae6"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Name :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-6" y="110" width="280" height="30" uuid="4cbfeedf-2e31-474f-a5a0-0d7975eb8712"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Date Of Birth :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-6" y="140" width="280" height="30" uuid="43b091d5-2855-497a-82e5-9324b8ced395"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Gender :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="80" width="110" height="30" forecolor="#000000" uuid="efa0522b-b2d5-49a6-a4ee-9c61c558258f"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_firstname}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="110" width="290" height="30" uuid="c39c8ef3-f886-499f-8005-59809552f3a4"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_date_of_birth}.toLocalDate()]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="140" width="290" height="30" uuid="55cffc76-7d90-4fba-9f9d-fcd39deabbd2"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gender}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-6" y="170" width="280" height="30" uuid="5bff5aab-6248-40bb-afb9-9b06e58aec78"/>
+				<box topPadding="6" leftPadding="6" bottomPadding="6" rightPadding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Mobile :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="170" width="290" height="30" uuid="5a0d9ea2-9b17-48c2-acd2-f20df6dbb9a2"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_mobile_no}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="-20" y="40" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="9b02df28-29e0-4cc1-9a10-58683d499ab0"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="40" width="280" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="d61a3d87-190e-4408-8a68-fa77848d8831"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERSONAL INFORMATION]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-20" y="40" width="30" height="30" forecolor="#FC0C08" uuid="07beb1b2-07d6-40ae-8f0f-4932ede95b7a"/>
+			</line>
+			<staticText>
+				<reportElement x="-6" y="200" width="280" height="30" uuid="70a5ddca-5876-431b-bd60-9cd87e087231"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Address Line 1 :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="200" width="290" height="30" uuid="5f292f30-89bf-49e9-983c-e386297650fb"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_address_line_1}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="230" width="290" height="30" uuid="5dc62098-dc1c-47e6-a023-75e97dd4bfe4"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_address_line_2}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-6" y="230" width="280" height="30" uuid="756f34f4-4851-4ae2-9912-182351f27109"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Address Line 2 :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-6" y="290" width="280" height="30" uuid="f7ba41d7-4ba9-45fe-bf7d-5c00b54ee958"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[District :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="290" width="290" height="30" uuid="5b86969c-a71a-4d2c-98bb-b94b8260b830"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_address_line_3}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="260" width="290" height="30" uuid="f0d0fbcb-72bf-43a2-baea-c4297a3bc900"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_city_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-6" y="260" width="280" height="30" uuid="69b7b522-e15b-4a69-830c-08ffadf1bb93"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[City/Town/Village :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="320" width="290" height="30" uuid="6ed5c7e2-2329-41e7-bbc3-9b8980576f08"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_state}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-6" y="320" width="280" height="30" uuid="356e71e2-cb31-474e-a79d-7c82443573df"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[State :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-6" y="350" width="280" height="30" uuid="f2bb4b23-2f09-4e8a-9eb4-0d22727990b0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[PIN :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="274" y="350" width="290" height="30" uuid="7ca63196-61e6-491b-9c83-62ea943b6de3"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_pin}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="384" y="80" width="80" height="30" uuid="0b907643-a743-47d8-89c7-af1eb8eebc09"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_middle_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="464" y="80" width="100" height="30" uuid="e0e37c2e-80d1-48a0-8eda-a27d98fd3ed9"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_lastname}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="-20" y="390" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="978e2f7e-45f5-41af-a2ef-740c986188de"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="390" width="360" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="d870c891-4ecb-4065-a349-38353c6c44aa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SAHAYAK CREDIT ENGINE OUTPUT]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-20" y="390" width="30" height="30" forecolor="#FC0C08" uuid="686f49c3-9a5e-4c92-bb5b-899d6a28b012"/>
+			</line>
+			<rectangle>
+				<reportElement key="" x="-19" y="430" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="a7d02c9c-c2bb-4acc-b62b-cbdbad0604f3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="430" width="110" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="2ba8b06e-fb70-4f2d-861f-be18f06d52c1"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INCOME]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-19" y="430" width="30" height="30" forecolor="#FC0C08" uuid="c81f71c1-1a6b-4b76-9130-f49316590dd2"/>
+			</line>
+			<staticText>
+				<reportElement x="-9" y="470" width="280" height="30" uuid="f7aa5528-3f12-422d-a224-ed10c1daac18"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Declared Income :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="271" y="470" width="290" height="30" uuid="99e90a12-7277-4f36-bb41-413d976ff97a"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_income}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="500" width="280" height="30" uuid="dc06701e-0885-4c57-95e8-d6be4e87171e"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Income Predicted from the Engine :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="271" y="500" width="290" height="30" uuid="ac77a0ef-9063-4043-b697-abca65cbef7c"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{estimated_income}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="-20" y="0" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="3d92be5f-ae46-4bd2-a9f9-5eb1444bf3d3"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="0" width="541" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="bb623088-1d67-4dca-bf8f-d08f80a17650"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECTION 1 - ASSESMENT OF PROBABILITY OF DEFAULT]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-20" y="0" width="30" height="30" forecolor="#FC0C08" uuid="73306974-bee3-4c22-b4ab-fa9cb208b38b"/>
+			</line>
+		</band>
+		<band height="587">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="281" y="158" width="140" height="50" uuid="29ad9d16-e32c-4bf6-8bb5-873a8a69f706"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="258" width="140" height="50" uuid="784068fc-6dfe-46eb-845e-f2fd309916f4"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="158" width="61" height="50" uuid="33475ae2-7ffe-4c1c-9d01-f9edf7e2b5e5"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_land_area}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="201" y="158" width="80" height="50" uuid="b96c4050-5536-47b4-ab0e-daffcc9894aa"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landunit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="158" width="149" height="50" uuid="dc92cf11-2a17-4d8d-9ccf-6958462a3455"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Agriculture Land Size :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="258" width="149" height="50" uuid="923893aa-63ac-4313-a7e0-6695f6b8e025"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Kissan Credit Card :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="258" width="141" height="50" uuid="7d3fc93c-5fff-46b3-9ff8-26fd8f6c30c5"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_kisan_card}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="208" width="149" height="50" uuid="2f172ce8-e36c-4aa4-b826-0ab504272844"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Having Bank Account :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="208" width="140" height="50" uuid="19909b70-fe6c-431d-bac7-a9fcc3a7d6e0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="358" width="149" height="50" uuid="41dc904f-557d-44d7-ba57-611aa88bf6df"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Health Expenditure :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="358" width="141" height="50" uuid="318d7061-e213-4282-9eb0-9009a87325a9"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_medical_expense}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="358" width="140" height="50" uuid="50cbd7ce-be60-4edf-9156-29cf492502cf"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="308" width="140" height="50" uuid="20c254f2-c758-48bd-a744-24ddb6265ffa"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="308" width="141" height="50" uuid="4892dd2b-6c50-49bf-95bb-bd376bad77f1"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_education_expense_monthly}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="308" width="149" height="50" uuid="13a6ed38-113c-44e5-bdf6-ea020c26328e"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Education Expenditure :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="408" width="149" height="50" uuid="45eb12f1-7bf4-4af0-afa9-748d1540aff0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Loan Amount Applied :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="408" width="141" height="50" uuid="a5974549-e2b5-4730-987d-bcc0a91460c0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loan_amount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="408" width="140" height="50" uuid="7d293a4a-7fc1-473d-9d82-117b10b99cd7"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="491" y="158" width="70" height="50" uuid="f34f3cbd-e0b4-4e18-b1ff-e5ae025569cb"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{landunit}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="108" width="140" height="50" uuid="bf6434d4-fbd8-4c4e-840b-09fd80ff569c"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="108" width="141" height="50" uuid="9a624c99-c7be-4d86-a0fb-94506e5c8c40"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_of_earning_member}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="108" width="149" height="50" uuid="f86c2687-c36a-44ad-8847-4a1ea8a77d9f"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[No. Of Earning Members :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="58" width="140" height="50" uuid="cdf1cd97-2aa5-45cc-b5b4-9db772a91940"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="58" width="141" height="50" uuid="f7c5d590-683b-4cac-bd45-75025aa36375"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no_of_family_member}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="58" width="149" height="50" uuid="fd2948bc-bbb0-48de-8602-57c8fce2ed5c"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[No. Of Existing Members Declared :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement key="" x="-20" y="18" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="73058439-782c-422a-88c5-f0300770e4f5"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="18" width="450" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="1e8acd85-f807-484a-859a-bc5320ef25f6"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ANALYSIS OF CREDIT ENGINE PARAMETERS]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-20" y="18" width="30" height="30" forecolor="#FC0C08" uuid="7506022c-931b-40f0-ab3e-77214ebfb51b"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="208" width="141" height="50" uuid="78048302-35e6-455d-87dd-2608b9f53a98"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{applicant_hold_bank_account}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="58" width="140" height="50" uuid="0bf7ba01-a1ab-4d4a-822f-8a760ab926d0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_familymember}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="108" width="140" height="50" uuid="23128134-ef2e-4531-9e10-b3148f4b4560"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_earningmember}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="158" width="70" height="50" uuid="5d2117aa-6d4d-4413-947b-e43646f2ed03"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_agriculturelandsize}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="208" width="140" height="50" uuid="f0f73fda-a253-4827-a3e8-08d676e0d5d3"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_bankaccount}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="258" width="140" height="50" uuid="dd6b1dd5-0a8f-4277-9401-12f29d533783"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_kisancard}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="308" width="140" height="50" uuid="6a7247c8-58fd-41b0-b16f-c75d7e2c2dfb"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_educationexpenditure}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="358" width="140" height="50" uuid="395dd5c8-eac4-4867-98dd-ce1bb2eb553b"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_healthexpenditure}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="408" width="140" height="50" uuid="ada95c06-7782-4061-9007-78c2031b3beb"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_loanamountApplied}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-9" y="458" width="149" height="50" uuid="bd812c1c-4146-4d0b-b4b9-f2976e325c52"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Purpose of Loan :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="140" y="458" width="141" height="50" uuid="0968f272-7991-41a5-84c4-fd7bc903d9a0"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purpose_of_loan}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="281" y="458" width="140" height="50" uuid="9a51e5bc-ba17-4a57-af99-79a123419f61"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Segment Data :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="421" y="458" width="140" height="50" uuid="6994d3d4-a98d-422a-8ec5-ef6fcfdb301e"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+			</textField>
+		</band>
+		<band height="587">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<rectangle>
+				<reportElement key="" x="-22" y="219" width="598" height="50" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="7126ffc4-380c-4565-b2d8-5cf423181120"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="18" y="219" width="473" height="60" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="5ae704ac-d0bc-4508-9196-52034f198c98"/>
+				<textElement verticalAlignment="Top">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECTION 2 - PROBABILITY OF INCOME FOR  FUTURE ASSETS/SKILL PROSPECT]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-22" y="219" width="33" height="50" forecolor="#FC0C08" uuid="828f49a4-7b8d-4af2-9348-3d50709d3292"/>
+			</line>
+			<staticText>
+				<reportElement x="-12" y="283" width="292" height="30" uuid="6f1d70f9-eea7-41ac-ba22-6540c57d6ee5"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[New Skill acquired for the Loan Purpose :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="313" width="292" height="30" uuid="4e4d20b1-340f-4e34-946e-171ba7cc9622"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[New Asset Acquired :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="373" width="292" height="46" uuid="a7b8fdb7-fe0f-419e-80b7-bde08e524ec1"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Potential Income for Skill / Asset ( Per Month ) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="419" width="292" height="50" uuid="352f58bf-9143-4b19-bf78-998d1205d9e3"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Average Expenditure of the Skill / Asset ( Per Month) :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="469" width="292" height="30" uuid="9a286b36-f2c3-4386-9bd0-dd6b67797594"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Bill Payment History - Frequency :]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="313" width="281" height="30" uuid="4b4d003a-701f-4e3c-b129-cdaa363183bf"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{purpose_of_loan}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="283" width="281" height="30" uuid="972252e8-93f3-43e8-8341-0a6dede3bba9"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{loanskill}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="373" width="281" height="46" uuid="8afecd5b-03d4-4c11-a881-313af6d9e643"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_potentialincome}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="419" width="281" height="50" uuid="d66475dc-148d-434a-a7f1-50a340ccd863"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{avg_expenditureskill}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="469" width="281" height="30" uuid="f4fd982a-e4a9-4a9d-aa90-3c43bbea289c"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{billname_frequency}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="-20" y="23" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="fca7200b-7355-4fcc-add3-d99de47bed74"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="20" y="23" width="390" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="6bac39c1-c763-4f68-b8e4-e47c2ccc3cfa"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PROBABILITY OF DEFAULT]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-20" y="23" width="30" height="30" forecolor="#FC0C08" uuid="f4f5a3bf-3f20-4455-ab7e-de715538ca78"/>
+			</line>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="70" width="278" height="30" uuid="9fd62b51-7869-4c50-b58d-468381891ad8"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{predicted_score}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="-12" y="70" width="292" height="30" uuid="c2ae9cc8-7f0b-496a-a4ba-bb307bf1c28a"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Conclusion :]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="445" y="101" width="114" height="59" forecolor="#228C22" backcolor="#228C22" uuid="84b54091-bb04-486a-b610-5f844b5fc3e2"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="329" y="100" width="114" height="60" forecolor="#61B33B" backcolor="#61B33B" uuid="eddf3de3-d4d5-40ce-bc09-3e6c66fd6d61"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="216" y="100" width="114" height="60" forecolor="#FFFF00" backcolor="#FFFF00" uuid="f2d3888f-013d-487d-9311-ff40566c35c6"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="101" y="100" width="114" height="60" forecolor="#FFA500" backcolor="#FFA500" uuid="5b09a37b-e3ce-4e5a-98e7-5cf01fe58923"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="100" width="114" height="60" forecolor="#FF0000" backcolor="#FF0000" uuid="ab8179a4-6a06-48fd-a6db-2f3ce1a3aeec"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="-12" y="100" width="114" height="30" uuid="e125d37d-a02f-43fa-8c90-a98d0d8eacfc">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Very High]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="100" width="114" height="30" uuid="0d3b732f-5d88-4734-95b1-d05fb9920914">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[High]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="100" width="114" height="30" uuid="ee8941a7-6eba-48fd-a87e-51d3a92b8b51">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Moderate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="100" width="114" height="30" uuid="baa0ddc4-5a52-463d-b047-e34186c00860">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Low]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="100" width="114" height="30" uuid="f280427f-8a64-4f5e-930a-5585801a691f">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Very Low]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="130" width="114" height="30" uuid="c2a5ecd4-218d-428f-b8de-795f6c383fd0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[< 10 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="102" y="130" width="114" height="30" uuid="8cf666d3-e304-4736-a25b-c9d0e30f8f19">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[11 % - 45 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="216" y="130" width="114" height="30" uuid="a2e6539c-73a1-410f-82de-49ae1b4758a7">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[46 % - 60 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="130" width="114" height="30" uuid="008e6f68-f10b-4d73-a3e6-36ccf1b69bc8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[61 % - 70 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="444" y="130" width="114" height="30" uuid="8a72656c-ca32-4c87-90b2-eed0d57bc7e8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[> 70 %]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="343" width="292" height="30" uuid="2d45cf36-f9f0-4b7c-9585-3451c7efedc1"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Verification of Assests]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="280" y="343" width="281" height="30" uuid="6ed26820-b14b-4b56-91c1-31ce0059e175"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+			</textField>
+		</band>
+		<band height="587">
+			<lineChart>
+				<chart evaluationTime="Report">
+					<reportElement x="266" y="96" width="295" height="240" uuid="9b5201a5-545e-4185-a1c4-855daa48a054"/>
+					<chartTitle/>
+					<chartSubtitle/>
+					<chartLegend/>
+				</chart>
+				<categoryDataset>
+					<dataset>
+						<datasetRun subDataset="Graph Dataset" uuid="328b068b-916d-411d-a71f-3a6bee642665"/>
+					</dataset>
+					<categorySeries>
+						<seriesExpression><![CDATA[$F{applicant_id}]]></seriesExpression>
+						<categoryExpression><![CDATA[$F{psycho_result}]]></categoryExpression>
+						<valueExpression><![CDATA[$F{psycho_score}]]></valueExpression>
+					</categorySeries>
+				</categoryDataset>
+				<linePlot>
+					<plot/>
+					<categoryAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</categoryAxisFormat>
+					<valueAxisFormat>
+						<axisFormat labelColor="#000000" tickLabelColor="#000000" axisLineColor="#000000"/>
+					</valueAxisFormat>
+				</linePlot>
+			</lineChart>
+			<staticText>
+				<reportElement x="-12" y="71" width="272" height="50" uuid="0c8b6ce0-9fb8-442b-a320-d39e377bcade"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<text><![CDATA[Higher the Score lower the probability of wilful default]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="120" y="121" width="140" height="50" forecolor="#3196E8" backcolor="#3196E8" uuid="60688645-8624-4543-9e03-75a7f3f2b0d2"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="171" width="132" height="30" forecolor="#FF0000" backcolor="#FF0000" uuid="9eb6a184-bb6e-40e5-8335-30c6a676a3a9"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="171" width="140" height="30" forecolor="#FF0000" backcolor="#FF0000" uuid="fc761c46-296b-4db1-a240-e4e9dbde58c3"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="201" width="132" height="30" forecolor="#FFA500" backcolor="#FFA500" uuid="54ca5ce4-e51e-465b-a5c4-3e809ce1f521"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="201" width="140" height="30" forecolor="#FFA500" backcolor="#FFA500" uuid="2b759051-de4b-4553-a298-a6dc454e7a06"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="231" width="132" height="30" forecolor="#FFFF00" backcolor="#FFFF00" uuid="0e2ae8a7-49ec-4aca-925a-abd6cc55b03e"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="121" width="132" height="50" forecolor="#3196E8" backcolor="#3196E8" uuid="0910f823-b245-4e5f-b283-0f954efa922e"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="231" width="140" height="30" forecolor="#FFFF00" backcolor="#FFFF00" uuid="e1cd1069-78fc-42c7-bbf0-db00f1d555e2"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="261" width="132" height="30" forecolor="#61B33B" backcolor="#61B33B" uuid="daa9c120-bc96-469b-8ce6-c6a7c5026df7"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="261" width="140" height="30" forecolor="#61B33B" backcolor="#61B33B" uuid="ca2d9c97-0b94-44df-8d1a-9597b693638e"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="-12" y="291" width="132" height="30" forecolor="#228C22" backcolor="#228C22" uuid="84cd9fcf-0fc6-4a02-9108-bfc7cd9d8057"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<rectangle>
+				<reportElement x="120" y="291" width="140" height="30" forecolor="#228C22" backcolor="#228C22" uuid="ca568c15-3b8a-4ea3-bce7-b3d4c536799b"/>
+				<graphicElement>
+					<pen lineColor="#3196E8"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="-11" y="121" width="132" height="50" uuid="b24749c1-5348-4a66-8f54-7ffd5ba75a4f"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Probability of Wilful Default]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="122" width="137" height="50" uuid="64144049-f1c1-4ad1-9a75-d66221d2ec6a"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Weighted Score]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="172" width="132" height="30" uuid="1abee224-4fe1-40e7-bf4d-f4c83d50bfc5"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Very High]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="172" width="140" height="30" uuid="c9ebdad3-02b4-4919-99db-9f4cb46f0e43"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[0 to <1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="202" width="132" height="30" uuid="b6399a96-faf7-4509-a896-cd07404ac406"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[High]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="202" width="140" height="30" uuid="546e67a0-cd69-45ae-b2d8-7ce04b0978ac"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[1 to <2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="262" width="132" height="30" uuid="cec39784-663e-45c7-b6a0-721ace09922d"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Low]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="262" width="140" height="30" uuid="3e6c72b1-bff4-40c7-b96b-39a3bd8eeb3f"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[3 to <4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="232" width="140" height="30" uuid="9e8ab850-6fe6-4c3a-8631-47bf188d0542"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[2 to <3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="232" width="132" height="30" uuid="3b6a94f8-5053-4b1c-9659-6477f6877185"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Moderate]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-12" y="292" width="132" height="30" uuid="d3da6d59-fd20-4555-a3cc-be9591bb6098"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Very Low]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="120" y="292" width="140" height="30" uuid="57304538-0356-491b-8bb6-64473a748963"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#7DC2FF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[4 to 5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-9" y="353" width="225" height="50" uuid="c19dbbb1-6e45-4435-bade-ef03bba2a08c"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[The degree of follow up is ]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="201" y="353" width="109" height="50" uuid="b306313a-d42b-4240-9038-b7298937d229"/>
+				<box padding="6">
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="Arial" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{predicted_score}]]></textFieldExpression>
+			</textField>
+			<rectangle>
+				<reportElement key="" x="-19" y="20" width="595" height="30" forecolor="#7DC2FF" backcolor="#7DC2FF" uuid="c41b0482-0e56-4ca5-bf1c-8ebd3ea7285f"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="21" y="20" width="450" height="30" forecolor="#FFFCFC" backcolor="#FCFEFF" uuid="be0b0300-91bc-4e51-83fc-eb5c03bc830c"/>
+				<textElement verticalAlignment="Middle">
+					<font size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SECTION 3 - PSYCHOMETRIC ANALYSIS]]></text>
+			</staticText>
+			<line>
+				<reportElement mode="Transparent" x="-19" y="20" width="30" height="30" forecolor="#FC0C08" uuid="66e0518e-3734-40fe-8da7-8e2e09c694f0"/>
+			</line>
+		</band>
+		<band height="587"/>
+	</detail>
+	<pageFooter>
+		<band height="73">
+			<staticText>
+				<reportElement x="-10" y="10" width="570" height="30" forecolor="#FF0703" uuid="8f93c9ad-3286-4e6b-a74d-c5ba4b58e10b"/>
+				<textElement textAlignment="Center" verticalAlignment="Bottom">
+					<font fontName="SansSerif" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[BANKING THE UNBANKED - FINANCIAL IDENTITY FOR THE MISSING MIDDLE POPULATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="-10" y="40" width="570" height="30" forecolor="#FC0703" uuid="0c27091d-ff93-4bd5-a0d8-9ab5eaca8956"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[WE ENABLE BANKING LOANS FOR PEOPLE WITH UNDOCUMENTED INCOME USING AI / ML TECHNOLOGIES]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>
