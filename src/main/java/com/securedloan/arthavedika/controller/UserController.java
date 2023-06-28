@@ -25,10 +25,15 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.exception.UserNotFoundException;
+import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.LoginDetail;
 import com.securedloan.arthavedika.model.User;
+import com.securedloan.arthavedika.payload.Add_modifyUser;
+import com.securedloan.arthavedika.payload.ChangePassword;
+import com.securedloan.arthavedika.payload.ForgetPassword;
 import com.securedloan.arthavedika.payload.LoginUserPost;
 import com.securedloan.arthavedika.payload.UserPayload;
+import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.UserRepository;
 import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.Response;
@@ -93,6 +98,11 @@ public class UserController {
 	private UserService userService;
 	@Autowired
 	private UserRepository userRepo;
+	@Autowired
+	private CompanyRepo companyrepo;
+	@Autowired
+	private Mail mail;
+	
 
 	@RequestMapping(value = { "/signIn/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -133,8 +143,14 @@ public class UserController {
 		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
 		try {
 			List<User> users = (List<User>) userService.findUsers(loginUserPayload.getMobile_no(), loginUserPayload.getPassword());
+		
 			if (users.size() > 0) {
-				if (users.get(0).isVerified() == Boolean.TRUE) {
+				if(users.get(0).getIs_first_login().equals("Y"))
+				{
+					userRepo.updateIsfirstLogin(users.get(0).getUser_id());
+				}
+				Company company_details=companyrepo.company_details(users.get(0).getCompany_code());
+			
 					List<LoginDetail> login = userService.findUserByUserNative(users.get(0).getUser_id());
 					if (login.size() > 0) {
 
@@ -152,14 +168,9 @@ public class UserController {
 					users.get(0).setLoggedIn(Boolean.TRUE);
 					// return new Response("Login Success", Boolean.TRUE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response(loginSuccess, Boolean.TRUE, users.get(0)));
+							.body(new Response( users.get(0),company_details,"login done successfully", Boolean.TRUE));
 
-				} else {
-					// return new Response("Account not verified!!!", Boolean.FALSE, users.get(0));
-					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response(accountNtVerified, Boolean.FALSE, new User()));
-
-				}
+				
 			} else {
 				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
 				return ResponseEntity.status(HttpStatus.OK)
@@ -172,7 +183,6 @@ public class UserController {
 		}
 
 	}
-
 	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -279,7 +289,7 @@ public class UserController {
 			String otp = user.getOtp();
 			System.out.println(otp);
 			String password = user.getPassword();
-			user = resetPassService.getByResetPasswordToken(otp);
+			user = resetPassService.getByResetPasswordToken(otp,user.getEmail_id());
 			if (user == null) {
 				// System.out.println("Invalid OTP");
 				// return new Result("Invalid OTP", Boolean.FALSE);
@@ -359,6 +369,42 @@ public class UserController {
 		}
 		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.GetAllUsers(users,response,status));
 	}
+	@RequestMapping(value = { "/GetAllCompany_name" }, method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<com.securedloan.arthavedika.response.AllCompanyName> GetAllCompany_name() {
+		LOGGER.info("get all company name api has been called !!! Start Of Method get all company name");
+		
+		HttpStatus httpstatus=null;
+		String response="";
+		Boolean status=null;
+		List<Company> company=null;
+		
+		try {
+		 company =  companyrepo.company_name();
+			if (company==null) {
+				
+			response="company list is empty"	;
+			}
+			else
+			{
+				
+				
+				response="company list is retrieved successfully";
+				
+			}
+			status=true;
+			httpstatus=HttpStatus.OK;
+			}
+					
+		catch (Exception e) {
+			LOGGER.error("Error While retreiving all company name" + e.getMessage());
+			response="Error While retreiving all company name" + e.getMessage();
+			status=false;
+			httpstatus=HttpStatus.BAD_REQUEST;
+		}
+		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.AllCompanyName(company,response,status));
+	}
 	@RequestMapping(value = { "/GetUserById" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -399,8 +445,8 @@ public class UserController {
 	@RequestMapping(value = { "/add_modify_user" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<GeneralResponse> add_modify_user(@RequestBody User addmodifyUserPayload) {
-		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
+	public ResponseEntity<GeneralResponse> add_modify_user(@RequestBody Add_modifyUser addmodifyUserPayload) {
+		LOGGER.info("add/modify api has been called !!! Start Of Method add/modify User");
 		
 		HttpStatus httpstatus=null;
 		String response="";
@@ -409,14 +455,51 @@ public class UserController {
 		try {
 		User users =  userRepo.findUserByUser_Id(addmodifyUserPayload.getUser_id());
 			if (users==null) {
-				userRepo.save(addmodifyUserPayload);
-			response="User is added successfully"	;
+				User usr=new User();
+				usr.setFirstname(addmodifyUserPayload.getFirstname());
+				usr.setLastname(addmodifyUserPayload.getLastname());
+				usr.setEmail_id(addmodifyUserPayload.getEmail_id());
+				usr.setMobile_no(addmodifyUserPayload.getMobile_no());
+				//usr.setCompanyName(addmodifyUserPayload.getCompany_name());
+				//usr.setUser_id(addmodifyUserPayload.getUser_id());
+				usr.setRole(addmodifyUserPayload.getRole());
+				Random random = new Random();
+				String token = String.format("%04d", random.nextInt(10000));
+				usr.setPassword(token);
+				usr.setIs_first_login("Y");
+				usr.setDelete_status("N");
+				
+				usr.setCompany_code(addmodifyUserPayload.getCompany_code());
+				List<Company>company=companyrepo.company_name();
+				for(int i=0;i<company.size();i++) {
+					if (addmodifyUserPayload.getCompany_code().equals(company.get(i).getCompany_code())) {
+						System.out.println("company name is"+company.get(i).getCompanyName());
+						usr.setCompanyName(company.get(i).getCompanyName());
+					}
+				}
+				
+				userRepo.save(usr);
+				User user_details=userRepo.findByEmailNMobile(addmodifyUserPayload.getEmail_id(),addmodifyUserPayload.getMobile_no());
+				System.out.println("password is"+user_details.getPassword());
+				mail.sendEmailForPassword(user_details);
+			response="User is added successfully. Please check your mail for further details"	;
 			}
 			else
 			{
+				String company_name = null;
+				List<Company>company=companyrepo.company_name();
+				for(int i=0;i<company.size();i++) {
+					if (addmodifyUserPayload.getCompany_code().equals(company.get(i).getCompany_code())) {
+						System.out.println("company name is"+company.get(i).getCompanyName());
+					 company_name=(company.get(i).getCompanyName());
+					}
+				}
 				userRepo.updateUser(addmodifyUserPayload.getMobile_no(), addmodifyUserPayload.getFirstname(), addmodifyUserPayload.getLastname(),
-						addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompanyName(), addmodifyUserPayload.getRole(),
-						addmodifyUserPayload.getUser_id());
+								addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompany_code(), addmodifyUserPayload.getRole(),
+								company_name,addmodifyUserPayload.getUser_id());
+				//userRepo.updateUser(addmodifyUserPayload.getMobile_no(), addmodifyUserPayload.getFirstname(), addmodifyUserPayload.getLastname(),
+				//		addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompany_code(), addmodifyUserPayload.getRole(),
+				//		company,addmodifyUserPayload.getUser_id());
 				
 				response="User modified successfully";
 				
@@ -462,6 +545,96 @@ public class UserController {
 		}
 		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
 	}
+	@RequestMapping(value = { "/change_password" }, method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<GeneralResponse> change_password(@RequestBody ChangePassword changepassword) {
+		LOGGER.info("Change password for user api has been called !!! Start Of Method change password for User");
+		
+		HttpStatus httpstatus=null;
+		String response="";
+		Boolean status=null;
+		
+		try {
+			 String pass=userRepo.getpassword(changepassword.getUser_id());
+			 if(pass.equals(changepassword.getOld_password())) {
+				 userRepo.changePassword(changepassword.getNew_password(),changepassword.getUser_id());
+				 response="password changed successfully";
+			 }
+			 else {
+				 response="please enter valid password";
+			 }
+			
+				
+			
+			status=true;
+			httpstatus=HttpStatus.OK;
+			}
+					
+		catch (Exception e) {
+			LOGGER.error("Error While changing password for user" + e.getMessage());
+			response="Error While changing passowrd for user" + e.getMessage();
+			status=false;
+			httpstatus=HttpStatus.BAD_REQUEST;
+		}
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+	}
+	
+	@RequestMapping(value = { "/forgot_password1" }, method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<GeneralResponse> forgot_password(@RequestBody ForgetPassword changepassword) {
+		LOGGER.info("forgot password for user api has been called !!! Start Of Method forgot password for User");
+		
+		HttpStatus httpstatus=null;
+		String response="";
+		Boolean status=null;
+		
+		try {
+			 User user=userRepo.findUserByMobile_no(changepassword.getMobile_no());
+			 String email_id = user.getEmail_id();
+			 if(changepassword.getOtp()==null &&changepassword.getNew_password()==null) {
+				Random random = new Random();
+				String token = String.format("%04d", random.nextInt(10000));
+				user.setOtp(token);
+				resetPassService.updateResetPasswordToken(token, email_id);
+				String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
+				resetPassService.sendEmail(user, resetPasswordLink);
+				response=chkMail;
+				status=true;
+				}
+			 else if (changepassword.getOtp()!=null &&changepassword.getNew_password()==null) {
+				User usr=resetPassService.getByResetPasswordToken(changepassword.getOtp(),email_id) ;
+					if(usr==null) {
+						response="please enter valid otp";
+						status=false;
+					}
+					else {
+						response="please enter new password";
+						status=true;
+					}
+			 }
+			 else if(changepassword.getOtp()!=null &&changepassword.getNew_password()!=(null)) {
+				 userRepo.changePassword(changepassword.getNew_password(),user.getUser_id());
+				 response="password changed successfully"; 
+				 status=true;
+			 }
+				LOGGER.info("End Of Method processForgotPassword");
+				
+			
+		  
+			httpstatus=HttpStatus.OK;
+			}
+					
+		catch (Exception e) {
+			LOGGER.error("Error While changing password for user" + e.getMessage());
+			response="Error While changing passowrd for user" + e.getMessage();
+			status=false;
+			httpstatus=HttpStatus.BAD_REQUEST;
+		}
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+	}
+	
 
 //	@CrossOrigin()
 //	@PostMapping("/signIn/v1")
@@ -472,6 +645,7 @@ public class UserController {
 //		String randomCode = String.format("%04d", random.nextInt(10000));
 ////		String randomCode = RandomString.make(64);
 //		newUser.setOtp(randomCode);
+	
 //
 //		// System.out.println(name);
 //
@@ -494,6 +668,7 @@ public class UserController {
 //		if (users.size() > 0) {
 //			if (users.get(0).isVerified() == Boolean.TRUE) {
 //				List<LoginDetail> login = loginRepository.findUserByUserNative(users.get(0).getUser_id());
+	
 //				if (login.size() > 0) {
 //
 //					LoginDetail currentLoginDetail = login.get(0);

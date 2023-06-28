@@ -1,34 +1,79 @@
 package com.securedloan.arthavedika.model;
 
 import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
+import javax.annotation.Generated;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Data;
+@Data
 @Entity
 @Table(name = "securedloan_users")
+
 public class User {
-	private @Id @NotNull String user_id;
+	 
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "User_seq")
+    @GenericGenerator(
+        name = "User_seq", 
+        strategy = "com.securedloan.arthavedika.model.StringPrefixedSequenceIdGenerator", 
+        parameters = {
+            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "50"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "Usr_"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%05d") })
+ 
+	 private @Id @NotNull String user_id;
 	private @NotNull String firstname;
 	private @NotNull String lastname;
 	private @NotNull String email_id;
 	private @NotNull String mobile_no;
-	//@JsonIgnore
-	private @NotNull String password;
-	private @NotNull String company_code;
 	
+	private @NotNull String password;
+	
+//	@ManyToOne(cascade=CascadeType.ALL)
+	//@JoinColumn(name = "company",referencedColumnName="company_code",nullable=false)
+	//private Company company;
+	//private List<Company> company=new ArrayList<Company>();
+	//private @NotNull String company_code;
 	private String role;
-	public String getRole() {
-		return role;
+	@JsonIgnore
+	private @NotNull boolean loggedIn;
+	@JsonIgnore
+	private @NotNull boolean verified;
+	private @NotNull boolean admin;
+	private @NotNull boolean bc_agent;
+	@Column(name="company_name")
+	private @NotNull String companyName;
+	private @NotNull String company_code;
+	private @NotNull String delete_status;
+	private @NotNull String is_first_login;
+	public String getIs_first_login() {
+		return is_first_login;
 	}
 
-	public void setRole(String role) {
-		this.role = role;
+	public void setIs_first_login(String is_first_login) {
+		this.is_first_login = is_first_login;
+	}
+
+	public String getRole() {
+		return role;
 	}
 
 	public String getCompany_code() {
@@ -39,14 +84,13 @@ public class User {
 		this.company_code = company_code;
 	}
 
-	@JsonIgnore
-	private @NotNull boolean loggedIn;
-	@JsonIgnore
-	private @NotNull boolean verified;
-	private @NotNull boolean admin;
-	private @NotNull boolean bc_agent;
-	private @NotNull String companyName;
-	private @NotNull String delete_status;
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	
+
+	
 	public String getDelete_status() {
 		return delete_status;
 	}
@@ -94,13 +138,11 @@ public class User {
 		this.verified = verified;
 	}
 
-	public String getCompanyName() {
-		return companyName;
-	}
+	
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+
+
+	
 
 	public String getUser_id() {
 		return user_id;
@@ -177,10 +219,14 @@ public class User {
 
 
 
+	
+
+
 	public User(@NotNull String user_id, @NotNull String firstname, @NotNull String lastname, @NotNull String email_id,
-			@NotNull String mobile_no, @NotNull String password, @NotNull String company_code, 
-			String role, @NotNull boolean loggedIn, @NotNull boolean verified, @NotNull boolean admin,
-			@NotNull boolean bc_agent, @NotNull String companyName, String otp, Date otpRequestedTime,String delete_status) {
+			@NotNull String mobile_no, @NotNull String password, String role, @NotNull boolean loggedIn,
+			@NotNull boolean verified, @NotNull boolean admin, @NotNull boolean bc_agent, @NotNull String companyName,
+			@NotNull String company_code, @NotNull String delete_status, @NotNull String is_first_login, String otp,
+			Date otpRequestedTime) {
 		super();
 		this.user_id = user_id;
 		this.firstname = firstname;
@@ -188,16 +234,25 @@ public class User {
 		this.email_id = email_id;
 		this.mobile_no = mobile_no;
 		this.password = password;
-		this.company_code = company_code;
 		this.role = role;
 		this.loggedIn = loggedIn;
 		this.verified = verified;
 		this.admin = admin;
 		this.bc_agent = bc_agent;
 		this.companyName = companyName;
+		this.company_code = company_code;
+		this.delete_status = delete_status;
+		this.is_first_login = is_first_login;
 		this.otp = otp;
 		this.otpRequestedTime = otpRequestedTime;
-		this.delete_status=delete_status;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
 	}
 
 	public User() {

@@ -34,9 +34,9 @@ public class ResetPassword {
 		}
 	}
 
-	public User getByResetPasswordToken(String otp) {
+	public User getByResetPasswordToken(String otp,String email_id) {
 		System.out.println(otp);
-		return userRepository.findByVerificationCode(otp);
+		return userRepository.findByVerificationCode(otp,email_id);
 	}
 
 	public void updatePassword(User user, String newPassword) {

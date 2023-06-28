@@ -2,6 +2,7 @@ package com.securedloan.arthavedika.controller;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,6 +23,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.securedloan.arthavedika.model.Applicant;
+import com.securedloan.arthavedika.model.Company;
+import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.response.ResponseMessage;
 import com.securedloan.arthavedika.service.FileStorageService;
 import com.securedloan.arthavedika.service.ReportService;
@@ -38,6 +41,8 @@ public class FileController {
 	private FileStorageService storageService;
 	@Autowired
 	private ReportService reportService;
+	@Autowired
+	private CompanyRepo companyrepo;
 
 	// @PostMapping("/upload/v1")
 	@RequestMapping(value = { "/upload/v1" }, method = RequestMethod.POST, produces = {
@@ -49,6 +54,19 @@ public class FileController {
 		String message = "";
 		try {
 			storageService.store(file, applicant, docName,doc );
+			String company_name = null;
+			List<Company>company=companyrepo.company_name();
+			for(int i=0;i<company.size();i++) {
+				if (applicant.getCompany_code().equals(company.get(i).getCompany_code())) {
+					System.out.println("company name is"+company.get(i).getCompanyName());
+				 company_name=(company.get(i).getCompanyName());
+				}}
+			applicant.setCompany_name(company_name);
+			if(applicant.getCompany_code().equals("MK")) {
+				applicant.setAV_approval("Y");
+				applicant.setAuthorisation_status(1);
+			}
+		
 			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 			LOGGER.info("End Of Method uploadFile !!!");
 			return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message));

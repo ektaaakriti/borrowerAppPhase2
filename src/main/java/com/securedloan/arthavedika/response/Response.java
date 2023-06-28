@@ -3,6 +3,7 @@ package com.securedloan.arthavedika.response;
 import java.util.List;
 
 import com.securedloan.arthavedika.model.Applicant;
+import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.DocEkyc;
 import com.securedloan.arthavedika.model.EKYC;
 import com.securedloan.arthavedika.model.GroupData;
@@ -14,6 +15,7 @@ public class Response {
 	private String message;
 	private boolean status;
 	private User user;
+	private Company company;
 	private List<EKYC> EkycList;
 	private List<PsyQstn> PsyQstnList;
 	private GroupData grpData;
@@ -21,6 +23,22 @@ public class Response {
 	
 
 	
+
+	public Response( User user, Company company,String message, boolean status) {
+		super();
+		this.message = message;
+		this.status = status;
+		this.user = user;
+		this.company = company;
+	}
+
+	public Company getCompany() {
+		return company;
+	}
+
+	public void setCompany(Company company) {
+		this.company = company;
+	}
 
 	public Response(String message, boolean status, GroupData grpData) {
 		super();

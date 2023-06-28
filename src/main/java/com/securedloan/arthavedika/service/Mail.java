@@ -45,6 +45,29 @@ public class Mail {
 		System.out.println("Email Sent...");
 
 	}
+	public void sendEmailForPassword(User newUser) throws Exception {
+		System.out.println("Sending Email");
+		String subject = " Your Account details";
+		String senderName = "Arthavedika";
+		String mailContent = "<p> Dear " + newUser.getFirstname() + ",</p>";
+		mailContent += "<p>Please check your password </p>";
+		mailContent += "<p>We recommend to change your password on login </p>";
+		// String verifyURL = siteURL + "/verify?code=" + newUser.getVerificationCode();
+		// mailContent += "<h3><a href=\"" + verifyURL + "\">CLICK TO VERIFY </a></h3>";
+		mailContent += "<p> Your User Id is " + newUser.getUser_id() + "</p>";
+
+		mailContent += "<p> Your password is " + newUser.getPassword() + "</p>";
+		mailContent += "<p>Thank You<br>Arthavedika Team</p>";
+		MimeMessage message = javaMailSender.createMimeMessage();
+		MimeMessageHelper helper = new MimeMessageHelper(message);
+		helper.setFrom("test1@arthavedika.com", senderName);
+		helper.setTo(newUser.getEmail_id());
+		helper.setSubject(subject);
+		helper.setText(mailContent, true);
+		javaMailSender.send(message);
+		System.out.println("Email Sent...");
+
+	}
 
 	public void clearOTP(User user) {
 		user.setOtp(null);
@@ -54,7 +77,7 @@ public class Mail {
 	}
 
 	public boolean verify(String otp) {
-		User newUser = userRepository.findByVerificationCode(otp);
+		User newUser = userRepository.findByVerificationCode1(otp);
 		// if (newUser == null || newUser.isLoggedIn()) {
 		if (newUser == null || newUser.isVerified()) {
 			return false;

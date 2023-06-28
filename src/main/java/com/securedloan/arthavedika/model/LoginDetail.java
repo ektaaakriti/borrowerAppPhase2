@@ -25,7 +25,7 @@ public class LoginDetail {
 	@Column
 	private Date logged_out_date;
 
-	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToOne(cascade = CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn(name = "user_id")
 	private User user;
 

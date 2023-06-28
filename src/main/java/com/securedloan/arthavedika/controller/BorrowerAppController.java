@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.model.Applicant;
+import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.FileDB;
 import com.securedloan.arthavedika.model.User;
 import com.securedloan.arthavedika.payload.AuthorizeApplicantPayload;
@@ -29,6 +30,7 @@ import com.securedloan.arthavedika.payload.FindAllApplicantPagination;
 import com.securedloan.arthavedika.payload.FindAllApplicantPayload;
 import com.securedloan.arthavedika.repo.ApplicantPaginationRepo;
 import com.securedloan.arthavedika.repo.ApplicantRepository;
+import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.BorrowerResponse;
 import com.securedloan.arthavedika.response.FindAllApplicant;
@@ -44,6 +46,8 @@ public class BorrowerAppController {
 	ApplicantRepository appRepo;
 	@Autowired
 	ApplicantPaginationRepo applicantRepo;
+	@Autowired
+	CompanyRepo companyRepo;
 	private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@Autowired
 	private ApplicantService applicantService;
@@ -96,17 +100,30 @@ public class BorrowerAppController {
 			{
 				LOGGER.info("status of av_approval is"+authorizeApplicantPayload.getApproval_status());	
 				appRepo.AVauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
-			break;	
+				Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
+				System.out.println("Applicant company"+company);
+				if(company!=null)
+				{Float current_amount=company.getCurrent_amount()-authorizeApplicantPayload.getLoan_amount();
+				companyRepo.updateCurrentAmount(current_amount, authorizeApplicantPayload.getCompany_code());}
+				break;	
 			}
 			case"MK":
 			{
 				LOGGER.info("status of MK_approval is"+authorizeApplicantPayload.getApproval_status());	
 			appRepo.MKauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
-				break;
+			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
+			if(company!=null)
+			{	Float current_amount=company.getCurrent_amount()-authorizeApplicantPayload.getLoan_amount();
+			companyRepo.updateCurrentAmount(current_amount, authorizeApplicantPayload.getCompany_code());}	
+			break;
 			}
 			case"SH":
 			{LOGGER.info("status of SH_approval is"+authorizeApplicantPayload.getApproval_status());	
 			appRepo.SHauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
+			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
+			if(company!=null)
+			{Float current_amount=company.getCurrent_amount()-authorizeApplicantPayload.getLoan_amount();
+			companyRepo.updateCurrentAmount(current_amount, authorizeApplicantPayload.getCompany_code());}
 				break;
 			}
 			}

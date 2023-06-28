@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.securedloan.arthavedika.model.Applicant;
+import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.DocEkyc;
 import com.securedloan.arthavedika.model.EKYC;
 import com.securedloan.arthavedika.model.FileDB;
@@ -34,6 +35,7 @@ import com.securedloan.arthavedika.model.PsyAns;
 import com.securedloan.arthavedika.model.PsyQstn;
 import com.securedloan.arthavedika.model.User;
 import com.securedloan.arthavedika.payload.GetApplicantPayload;
+import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.PsyAnsRepo;
 import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.ApplicantInfo1;
@@ -53,7 +55,8 @@ import com.securedloan.arthavedika.service.GroupDataService;
 @RequestMapping("applicant")
 public class ApplicantController {
 	private final Logger LOGGER = LoggerFactory.getLogger(ApplicantController.class);
-
+	@Autowired
+	CompanyRepo companyRepo;
 	@PersistenceContext
 	private EntityManager entitymanager;
 	@Autowired
@@ -82,7 +85,7 @@ public class ApplicantController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<Response> registerApplicant(@RequestBody Applicant applicantInput) {
-		LOGGER.info("Register api has been called !!! Start Of Method registerApplicant");
+		LOGGER.info("Register api has been called with post !!! Start Of Method registerApplicant");
 		System.out.println("monthlin income is");
 		try {
 
@@ -107,6 +110,18 @@ public class ApplicantController {
 				System.out.println("applicants aadhar nois"+applicantInput.getAadhar_no());
 				System.out.println("applicants pan is"+applicantInput.getPan_no());
 				System.out.println("applicants account is"+applicantInput.getAccount_no());
+				String company_name = null;
+				List<Company>company=companyRepo.company_name();
+				for(int i=0;i<company.size();i++) {
+					if (applicantInput.getCompany_code().equals(company.get(i).getCompany_code())) {
+						System.out.println("company name is"+company.get(i).getCompanyName());
+					 company_name=(company.get(i).getCompanyName());
+					}}
+				applicantInput.setCompany_name(company_name);
+				if(applicantInput.getCompany_code().equals("MK")) {
+					applicantInput.setAV_approval("Y");
+					applicantInput.setAuthorisation_status(1);
+				}
 				Applicant applicant = applicantService.saveApplicant(applicantInput);
 				LOGGER.info("End Of Method registerApplicant");
 				return ResponseEntity.status(HttpStatus.OK)
@@ -118,6 +133,18 @@ public class ApplicantController {
 					System.out.println("applicants aadhar nois"+applicantInput.getAadhar_no());
 					System.out.println("applicants pan is"+applicantInput.getPan_no());
 					System.out.println("applicants account is"+applicantInput.getAccount_no());
+					List<Company>company=companyRepo.company_name();
+					String company_name="";
+					for(int i=0;i<company.size();i++) {
+						if (applicantInput.getCompany_code().equals(company.get(i).getCompany_code())) {
+							System.out.println("company name is"+company.get(i).getCompanyName());
+						 company_name=(company.get(i).getCompanyName());
+						}}
+					applicantInput.setCompany_name(company_name);
+					if(applicantInput.getCompany_code().equals("MK")) {
+						applicantInput.setAV_approval("Y");
+						applicantInput.setAuthorisation_status(1);
+					}
 					Applicant applicant = applicantService.saveApplicant(applicantInput);
 					System.out.println("applicantInput.isPsycho_page()"+applicantInput.isPsycho_page());
 					if (applicantInput.isPsycho_page() == Boolean.TRUE )
@@ -170,6 +197,18 @@ public class ApplicantController {
 						String psyAnsQuery = null;
 						for (PsyAns eachAns : applicantInput.getPsyAns()) {
 							eachAns.setApplicant_id(applicantInput.getApplicant_id());
+						}
+					
+						company=companyRepo.company_name();
+						for(int i=0;i<company.size();i++) {
+							if (applicantInput.getCompany_code().equals(company.get(i).getCompany_code())) {
+								System.out.println("company name is"+company.get(i).getCompanyName());
+							 company_name=(company.get(i).getCompanyName());
+							}}
+						applicantInput.setCompany_name(company_name);
+						if(applicantInput.getCompany_code().equals("MK")) {
+							applicantInput.setAV_approval("Y");
+							applicantInput.setAuthorisation_status(1);
 						}
 						psyRepo.saveAll(applicantInput.getPsyAns());
 
@@ -270,11 +309,23 @@ public class ApplicantController {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<Response> updateApplicant(@RequestBody Applicant updateApplicant) {
-		LOGGER.info("Register api has been called !!! Start Of Method registerApplicant");
+		LOGGER.info("Register api has been called with put method !!! Start Of Method registerApplicant");
 		try {
 			Applicant applicants = applicantService.findByIds(updateApplicant.getApplicant_id());
 			if (applicants != null) {
 				updateApplicant.setDatamoddt(LocalDate.now());
+				String company_name = null;
+				List<Company>company=companyRepo.company_name();
+				for(int i=0;i<company.size();i++) {
+					if (updateApplicant.getCompany_code().equals(company.get(i).getCompany_code())) {
+						System.out.println("company name is"+company.get(i).getCompanyName());
+					 company_name=(company.get(i).getCompanyName());
+					}}
+				updateApplicant.setCompany_name(company_name);
+				if(updateApplicant.getCompany_code().equals("MK")) {
+					updateApplicant.setAV_approval("Y");
+					updateApplicant.setAuthorisation_status(1);
+				}
 				Applicant applicant = applicantService.saveApplicant(updateApplicant);
 				LOGGER.info("End Of Method updateApplicant");
 				return ResponseEntity.status(HttpStatus.OK).body(new Response("Data Saved", Boolean.TRUE, applicant));
@@ -522,6 +573,18 @@ public class ApplicantController {
 		LOGGER.info("Upload ekyc api has been called !!! Start Of Method uploadFile");
 		String message = "";
 		try {
+			String company_name = null;
+			List<Company>company=companyRepo.company_name();
+			for(int i=0;i<company.size();i++) {
+				if (applicant.getCompany_code().equals(company.get(i).getCompany_code())) {
+					System.out.println("company name is"+company.get(i).getCompanyName());
+				 company_name=(company.get(i).getCompanyName());
+				}}
+			applicant.setCompany_name(company_name);
+			if(applicant.getCompany_code().equals("MK")) {
+				applicant.setAV_approval("Y");
+				applicant.setAuthorisation_status(1);
+			}
 			storageService.store(file, applicant);
 			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 			LOGGER.info("End Of Method uploadFile");
