@@ -1,10 +1,15 @@
 package com.securedloan.arthavedika.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import javax.validation.Valid;
-
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +31,8 @@ import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.FileDB;
 import com.securedloan.arthavedika.model.User;
 import com.securedloan.arthavedika.payload.AuthorizeApplicantPayload;
+import com.securedloan.arthavedika.payload.Dashboard;
+import com.securedloan.arthavedika.payload.DashboardRequest;
 import com.securedloan.arthavedika.payload.FindAllApplicantPagination;
 import com.securedloan.arthavedika.payload.FindAllApplicantPayload;
 import com.securedloan.arthavedika.repo.ApplicantPaginationRepo;
@@ -33,7 +40,9 @@ import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.BorrowerResponse;
+import com.securedloan.arthavedika.response.DashboardResponse;
 import com.securedloan.arthavedika.response.FindAllApplicant;
+import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.Result;
 import com.securedloan.arthavedika.service.ApplicantService;
 import com.securedloan.arthavedika.service.UserService;
@@ -164,4 +173,62 @@ public class BorrowerAppController {
 			return ResponseEntity.badRequest().body(new FindAllApplicant(applicant,e.getMessage(), Boolean.FALSE));
 		}
 	}
+
+	@RequestMapping(value = { "/Dashboard" }, method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<DashboardResponse> dashboard(@RequestBody DashboardRequest dashboardPayload) {
+		LOGGER.info("dashboard api is called");
+		HttpStatus httpstatus=null;
+		String response="";
+		Boolean status=null;
+		//List<Dashboard> list=new ArrayList();
+		Dashboard dash=new Dashboard();
+		
+		try {
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(sdf.format(new Date()));
+
+	        System.out.println("today date is"+date);
+			int total=appRepo.total_applicant();
+			dash.setTotal_applicants(total);
+			if(dashboardPayload.getCompany_code().equals("AV"))
+			{
+			dash.setTotal_verified(appRepo.av_approval());
+			dash.setTotal_rejected(appRepo.av_rejection());
+			dash.setPending_for_verification(appRepo.av_pending());
+			dash.setVerified_today(appRepo.today_av_approval(date));
+			}
+			if(dashboardPayload.getCompany_code().equals("MK")){
+				dash.setTotal_verified(appRepo.mk_approval());
+				dash.setTotal_rejected(appRepo.MK_rejection());
+				dash.setPending_for_verification(appRepo.MK_pending());
+				dash.setVerified_today(appRepo.today_mk_approval(date));
+			}
+			if(dashboardPayload.getCompany_code().equals("SH")){
+				dash.setTotal_verified(appRepo.Sh_approval());
+				dash.setTotal_rejected(appRepo.SH_rejection());
+				dash.setPending_for_verification(appRepo.Sh_pending());
+				dash.setVerified_today(appRepo.today_sh_approval(date));
+			}
+			
+				
+			
+			response="dashboard details fecthed successfully";		
+			status=true;
+			httpstatus=HttpStatus.OK;
+			}
+					
+		catch (Exception e) {
+			LOGGER.error("Error in dashbaord api" + e.getMessage());
+			response="Error in dashboard api" + e.getMessage();
+			status=false;
+			httpstatus=HttpStatus.BAD_REQUEST;
+		}
+		List<Dashboard> list=new ArrayList<>();
+		list.add(dash);
+		return ResponseEntity.status(httpstatus).body(new DashboardResponse(list,response,status));
+	}
 }
+

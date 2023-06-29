@@ -204,6 +204,35 @@ public void setCompany_code(String company_code) {
 	private @NotNull String AV_approval;
 	private @NotNull String MK_approval;
 	private @NotNull String SH_approval;
+	private Date av_approval_date;
+	private Date mk_approval_date;
+	private Date sh_approval_date;
+	public Date getAv_approval_date() {
+		return av_approval_date;
+	}
+
+	public void setAv_approval_date(Date av_approval_date) {
+		this.av_approval_date = av_approval_date;
+	}
+
+	public Date getMk_approval_date() {
+		return mk_approval_date;
+	}
+
+	public void setMk_approval_date(Date mk_approval_date) {
+		this.mk_approval_date = mk_approval_date;
+	}
+
+	public Date getSh_approval_date() {
+		return sh_approval_date;
+	}
+
+	public void setSh_approval_date(Date sh_approval_date) {
+		this.sh_approval_date = sh_approval_date;
+	}
+
+
+
 	private @NotNull int authorisation_status;
 	private @NotNull String company_name;
 	private @NotNull String company_code;

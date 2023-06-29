@@ -1,6 +1,7 @@
 package com.securedloan.arthavedika.repo;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -43,6 +44,32 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 @Modifying(clearAutomatically = false) 
 	@Query("update Applicant a set a.SH_approval=?1, a.authorisation_status=3 where a.applicant_id=?2")
 	public void SHauthoriseApplicant(String SH_approval, Long applicant_id);
+@Query("select count(u) from Applicant u")
+public int total_applicant();
+@Query("select count(u) from Applicant u where u.AV_approval='Y'")
+public int av_approval();
+@Query("select count(u) from Applicant u where u.AV_approval='N'")
+public int av_rejection();
+@Query("select count(u) from Applicant u where u.MK_approval='Y'")
+public int mk_approval();
+@Query("select count(u) from Applicant u where u.MK_approval='N'")
+public int MK_rejection();
+@Query("select count(u) from Applicant u where u.SH_approval='Y'")
+public int Sh_approval();
+@Query("select count(u) from Applicant u where u.SH_approval='N'")
+public int SH_rejection();
+@Query("select count(u) from Applicant u where u.AV_approval='Y' and u.av_approval_date=?1")
+public int today_av_approval(Date av_aproval_date);
+@Query("select count(u) from Applicant u where u.MK_approval='Y' and u.mk_approval_date=?1")
+public int today_mk_approval(Date mk_aproval_date);
+@Query("select count(u) from Applicant u where u.SH_approval='Y' and u.sh_approval_date=?1")
+public int today_sh_approval(Date sh_aproval_date);
+@Query("select count(u) from Applicant u where u.MK_approval is null")
+public int MK_pending();
+@Query("select count(u) from Applicant u where u.SH_approval is null")
+public int Sh_pending();
+@Query("select count(u) from Applicant u where u.AV_approval is null")
+public int av_pending();
 }
 //
 //	@Query("SELECT a FROM Applicant a WHERE a.applicant_id =?1")
