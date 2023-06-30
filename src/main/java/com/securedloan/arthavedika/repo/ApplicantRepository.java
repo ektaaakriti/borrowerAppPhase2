@@ -32,18 +32,18 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 	
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.AV_approval=?1, a.authorisation_status=1 where a.applicant_id=?2")
-	public void AVauthoriseApplicant(String AV_approval, Long applicant_id);
+	@Query("update Applicant a set a.AV_approval=?1, a.authorisation_status=1, a.av_approval_date=?2 where a.applicant_id=?3")
+	public void AVauthoriseApplicant(String AV_approval,Date av_approval_date, Long applicant_id);
 
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.MK_approval=?1, a.authorisation_status=2 where a.applicant_id=?2")
-	public void MKauthoriseApplicant(String MK_approval, Long applicant_id);
+	@Query("update Applicant a set a.MK_approval=?1, a.authorisation_status=2, a.mk_approval_date=?2 where a.applicant_id=?3")
+	public void MKauthoriseApplicant(String MK_approval, Date mk_approval_date,Long applicant_id);
 
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.SH_approval=?1, a.authorisation_status=3 where a.applicant_id=?2")
-	public void SHauthoriseApplicant(String SH_approval, Long applicant_id);
+	@Query("update Applicant a set a.SH_approval=?1, a.authorisation_status=3, a.sh_approval_date=?2 where a.applicant_id=?3")
+	public void SHauthoriseApplicant(String SH_approval,Date sh_approval_date, Long applicant_id);
 @Query("select count(u) from Applicant u")
 public int total_applicant();
 @Query("select count(u) from Applicant u where u.AV_approval='Y'")

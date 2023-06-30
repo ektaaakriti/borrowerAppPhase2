@@ -99,6 +99,8 @@ public class BorrowerAppController {
 		Boolean status=null;
 		try {
 			httpstatus=HttpStatus.OK;
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			Date date = sdf.parse(sdf.format(new Date()));
 			response="Applicant authorisation status is submitted succesfully";
 			 status=true;
 			LOGGER.info("company_code is"+authorizeApplicantPayload.getCompany_code());
@@ -108,7 +110,7 @@ public class BorrowerAppController {
 			case "AV":
 			{
 				LOGGER.info("status of av_approval is"+authorizeApplicantPayload.getApproval_status());	
-				appRepo.AVauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
+				appRepo.AVauthoriseApplicant(authorizeApplicantPayload.getApproval_status(),date, authorizeApplicantPayload.getApplicant_id());
 				Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 				System.out.println("Applicant company"+company);
 				if(company!=null)
@@ -119,7 +121,7 @@ public class BorrowerAppController {
 			case"MK":
 			{
 				LOGGER.info("status of MK_approval is"+authorizeApplicantPayload.getApproval_status());	
-			appRepo.MKauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
+			appRepo.MKauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), date,authorizeApplicantPayload.getApplicant_id());
 			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 			if(company!=null)
 			{	Float current_amount=company.getCurrent_amount()-authorizeApplicantPayload.getLoan_amount();
@@ -128,7 +130,7 @@ public class BorrowerAppController {
 			}
 			case"SH":
 			{LOGGER.info("status of SH_approval is"+authorizeApplicantPayload.getApproval_status());	
-			appRepo.SHauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), authorizeApplicantPayload.getApplicant_id());
+			appRepo.SHauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), date, authorizeApplicantPayload.getApplicant_id());
 			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 			if(company!=null)
 			{Float current_amount=company.getCurrent_amount()-authorizeApplicantPayload.getLoan_amount();
