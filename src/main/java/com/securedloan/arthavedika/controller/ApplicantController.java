@@ -80,7 +80,66 @@ public class ApplicantController {
 	private String registerSuccess;
 	@Value("${success}")
 	private String Success;
+	@RequestMapping(value = { "/getapplicantList/v1" }, method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<ApplicantInfo> getApplicant(@RequestParam("applicant_id") Applicant newApplicant) {
+		LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
+		List<Applicant> applicant=null;
+		List<FileDB> document=null;
+		HttpStatus httpstatus=null;
+		String response="";
+		Boolean status=null;
+		try {
+			 document=fileStorageService.documentById(newApplicant.getApplicant_id());
+			applicant = applicantService.findById(newApplicant.getApplicant_id());
+			 httpstatus=HttpStatus.OK;
+			 status=true;
+			if (applicant != null) {
+				 response="Retrive Success";
+				
+				//return ResponseEntity.status(HttpStatus.OK)
+				//		.body(new ApplicantInfo("Retrive Success", Boolean.TRUE, applicant,document));
+			} else {
+				response="No data with such applicant id";
+				//return ResponseEntity.status(HttpStatus.OK)
+				//		.body(new ApplicantInfo("No data with such applicant id", Boolean.FALSE, applicant,document));
+			}
+		} catch (Exception e) {
+			response="Error While retrive the Applicant"+e.getMessage();
+			LOGGER.error(response);
+			httpstatus=HttpStatus.BAD_REQUEST;
+			status=false;
+			//return ResponseEntity.status(HttpStatus.OK).body(new ApplicantInfo(e.getMessage(), Boolean.FALSE, applicant,document));
 
+		}
+		return ResponseEntity.status(httpstatus)
+						.body(new ApplicantInfo(response, status, applicant,document));
+
+	}
+	@RequestMapping(value = { "/getapplicant/v1" }, method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<ApplicantInfos> getApplicantId(@RequestParam("applicant_id") Applicant newApplicant) {
+		LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
+		
+		try {
+			Applicant applicants = applicantService.findByIds(newApplicant.getApplicant_id());
+			if (applicants != null) {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApplicantInfos("Retrive Success", Boolean.TRUE, applicants));
+			} else {
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ApplicantInfos("No data with such applicant id", Boolean.FALSE, applicants));
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error While retrive the Applicant" + e.getMessage());
+			return ResponseEntity.badRequest().body(new ApplicantInfos(e.getMessage(), Boolean.FALSE,new Applicant()));
+
+		}
+
+	}
+/*
 	@RequestMapping(value = { "/register/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -231,7 +290,7 @@ public class ApplicantController {
 			System.out.println("in error"+e.getMessage());
 			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new Applicant()));
 		}
-	}
+	}*/
 
 	//commented  by rajeev to make similar as kosh
 //	public ResponseEntity<Response> registerApplicant(@RequestBody Applicant applicantInput) {
@@ -304,8 +363,8 @@ public class ApplicantController {
 //			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new Applicant()));
 //		}
 //	}
-
-	@RequestMapping(value = { "/register/v1" }, method = RequestMethod.PUT, produces = {
+//comeent for encdec
+/*	@RequestMapping(value = { "/register/v1" }, method = RequestMethod.PUT, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<Response> updateApplicant(@RequestBody Applicant updateApplicant) {
@@ -377,65 +436,9 @@ public class ApplicantController {
 						.body(new ApplicantInfo1(response, status, applicant,document));
 
 	}
-	@RequestMapping(value = { "/getapplicantList/v1" }, method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<ApplicantInfo> getApplicant(@RequestParam("applicant_id") Applicant newApplicant) {
-		LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
-		List<Applicant> applicant=null;
-		List<FileDB> document=null;
-		HttpStatus httpstatus=null;
-		String response="";
-		Boolean status=null;
-		try {
-			 document=fileStorageService.documentById(newApplicant.getApplicant_id());
-			applicant = applicantService.findById(newApplicant.getApplicant_id());
-			 httpstatus=HttpStatus.OK;
-			 status=true;
-			if (applicant != null) {
-				 response="Retrive Success";
-				
-				//return ResponseEntity.status(HttpStatus.OK)
-				//		.body(new ApplicantInfo("Retrive Success", Boolean.TRUE, applicant,document));
-			} else {
-				response="No data with such applicant id";
-				//return ResponseEntity.status(HttpStatus.OK)
-				//		.body(new ApplicantInfo("No data with such applicant id", Boolean.FALSE, applicant,document));
-			}
-		} catch (Exception e) {
-			response="Error While retrive the Applicant"+e.getMessage();
-			LOGGER.error(response);
-			httpstatus=HttpStatus.BAD_REQUEST;
-			status=false;
-			//return ResponseEntity.status(HttpStatus.OK).body(new ApplicantInfo(e.getMessage(), Boolean.FALSE, applicant,document));
 
-		}
-		return ResponseEntity.status(httpstatus)
-						.body(new ApplicantInfo(response, status, applicant,document));
-
-	}
-	@RequestMapping(value = { "/getapplicant/v1" }, method = RequestMethod.GET, produces = {
-			MediaType.APPLICATION_JSON_VALUE })
-	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<ApplicantInfos> getApplicantId(@RequestParam("applicant_id") Applicant newApplicant) {
-		LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
-		
-		try {
-			Applicant applicants = applicantService.findByIds(newApplicant.getApplicant_id());
-			if (applicants != null) {
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ApplicantInfos("Retrive Success", Boolean.TRUE, applicants));
-			} else {
-				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ApplicantInfos("No data with such applicant id", Boolean.FALSE, applicants));
-			}
-		} catch (Exception e) {
-			LOGGER.error("Error While retrive the Applicant" + e.getMessage());
-			return ResponseEntity.badRequest().body(new ApplicantInfos(e.getMessage(), Boolean.FALSE,new Applicant()));
-
-		}
-
-	}
+	//comment for encdec
+	/*
 	@RequestMapping(value = { "/psychometric/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -673,6 +676,6 @@ public class ApplicantController {
 
 		}
 
-	}
+	}*/
 
 }

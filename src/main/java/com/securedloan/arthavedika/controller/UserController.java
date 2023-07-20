@@ -1,14 +1,15 @@
 package com.securedloan.arthavedika.controller;
 
 import java.io.UnsupportedEncodingException;
+import com.securedloan.arthavedika.EncryptionDecryptionClass;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
-
+import com.securedloan.arthavedika.response.CompanyEnc;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
+import java.util.ArrayList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,7 @@ import com.securedloan.arthavedika.utility.Utility;
 public class UserController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
+	EncryptionDecryptionClass encdec=new EncryptionDecryptionClass();
 	@Value("${error_mob_no}")
 	private String mobErrorMsg;
 
@@ -115,11 +117,11 @@ public class UserController {
 			for (User user : users) {
 				if (user.equalsMobile(newUser))
 					// return new Result("Mobile number Already Exist", Boolean.FALSE);
-					return ResponseEntity.status(HttpStatus.OK).body(new Result(mobErrorMsg, Boolean.FALSE));
+					return ResponseEntity.status(HttpStatus.OK).body(new Result(encdec.encryptnew(mobErrorMsg), encdec.encryptnew("FALSE")));
 
 				else if (user.equalsEmail(newUser))
 					// return new Result("Email Already Exist", Boolean.FALSE);
-					return ResponseEntity.status(HttpStatus.OK).body(new Result(emailErrorMsg, Boolean.FALSE));
+					return ResponseEntity.status(HttpStatus.OK).body(new Result(encdec.encryptnew(emailErrorMsg),encdec.encryptnew("FALSE")));
 			}
 
 			Random random = new Random();
@@ -129,27 +131,45 @@ public class UserController {
 			sendEmailService.sendEmail(newUser, randomCode);
 			// return new Result("Please Verify Your Email", Boolean.TRUE);
 			LOGGER.info("End Of Method registerUser");
-			return ResponseEntity.status(HttpStatus.OK).body(new Result(emailVerify, Boolean.TRUE));
+			return ResponseEntity.status(HttpStatus.OK).body(new Result(encdec.encryptnew(emailVerify), encdec.encryptnew("TRUE")));
 		} catch (Exception e) {
 			LOGGER.error("Error While SignIn" + e.getMessage());
-			return ResponseEntity.badRequest().body(new Result(e.getMessage(), Boolean.FALSE));
+			return ResponseEntity.badRequest().body(new Result(e.getMessage(), encdec.encryptnew("FALSE")));
 		}
 	}
-
+	
 	@RequestMapping(value = { "/loginPost/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<Response> loginUserPost(@RequestBody LoginUserPost loginUserPayload) {
 		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
+		CompanyEnc comp=new CompanyEnc();
 		try {
-			List<User> users = (List<User>) userService.findUsers(loginUserPayload.getMobile_no(), loginUserPayload.getPassword());
+			List<User> users = (List<User>) userService.findUsers(encdec.decryptnew(loginUserPayload.getMobile_no()),encdec.decryptnew( loginUserPayload.getPassword()));
 		
 			if (users.size() > 0) {
 				if(users.get(0).getIs_first_login().equals("Y"))
 				{
 					userRepo.updateIsfirstLogin(users.get(0).getUser_id());
 				}
-				Company company_details=companyrepo.company_details(users.get(0).getCompany_code());
+				Company com=companyrepo.company_details(users.get(0).getCompany_code());
+				if(com.getCompany_id()!=null) {
+					comp.setCompany_id(encdec.encryptnew(com.getCompany_id()));
+					}
+					if(com.getCompanyName()!=null) {
+					comp.setCompany_name(encdec.encryptnew(com.getCompanyName()));
+					}
+					if(com.getCompany_code()!=null) {
+						comp.setCompany_code(encdec.encryptnew(com.getCompany_code()));
+					}
+					if(com.getCompany_address()!=null) {
+						comp.setCompnay_address(encdec.encryptnew(com.getCompany_address()));
+					}
+					
+						String amount=Float.toString(com.getAllowed_amount());
+						comp.setAllowed_amount(encdec.encryptnew(amount));
+					String currentamount=Float.toString(com.getCurrent_amount());
+					comp.setCurrent_amount(encdec.encryptnew(currentamount));
 			
 					List<LoginDetail> login = userService.findUserByUserNative(users.get(0).getUser_id());
 					if (login.size() > 0) {
@@ -164,25 +184,51 @@ public class UserController {
 						userService.saveLogin(loginDetail);// new login
 
 					}
+					User userss=new User();
+					if(users.get(0).getFirstname()!=null) {
+						
+						userss.setFirstname(encdec.encryptnew(users.get(0).getFirstname()));}
+							if(users.get(0).getLastname()!=null) {
+								
+						userss.setLastname(encdec.encryptnew(users.get(0).getLastname()));}
+							if(users.get(0).getEmail_id()!=null) {
+								userss.setEmail_id(encdec.encryptnew("NA"));
+							}else {
+						userss.setEmail_id(encdec.encryptnew(users.get(0).getEmail_id()));}
+							if(users.get(0).getMobile_no()!=null) {
+								
+						userss.setMobile_no(encdec.encryptnew(users.get(0).getMobile_no()));}
+							if(users.get(0).getCompany_code()!=null) {
+						userss.setCompany_code(encdec.encryptnew(users.get(0).getCompany_code()));}
+							if(users.get(0).getCompanyName()!=null) {
+						userss.setCompanyName(encdec.encryptnew(users.get(0).getCompanyName()));}
+							if(users.get(0).getUser_id()!=null) {
+						userss.setUser_id(encdec.encryptnew(users.get(0).getUser_id()));}
+							if(users.get(0).getRole()!=null) {
+								userss.setRole(encdec.encryptnew(users.get(0).getRole()));
+							}
+						
+					
 					LOGGER.info("End Of Method loginUser");
 					users.get(0).setLoggedIn(Boolean.TRUE);
 					// return new Response("Login Success", Boolean.TRUE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response( users.get(0),company_details,"login done successfully", Boolean.TRUE));
+							.body(new Response( userss,comp,encdec.encryptnew("login done successfully"),encdec.encryptnew( "TRUE")));
 
 				
 			} else {
 				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new Response(loginFailed, Boolean.FALSE,new User()));
+						.body(new Response((encdec.encryptnew(loginFailed)),encdec.encryptnew("FALSE"),new User()));
 
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error While Login" + e.getMessage());
-			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new User()));
+			return ResponseEntity.badRequest().body(new Response(e.getMessage(),encdec.encryptnew( "FALSE"), new User()));
 		}
 
 	}
+/*
 	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -305,7 +351,7 @@ public class UserController {
 			LOGGER.error("Error While Reset the Password" + e.getMessage());
 			return ResponseEntity.badRequest().body(new Result(e.getMessage(), Boolean.FALSE));
 		}
-	}
+	}*/
 
 	// @GetMapping("/logout/v1")
 	@RequestMapping(value = { "/logout/v1" }, method = RequestMethod.GET, produces = {
@@ -314,7 +360,7 @@ public class UserController {
 	public ResponseEntity<Result> logUserOut(@Valid @RequestBody User user) {
 		LOGGER.info("Log Out api has been called !!! Start Of Method logUserOut");
 		try {
-			List<User> users = (List<User>) userService.findUsers(user.getMobile_no(), user.getPassword());
+			List<User> users = (List<User>) userService.findUsers(encdec.decryptnew(user.getMobile_no()),encdec.decryptnew( user.getPassword()));
 			for (User other : users) {
 				if (other.equals(user)) {
 					user.setLoggedIn(false);
@@ -322,15 +368,15 @@ public class UserController {
 					userService.saveLogin(loginDetail);
 					LOGGER.info("End Of Method logUserOut");
 					// return new Result("Logged Out SuccessFull", Boolean.TRUE);
-					return ResponseEntity.status(HttpStatus.OK).body(new Result(logoutSuccess, Boolean.TRUE));
+					return ResponseEntity.status(HttpStatus.OK).body(new Result(encdec.encryptnew(logoutSuccess), "TRUE"));
 				}
 			}
 
 			// return new Result("Logged Out Failed", Boolean.FALSE);
-			return ResponseEntity.status(HttpStatus.OK).body(new Result(logoutFailed, Boolean.TRUE));
+			return ResponseEntity.status(HttpStatus.OK).body(new Result(logoutFailed, "TRUE"));
 		} catch (Exception e) {
 			LOGGER.error("Error While Reset the Password" + e.getMessage());
-			return ResponseEntity.badRequest().body(new Result(e.getMessage(), Boolean.FALSE));
+			return ResponseEntity.badRequest().body(new Result(e.getMessage(), "FALSE"));
 		}
 	}
 	@RequestMapping(value = { "/GetAllUsers" }, method = RequestMethod.POST, produces = {
@@ -341,33 +387,59 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
-		List<User> users=null;
+		String status=null;
+		List<User> userList= new ArrayList<User>();
+		List<User> userListEnc= new ArrayList<User>();
 		
 		try {
-		 users =  userRepo.getAllUsers();
-			if (users==null) {
+		 userList =  userRepo.getAllUsers();
+			if (userList==null) {
 				
 			response="User list is empty"	;
 			}
 			else
 			{
+				int i=0;
+			for(User users:userList) {
+					final User userss=new User();
+					if(users.getFirstname()!=null) {
+					
+				userss.setFirstname(encdec.encryptnew(users.getFirstname()));}
+					if(users.getLastname()!=null) {
+						
+				userss.setLastname(encdec.encryptnew(users.getLastname()));}
+					if(users.getEmail_id()!=null) {
+						userss.setEmail_id(encdec.encryptnew("NA"));
+					}else {
+				userss.setEmail_id(encdec.encryptnew(users.getEmail_id()));}
+					if(users.getMobile_no()!=null) {
+						
+				userss.setMobile_no(encdec.encryptnew(users.getMobile_no()));}
+					if(users.getCompany_code()!=null) {
+				userss.setCompany_code(encdec.encryptnew(users.getCompany_code()));}
+					if(users.getCompanyName()!=null) {
+				userss.setCompanyName(encdec.encryptnew(users.getCompanyName()));}
+					if(users.getUser_id()!=null) {
+				userss.setUser_id(encdec.encryptnew(users.getUser_id()));}
+				userListEnc.add(i, userss);
+				i++;
 				
+				}
 				
 				response="Users list is retrieved successfully";
 				
 			}
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While retreiving all user" + e.getMessage());
 			response="Error While retreiving all user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.GetAllUsers(users,response,status));
+		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.GetAllUsers(userListEnc,encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	@RequestMapping(value = { "/GetAllCompany_name" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -377,8 +449,9 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		List<Company> company=null;
+		List<CompanyEnc> companyList=new ArrayList<CompanyEnc>();
 		
 		try {
 		 company =  companyrepo.company_name();
@@ -388,22 +461,43 @@ public class UserController {
 			}
 			else
 			{
-				
+				int i=0;
+				for(Company com:company) {
+					CompanyEnc comp=new CompanyEnc();
+					if(com.getCompany_id()!=null) {
+					comp.setCompany_id(encdec.encryptnew(com.getCompany_id()));}
+					if(com.getCompanyName()!=null) {
+					comp.setCompany_name(encdec.encryptnew(com.getCompanyName()));
+				}
+					if(com.getCompany_code()!=null) {
+						comp.setCompany_code(encdec.encryptnew(com.getCompany_code()));
+					}
+					if(com.getCompany_address()!=null) {
+						comp.setCompnay_address(encdec.encryptnew(com.getCompany_address()));
+					}
+					
+						String amount=Float.toString(com.getAllowed_amount());
+						comp.setAllowed_amount(encdec.encryptnew(amount));
+					String currentamount=Float.toString(com.getCurrent_amount());
+					comp.setCurrent_amount(encdec.encryptnew(currentamount));
+				companyList.add(i, comp);
+				i++;
+					}
 				
 				response="company list is retrieved successfully";
 				
 			}
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While retreiving all company name" + e.getMessage());
 			response="Error While retreiving all company name" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.AllCompanyName(company,response,status));
+		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.AllCompanyName(companyList,encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	@RequestMapping(value = { "/GetUserById" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -413,33 +507,58 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		User users=null;
+		 User userss=new User();
 		
 		try {
-		 users =  userRepo.findUserByUser_Id(userPayload.getUser_id());
+		 users =  userRepo.findUserByUser_Id(encdec.decryptnew(userPayload.getUser_id()));
 			if (users==null) {
 				
 			response="User details not available"	;
 			}
 			else
 			{
-				
+						
+						if(users.getFirstname()!=null) {
+						
+					userss.setFirstname(encdec.encryptnew(users.getFirstname()));}
+						if(users.getLastname()!=null) {
+							
+					userss.setLastname(encdec.encryptnew(users.getLastname()));}
+						if(users.getEmail_id()!=null) {
+							userss.setEmail_id(encdec.encryptnew("NA"));
+						}else {
+					userss.setEmail_id(encdec.encryptnew(users.getEmail_id()));}
+						if(users.getMobile_no()!=null) {
+							
+					userss.setMobile_no(encdec.encryptnew(users.getMobile_no()));}
+						if(users.getCompany_code()!=null) {
+					userss.setCompany_code(encdec.encryptnew(users.getCompany_code()));}
+						if(users.getCompanyName()!=null) {
+					userss.setCompanyName(encdec.encryptnew(users.getCompanyName()));}
+						if(users.getUser_id()!=null) {
+					userss.setUser_id(encdec.encryptnew(users.getUser_id()));}
+						if(users.getRole()!=null) {
+							userss.setRole(encdec.encryptnew(users.getRole()));
+						}
+					
 				
 				response="User detail is retrieved successfully";
 				
 			}
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While retreiving user" + e.getMessage());
 			response="Error While retreiving  user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.GetUserById(users,response,status));
+		return ResponseEntity.status(httpstatus).body(new com.securedloan.arthavedika.response.GetUserById(userss,
+				encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 
 	@RequestMapping(value = { "/add_modify_user" }, method = RequestMethod.POST, produces = {
@@ -450,36 +569,36 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		
 		try {
-		User users =  userRepo.findUserByUser_Id(addmodifyUserPayload.getUser_id());
+		User users =  userRepo.findUserByUser_Id(encdec.encryptnew(addmodifyUserPayload.getUser_id()));
 			if (users==null) {
 				User usr=new User();
-				usr.setFirstname(addmodifyUserPayload.getFirstname());
-				usr.setLastname(addmodifyUserPayload.getLastname());
-				usr.setEmail_id(addmodifyUserPayload.getEmail_id());
-				usr.setMobile_no(addmodifyUserPayload.getMobile_no());
+				usr.setFirstname(encdec.decryptnew(addmodifyUserPayload.getFirstname()));
+				usr.setLastname(encdec.decryptnew(addmodifyUserPayload.getLastname()));
+				usr.setEmail_id(encdec.decryptnew(addmodifyUserPayload.getEmail_id()));
+				usr.setMobile_no(encdec.decryptnew(addmodifyUserPayload.getMobile_no()));
 				//usr.setCompanyName(addmodifyUserPayload.getCompany_name());
 				//usr.setUser_id(addmodifyUserPayload.getUser_id());
-				usr.setRole(addmodifyUserPayload.getRole());
+				usr.setRole(encdec.decryptnew(addmodifyUserPayload.getRole()));
 				Random random = new Random();
 				String token = String.format("%04d", random.nextInt(10000));
 				usr.setPassword(token);
 				usr.setIs_first_login("Y");
 				usr.setDelete_status("N");
 				
-				usr.setCompany_code(addmodifyUserPayload.getCompany_code());
+				usr.setCompany_code(encdec.decryptnew(addmodifyUserPayload.getCompany_code()));
 				List<Company>company=companyrepo.company_name();
 				for(int i=0;i<company.size();i++) {
-					if (addmodifyUserPayload.getCompany_code().equals(company.get(i).getCompany_code())) {
+					if (encdec.decryptnew(addmodifyUserPayload.getCompany_code()).equals(company.get(i).getCompany_code())) {
 						System.out.println("company name is"+company.get(i).getCompanyName());
 						usr.setCompanyName(company.get(i).getCompanyName());
 					}
 				}
 				
 				userRepo.save(usr);
-				User user_details=userRepo.findByEmailNMobile(addmodifyUserPayload.getEmail_id(),addmodifyUserPayload.getMobile_no());
+				User user_details=userRepo.findByEmailNMobile(encdec.decryptnew(addmodifyUserPayload.getEmail_id()),(encdec.decryptnew(addmodifyUserPayload.getMobile_no())));
 				System.out.println("password is"+user_details.getPassword());
 				mail.sendEmailForPassword(user_details);
 			response="User is added successfully. Please check your mail for further details"	;
@@ -489,14 +608,14 @@ public class UserController {
 				String company_name = null;
 				List<Company>company=companyrepo.company_name();
 				for(int i=0;i<company.size();i++) {
-					if (addmodifyUserPayload.getCompany_code().equals(company.get(i).getCompany_code())) {
+					if (encdec.decryptnew(addmodifyUserPayload.getCompany_code()).equals(company.get(i).getCompany_code())) {
 						System.out.println("company name is"+company.get(i).getCompanyName());
 					 company_name=(company.get(i).getCompanyName());
 					}
 				}
-				userRepo.updateUser(addmodifyUserPayload.getMobile_no(), addmodifyUserPayload.getFirstname(), addmodifyUserPayload.getLastname(),
-								addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompany_code(), addmodifyUserPayload.getRole(),
-								company_name,addmodifyUserPayload.getUser_id());
+				userRepo.updateUser(encdec.decryptnew(addmodifyUserPayload.getMobile_no()), (encdec.decryptnew(addmodifyUserPayload.getFirstname())), (encdec.decryptnew(addmodifyUserPayload.getLastname())),
+						(encdec.decryptnew(addmodifyUserPayload.getEmail_id())),(encdec.decryptnew( addmodifyUserPayload.getCompany_code())), (encdec.decryptnew(addmodifyUserPayload.getRole())),
+								company_name,(encdec.decryptnew(addmodifyUserPayload.getUser_id())));
 				//userRepo.updateUser(addmodifyUserPayload.getMobile_no(), addmodifyUserPayload.getFirstname(), addmodifyUserPayload.getLastname(),
 				//		addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompany_code(), addmodifyUserPayload.getRole(),
 				//		company,addmodifyUserPayload.getUser_id());
@@ -504,17 +623,17 @@ public class UserController {
 				response="User modified successfully";
 				
 			}
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While adding or modifying user" + e.getMessage());
 			response="Error While adding or modifying user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 
 	@RequestMapping(value = { "/delete_user" }, method = RequestMethod.POST, produces = {
@@ -525,25 +644,25 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		
 		try {
-				userRepo.deleteUser(UserPayload.getUser_id());
+				userRepo.deleteUser(encdec.decryptnew(UserPayload.getUser_id()));
 				
 				response="User deleted successfully";
 				
 			
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While deleting user" + e.getMessage());
 			response="Error While deleting user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	@RequestMapping(value = { "/change_password" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -553,12 +672,12 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		
 		try {
-			 String pass=userRepo.getpassword(changepassword.getUser_id());
-			 if(pass.equals(changepassword.getOld_password())) {
-				 userRepo.changePassword(changepassword.getNew_password(),changepassword.getUser_id());
+			 String pass=userRepo.getpassword(encdec.decryptnew(changepassword.getUser_id()));
+			 if(pass.equals(encdec.decryptnew(changepassword.getOld_password()))) {
+				 userRepo.changePassword(encdec.decryptnew(changepassword.getNew_password()),(encdec.decryptnew(changepassword.getUser_id())));
 				 response="password changed successfully";
 			 }
 			 else {
@@ -567,17 +686,17 @@ public class UserController {
 			
 				
 			
-			status=true;
+			status="true";
 			httpstatus=HttpStatus.OK;
 			}
 					
 		catch (Exception e) {
 			LOGGER.error("Error While changing password for user" + e.getMessage());
 			response="Error While changing passowrd for user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	
 	@RequestMapping(value = { "/forgot_password1" }, method = RequestMethod.POST, produces = {
@@ -588,10 +707,10 @@ public class UserController {
 		
 		HttpStatus httpstatus=null;
 		String response="";
-		Boolean status=null;
+		String status=null;
 		
 		try {
-			 User user=userRepo.findUserByMobile_no(changepassword.getMobile_no());
+			 User user=userRepo.findUserByMobile_no(encdec.decryptnew(changepassword.getMobile_no()));
 			 String email_id = user.getEmail_id();
 			 if(changepassword.getOtp()==null &&changepassword.getNew_password()==null) {
 				Random random = new Random();
@@ -601,23 +720,23 @@ public class UserController {
 				String resetPasswordLink = Utility.getSiteURL(request) + "/reset_password?token=" + token;
 				resetPassService.sendEmail(user, resetPasswordLink);
 				response=chkMail;
-				status=true;
+				status="true";
 				}
-			 else if (changepassword.getOtp()!=null &&changepassword.getNew_password()==null) {
-				User usr=resetPassService.getByResetPasswordToken(changepassword.getOtp(),email_id) ;
+			 else if ((encdec.decryptnew(changepassword.getOtp()))!=null &&(encdec.decryptnew(changepassword.getNew_password()))==null) {
+				User usr=resetPassService.getByResetPasswordToken(encdec.decryptnew(changepassword.getOtp()),email_id) ;
 					if(usr==null) {
 						response="please enter valid otp";
-						status=false;
+						status="false";
 					}
 					else {
 						response="please enter new password";
-						status=true;
+						status="true";
 					}
 			 }
-			 else if(changepassword.getOtp()!=null &&changepassword.getNew_password()!=(null)) {
-				 userRepo.changePassword(changepassword.getNew_password(),user.getUser_id());
+			 else if(encdec.decryptnew(changepassword.getOtp())!=null &&(encdec.decryptnew(changepassword.getNew_password()))!=(null)) {
+				 userRepo.changePassword(encdec.decryptnew(changepassword.getNew_password()),user.getUser_id());
 				 response="password changed successfully"; 
-				 status=true;
+				 status="true";
 			 }
 				LOGGER.info("End Of Method processForgotPassword");
 				
@@ -629,10 +748,10 @@ public class UserController {
 		catch (Exception e) {
 			LOGGER.error("Error While changing password for user" + e.getMessage());
 			response="Error While changing passowrd for user" + e.getMessage();
-			status=false;
+			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
-		return ResponseEntity.status(httpstatus).body(new GeneralResponse(response,status));
+		return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	
 

@@ -7,7 +7,7 @@ import com.securedloan.arthavedika.payload.Dashboard;
 public class DashboardResponse {
 	List<Dashboard> dashboard_details;
 	String message;
-	Boolean status;
+	String status;
 	public List<Dashboard> getDashboard_details() {
 		return dashboard_details;
 	}
@@ -21,16 +21,16 @@ public class DashboardResponse {
 		this.message = message;
 	}
 	
-	public DashboardResponse(List<Dashboard> dashboard_details, String message, Boolean status) {
+	public DashboardResponse(List<Dashboard> dashboard_details, String message, String status) {
 		super();
 		this.dashboard_details = dashboard_details;
 		this.message = message;
 		this.status = status;
 	}
-	public Boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

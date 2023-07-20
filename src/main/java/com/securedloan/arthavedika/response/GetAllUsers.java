@@ -7,8 +7,8 @@ import com.securedloan.arthavedika.model.User;
 public class GetAllUsers {
 	List<User> User;
 	String message;
-	Boolean status;
-	public GetAllUsers(List<User> User, String message, Boolean status) {
+	String status;
+	public GetAllUsers(List<User> User, String message, String status) {
 		super();
 		this.User = User;
 		this.message = message;
@@ -26,10 +26,10 @@ public class GetAllUsers {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	public Boolean getStatus() {
+	public String getStatus() {
 		return status;
 	}
-	public void setStatus(Boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 }

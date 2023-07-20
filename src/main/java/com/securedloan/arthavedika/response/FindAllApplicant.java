@@ -3,13 +3,13 @@ import java.util.List;
 
 import com.securedloan.arthavedika.model.Applicant;
 public class FindAllApplicant {
-List<Applicant> Applicant;
+List<ApplicantResponse> Applicant;
 String Message;
-Boolean Status;
-public List<Applicant> getApplicant() {
+String Status;
+public List<ApplicantResponse> getApplicant() {
 	return Applicant;
 }
-public void setApplicant(List<Applicant> applicant) {
+public void setApplicant(List<ApplicantResponse> applicant) {
 	Applicant = applicant;
 }
 public String getMessage() {
@@ -18,13 +18,13 @@ public String getMessage() {
 public void setMessage(String message) {
 	Message = message;
 }
-public Boolean getStatus() {
+public String getStatus() {
 	return Status;
 }
-public void setStatus(Boolean status) {
+public void setStatus(String status) {
 	Status = status;
 }
-public FindAllApplicant(List<com.securedloan.arthavedika.model.Applicant> applicant, String message, Boolean status) {
+public FindAllApplicant(List<ApplicantResponse> applicant, String message, String status) {
 	super();
 	Applicant = applicant;
 	Message = message;

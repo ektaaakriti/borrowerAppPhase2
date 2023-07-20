@@ -11,7 +11,7 @@ public String getCompany_id() {
 String company_code;
 String company_name;
 String company_address;
-Float allowed_amount;
+String allowed_amount;
 public String getCompany_code() {
 	return company_code;
 }
@@ -30,10 +30,10 @@ public String getCompany_address() {
 public void setCompany_address(String company_address) {
 	this.company_address = company_address;
 }
-public Float getAllowed_amount() {
+public String getAllowed_amount() {
 	return allowed_amount;
 }
-public void setAllowed_amount(Float allowed_amount) {
+public void setAllowed_amount(String allowed_amount) {
 	this.allowed_amount = allowed_amount;
 }
 }

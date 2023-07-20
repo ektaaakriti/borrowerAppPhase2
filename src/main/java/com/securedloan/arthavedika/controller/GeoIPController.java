@@ -10,8 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.securedloan.arthavedika.response.GeoIP;
-import com.securedloan.arthavedika.service.GeoIPLocationService;
+
 
 @CrossOrigin()
 @RestController
@@ -19,7 +18,7 @@ import com.securedloan.arthavedika.service.GeoIPLocationService;
 
 
 public class GeoIPController {
-
+/*
 	static Logger logger = LoggerFactory.getLogger(UserController.class);
 
    // private GeoIPLocationService locationService;
@@ -32,5 +31,5 @@ public class GeoIPController {
       System.out.println("Ip is:" +ipAddress);
      GeoIPLocationService locationService = new GeoIPLocationService();
      return locationService.getLocation(ipAddress);
-    }
+    }*/
 }

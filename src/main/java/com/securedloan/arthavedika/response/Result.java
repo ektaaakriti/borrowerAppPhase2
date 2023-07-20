@@ -3,14 +3,14 @@ package com.securedloan.arthavedika.response;
 public class Result {
 
 	private String message;
-	private boolean status;
+	private String status;
 
 	public Result() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Result(String message, boolean status) {
+	public Result(String message, String status) {
 		super();
 		this.message = message;
 		this.status = status;
@@ -24,11 +24,11 @@ public class Result {
 		this.message = message;
 	}
 
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 

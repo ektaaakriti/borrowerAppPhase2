@@ -13,9 +13,9 @@ import com.securedloan.arthavedika.model.User;
 public class Response {
 
 	private String message;
-	private boolean status;
+	private String status;
 	private User user;
-	private Company company;
+	private CompanyEnc company;
 	private List<EKYC> EkycList;
 	private List<PsyQstn> PsyQstnList;
 	private GroupData grpData;
@@ -24,7 +24,19 @@ public class Response {
 
 	
 
-	public Response( User user, Company company,String message, boolean status) {
+	public CompanyEnc getCompany() {
+		return company;
+	}
+
+
+
+	public void setCompany(CompanyEnc company) {
+		this.company = company;
+	}
+
+
+
+	public Response( User user, CompanyEnc company,String message, String status) {
 		super();
 		this.message = message;
 		this.status = status;
@@ -32,15 +44,9 @@ public class Response {
 		this.company = company;
 	}
 
-	public Company getCompany() {
-		return company;
-	}
 
-	public void setCompany(Company company) {
-		this.company = company;
-	}
 
-	public Response(String message, boolean status, GroupData grpData) {
+	public Response(String message, String status, GroupData grpData) {
 		super();
 		this.message = message;
 		this.status = status;
@@ -64,7 +70,7 @@ public class Response {
 	}
 
 	private List<DocEkyc> docEkyc;
-	private boolean imageResultStatus;
+	private String imageResultStatus;
 	private Applicant applicant;
 
 	public Applicant getApplicant() {
@@ -76,7 +82,7 @@ public class Response {
 	}
 
 	
-	public Response(String message, boolean status, List<PsyQstn> psyQstnList, Applicant applicant) {
+	public Response(String message, String status, List<PsyQstn> psyQstnList, Applicant applicant) {
 		super();
 		this.message = message;
 		this.status = status;
@@ -84,29 +90,29 @@ public class Response {
 		this.applicant = applicant;
 	}
 
-	public Response(String message, boolean status, Applicant applicant) {
+	public Response(String message, String status, Applicant applicant) {
 		super();
 		this.message = message;
 		this.status = status;
 		this.applicant = applicant;
 	}
 
-	public Response(String message, boolean status, boolean imageResultStatus) {
+	public Response(String message, String status, String imageResultStatus) {
 		super();
 		this.message = message;
 		this.status = status;
 		this.imageResultStatus = imageResultStatus;
 	}
 
-	public boolean isImageResultStatus() {
+	public String isImageResultStatus() {
 		return imageResultStatus;
 	}
 
-	public void setImageResultStatus(boolean imageResultStatus) {
+	public void setImageResultStatus(String imageResultStatus) {
 		this.imageResultStatus = imageResultStatus;
 	}
 
-	public Response( List<DocEkyc> docEkyc,String message, boolean status) {
+	public Response( List<DocEkyc> docEkyc,String message, String status) {
 		super();
 		this.docEkyc = docEkyc;
 		this.message = message;
@@ -122,7 +128,7 @@ public class Response {
 		this.docEkyc = docEkyc;
 	}
 
-	public Response(String message, boolean status, List<EKYC> ekycList) {
+	public Response(String message, String status, List<EKYC> ekycList) {
 		super();
 		this.message = message;
 		this.status = status;
@@ -146,26 +152,24 @@ public class Response {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Response(String message, boolean status, User user) {
+	public Response(String message, String status, User user) {
 		super();
 		this.message = message;
 		this.status = status;
 		this.user = user;
 	}
 
-	public Response(String registerSuccess, Boolean true1, List<Applicant> applicants) {
-		// TODO Auto-generated constructor stub
-	}
+	
 
 	public void setMessage(String message) {
 		this.message = message;
 	}
 
-	public boolean isStatus() {
+	public String isStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(String status) {
 		this.status = status;
 	}
 
