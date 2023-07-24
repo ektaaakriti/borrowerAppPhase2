@@ -19,10 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.EncryptionDecryptionClass;
 import com.securedloan.arthavedika.payload.AdvanceRequestPayload;
+import com.securedloan.arthavedika.payload.ekycPayload;
 import com.securedloan.arthavedika.repo.AdvanceRequestRepo;
 import com.securedloan.arthavedika.response.AdvanceTriggerResponse;
 import com.securedloan.arthavedika.response.FindAllApplicant;
 import com.securedloan.arthavedika.response.GeneralResponse;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import okhttp3.*;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.Properties;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonParser;
 
 @CrossOrigin()
 @RestController
@@ -36,27 +48,49 @@ public class AdvanceTrigerController {
 	@RequestMapping(value={"/SaveadvanceTrigger"}, method = RequestMethod.POST, 
 			produces= {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<GeneralResponse> saveAdvanceTriger(@RequestBody AdvanceRequestPayload advancePayload )
-	{HttpStatus httpstatus=null;
+	{Log.info(" save advance requst api is called");
+
+		HttpStatus httpstatus=null;
 	String response="";
 	String status=null;
 	try {
 		AdvanceRequest ad=new AdvanceRequest();
-		ad.setApplicant_id(encdec.decryptnew(advancePayload.getApplicant_id()));
-		ad.setAccount_no(encdec.decryptnew(advancePayload.getAccount_no()));
-		ad.setAdvance_amount(Float.parseFloat(encdec.decryptnew(advancePayload.getAdvance_amount())));
-		ad.setApproved_amount((Float.parseFloat(encdec.decryptnew(advancePayload.getApproved_amount()))));
-		ad.setApproved_user_id(encdec.decryptnew(advancePayload.getApproved_user_id()));
-		ad.setRaised_user_id(encdec.decryptnew(advancePayload.getRaised_user_id()));
-		ad.setComment_by_mk(encdec.decryptnew(advancePayload.getComment_by_mk()));
-		ad.setCommenyt_by_sh(encdec.decryptnew(advancePayload.getCommenyt_by_sh()));
-		ad.setTruck_number(encdec.decryptnew(advancePayload.getTruck_number()));
-		ad.setFrom_location(encdec.decryptnew(advancePayload.getFrom_location()));
-		ad.setTo_location(encdec.decryptnew(advancePayload.getTo_location()));
-		ad.setEnd_date_journey_expected(new SimpleDateFormat("dd/MM/yyyy").parse(encdec.decryptnew(advancePayload.getEnd_date_journey_expected())));
-		ad.setIfsc_code(encdec.decryptnew(advancePayload.getIfsc_code()));
-		ad.setApproval_status(encdec.decryptnew(advancePayload.getApproval_status()));
-		ad.setReturn_date_amount_expected(new SimpleDateFormat("dd/MM/yyyy").parse(encdec.decryptnew(advancePayload.getReturn_date_amount_expected())));
-		ad.setStart_date_journey(new SimpleDateFormat("dd/MM/yyyy").parse(encdec.decryptnew(advancePayload.getStart_date_journey())));
+		if(advancePayload.getApplicant_id()!=null) {
+		ad.setApplicant_id(encdec.decryptnew(advancePayload.getApplicant_id()));}
+		if(advancePayload.getAccount_no()!=null) {
+		ad.setAccount_no(encdec.decryptnew(advancePayload.getAccount_no()));}
+		if(advancePayload.getAdvance_amount()!=null) {
+		ad.setAdvance_amount(Float.parseFloat(encdec.decryptnew(advancePayload.getAdvance_amount())));}
+		if(advancePayload.getApproved_amount()!=null) {
+		ad.setApproved_amount((Float.parseFloat(encdec.decryptnew(advancePayload.getApproved_amount()))));}
+		if(advancePayload.getApproved_user_id()!=null) {
+		ad.setApproved_user_id(encdec.decryptnew(advancePayload.getApproved_user_id()));}
+		if(advancePayload.getRaised_user_id()!=null) {
+		ad.setRaised_user_id(encdec.decryptnew(advancePayload.getRaised_user_id()));}
+		if(advancePayload.getComment_by_mk()!=null) {
+		ad.setComment_by_mk(encdec.decryptnew(advancePayload.getComment_by_mk()));}
+		if(advancePayload.getCommenyt_by_sh()!=null) {
+		ad.setCommenyt_by_sh(encdec.decryptnew(advancePayload.getCommenyt_by_sh()));}
+		if(advancePayload.getTruck_number()!=null) {
+		ad.setTruck_number(encdec.decryptnew(advancePayload.getTruck_number()));}
+		if(advancePayload.getFrom_location()!=null) {
+		ad.setFrom_location(encdec.decryptnew(advancePayload.getFrom_location()));}
+		if(advancePayload.getTo_location()!=null) {
+		ad.setTo_location(encdec.decryptnew(advancePayload.getTo_location()));}
+		if(advancePayload.getEnd_date_journey_expected()!=null) {
+		ad.setEnd_date_journey_expected(new SimpleDateFormat("yyyy-MM-dd").parse(encdec.decryptnew(advancePayload.getEnd_date_journey_expected())));}
+		if(advancePayload.getIfsc_code()!=null) {
+		ad.setIfsc_code(encdec.decryptnew(advancePayload.getIfsc_code()));}
+		if(advancePayload.getApproval_status()!=null) {
+		ad.setApproval_status(encdec.decryptnew(advancePayload.getApproval_status()));}
+		if(advancePayload.getReturn_date_amount_expected()!=null) {
+		
+		//Date date=(new SimpleDateFormat("yyyy-MM-dd").parse(encdec.decryptnew(advancePayload.getReturn_date_amount_expected()));
+		ad.setReturn_date_amount_expected(new SimpleDateFormat("yyyy-MM-dd").parse(encdec.decryptnew(advancePayload.getReturn_date_amount_expected())));
+		}
+		if(advancePayload.getStart_date_journey()!=null) {
+		ad.setStart_date_journey(new SimpleDateFormat("yyyy-MM-dd").parse(encdec.decryptnew(advancePayload.getStart_date_journey())));
+		}
 		advanceRepo.save(ad);
 		response="Details Saved succefuly";
 		status="True";
@@ -77,7 +111,10 @@ public class AdvanceTrigerController {
 	@RequestMapping(value={"/getAlladvanceTrigger"}, method = RequestMethod.POST, 
 			produces= {MediaType.APPLICATION_JSON_VALUE})
 	public ResponseEntity<AdvanceTriggerResponse> GetAllAdvanceTriger( )
-	{HttpStatus httpstatus=null;
+	{
+		Log.info("advance requst api is called");
+
+		HttpStatus httpstatus=null;
 	String response="";
 	String status=null;
 	List<AdvanceRequest> list=new ArrayList<AdvanceRequest>();
@@ -124,5 +161,45 @@ public class AdvanceTrigerController {
 	return ResponseEntity.status(httpstatus).body(new AdvanceTriggerResponse(listenc,encdec.encryptnew(response),encdec.encryptnew(status)));	
 	}
 	
-}
 
+@RequestMapping(value={"/eKycfacematching"}, method = RequestMethod.POST, 
+produces= {MediaType.APPLICATION_JSON_VALUE})
+public ResponseEntity<GeneralResponse> eKyFaceMatching( @RequestBody ekycPayload ekycPaylaod){
+	
+HttpStatus httpstatus=null;
+String response1="";
+String status=null;
+	try {
+
+		OkHttpClient client = new OkHttpClient();
+		String url="10.2.0.4:5000";
+		String respstr = "";
+    
+       okhttp3.RequestBody formBody = new FormBody.Builder()
+               .add("query_1", ekycPaylaod.getPic1().toString())
+               .add("other_images",ekycPaylaod.getPic2().toString())
+                .add("method","Face_Matching")
+                .build();
+	
+       Request request = new Request.Builder().url(url).post(formBody).
+        		build();
+       
+        try (
+        	
+        		Response response = client.newCall(request).execute()) {
+        	//System.out.println("repsone isn post is "+response.body().string());
+        	respstr = response.body().string();
+        	System.out.println("respstr"+respstr);
+        	response1=respstr;
+            
+        } catch(Exception e) {
+        	System.out.println("expcetion is "+e.getMessage());
+        	
+        }}
+	catch (Exception e) {
+		
+	}
+        
+        return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response1),encdec.encryptnew(status)));	
+	}
+}

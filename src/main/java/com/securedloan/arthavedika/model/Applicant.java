@@ -86,6 +86,16 @@ public void setCompany_code(String company_code) {
 	private String aadhar_no;
 	private String pan_no;
 	private String account_no;
+	private String eligible_loan_amount;
+	
+	public String getEligible_loan_amount() {
+		return eligible_loan_amount;
+	}
+
+	public void setEligible_loan_amount(String eligible_loan_amount) {
+		this.eligible_loan_amount = eligible_loan_amount;
+	}
+
 	public String getSpouse_name() {
 		return spouse_name;
 	}
