@@ -1,9 +1,15 @@
 package com.securedloan.arthavedika.controller;
-import com.securedloan.arthavedika.model.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.text.SimpleDateFormat;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.jfree.util.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,24 +24,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.EncryptionDecryptionClass;
+import com.securedloan.arthavedika.model.AdvanceRequest;
 import com.securedloan.arthavedika.payload.AdvanceRequestPayload;
 import com.securedloan.arthavedika.payload.ekycPayload;
 import com.securedloan.arthavedika.repo.AdvanceRequestRepo;
 import com.securedloan.arthavedika.response.AdvanceTriggerResponse;
-import com.securedloan.arthavedika.response.FindAllApplicant;
-import com.securedloan.arthavedika.response.GeneralResponse;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import okhttp3.*;
-
-import java.io.File;
-import java.io.IOException;
-import java.util.Properties;
-
-import com.google.gson.Gson;
-import com.google.gson.JsonParser;
-
+import com.securedloan.arthavedika.response.GeneralResponse; 
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.client.*;
+import org.apache.http.client.methods.*;
 @CrossOrigin()
 @RestController
 @RequestMapping("/borrower")
@@ -162,6 +159,7 @@ public class AdvanceTrigerController {
 	}
 	
 
+@SuppressWarnings("static-access")
 @RequestMapping(value={"/eKycfacematching"}, method = RequestMethod.POST, 
 produces= {MediaType.APPLICATION_JSON_VALUE})
 public ResponseEntity<GeneralResponse> eKyFaceMatching( @RequestBody ekycPayload ekycPaylaod){
@@ -169,15 +167,16 @@ public ResponseEntity<GeneralResponse> eKyFaceMatching( @RequestBody ekycPayload
 HttpStatus httpstatus=null;
 String response1="";
 String status=null;
+String url="10.2.0.4:5000";
 	try {
 
-		OkHttpClient client = new OkHttpClient();
+		/*OkHttpClient client = new OkHttpClient();
 		String url="10.2.0.4:5000";
 		String respstr = "";
-    
-       okhttp3.RequestBody formBody = new FormBody.Builder()
-               .add("query_1", ekycPaylaod.getPic1().toString())
-               .add("other_images",ekycPaylaod.getPic2().toString())
+	
+       okhttp3.RequestBody requestBody = new RequestBody.Builder()
+               .add("query_1", ekycPaylaod.getPic1())
+               .add("other_images",ekycPaylaod.getPic2())
                 .add("method","Face_Matching")
                 .build();
 	
@@ -187,17 +186,40 @@ String status=null;
         try (
         	
         		Response response = client.newCall(request).execute()) {
-        	//System.out.println("repsone isn post is "+response.body().string());
+        	
         	respstr = response.body().string();
         	System.out.println("respstr"+respstr);
         	response1=respstr;
             
         } catch(Exception e) {
         	System.out.println("expcetion is "+e.getMessage());
-        	
-        }}
+        
+        	response1="exception in face matching"+e.getMessage();
+        	Log.info(response1);
+        }*/
+		//OkHttpClient client = new OkHttpClient();
+
+		/*MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+		builder.addTextBody("method", "Face_matching", ContentType.TEXT_PLAIN);
+		builder.addBinaryBody("query_1",ekycPaylaod.getPic1());
+		builder.addBinaryBody("other_images", ekycPaylaod.getPic2());*/
+		HttpEntity entity = MultipartEntityBuilder.create()
+				.addBinaryBody("query_1",ekycPaylaod.getPic1())
+				.addBinaryBody("other_images", ekycPaylaod.getPic2())
+				.addTextBody("method", "Face_matching")
+				.build();
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+	HttpPost httpPost = new HttpPost(url);
+	httpPost.setEntity(entity);
+	HttpResponse response= httpclient.execute(httpPost);
+		HttpEntity result = response.getEntity();
+		response1=EntityUtils.toString(result);
+		//respstr = response.body().string();
+    	System.out.println("response is"+response1);
+    
+        }
 	catch (Exception e) {
-		
+		Log.error("error in face matching");
 	}
         
         return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response1),encdec.encryptnew(status)));	
