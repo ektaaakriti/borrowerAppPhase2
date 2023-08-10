@@ -572,7 +572,7 @@ public class UserController {
 		String status=null;
 		
 		try {
-		User users =  userRepo.findUserByUser_Id(encdec.encryptnew(addmodifyUserPayload.getUser_id()));
+		User users =  userRepo.findUserByUser_Id(encdec.decryptnew(addmodifyUserPayload.getUser_id()));
 			if (users==null) {
 				User usr=new User();
 				usr.setFirstname(encdec.decryptnew(addmodifyUserPayload.getFirstname()));

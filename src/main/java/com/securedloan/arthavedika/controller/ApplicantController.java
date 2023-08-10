@@ -1,6 +1,7 @@
 package com.securedloan.arthavedika.controller;
 
 import java.time.LocalDate;
+import com.securedloan.arthavedika.payload.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.securedloan.arthavedika.EncryptionDecryptionClass;
 import com.securedloan.arthavedika.model.Applicant;
 import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.model.DocEkyc;
@@ -35,11 +37,14 @@ import com.securedloan.arthavedika.model.PsyAns;
 import com.securedloan.arthavedika.model.PsyQstn;
 import com.securedloan.arthavedika.model.User;
 import com.securedloan.arthavedika.payload.GetApplicantPayload;
+import com.securedloan.arthavedika.payload.UserPayload;
+import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.PsyAnsRepo;
 import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.ApplicantInfo1;
 import com.securedloan.arthavedika.response.ApplicantInfos;
+import com.securedloan.arthavedika.response.ApprovedApplicantResponse;
 import com.securedloan.arthavedika.response.GroupResponse;
 //import com.securedloan.arthavedika.response.Prediction;
 import com.securedloan.arthavedika.response.Response;
@@ -55,6 +60,9 @@ import com.securedloan.arthavedika.service.GroupDataService;
 @RequestMapping("applicant")
 public class ApplicantController {
 	private final Logger LOGGER = LoggerFactory.getLogger(ApplicantController.class);
+	EncryptionDecryptionClass encdec=new EncryptionDecryptionClass();
+	@Autowired
+	ApplicantRepository appRepo;
 	@Autowired
 	CompanyRepo companyRepo;
 	@PersistenceContext
@@ -136,6 +144,64 @@ public class ApplicantController {
 			LOGGER.error("Error While retrive the Applicant" + e.getMessage());
 			return ResponseEntity.badRequest().body(new ApplicantInfos(e.getMessage(), Boolean.FALSE,new Applicant()));
 
+		}}
+		@RequestMapping(value = { "/GetApprovedApplicant" }, method = RequestMethod.POST, produces = {
+				MediaType.APPLICATION_JSON_VALUE })
+		@ResponseStatus(value = HttpStatus.OK)
+		public ResponseEntity<com.securedloan.arthavedika.response.ApprovedApplicantResponse> GetApprovedApplicant(@RequestBody UserPayload usrPayload) {
+			LOGGER.info("get  user  by id api has been called !!! Start Of Method get  user by id");
+			
+			HttpStatus httpstatus=null;
+			String response="";
+			String status=null;
+			
+			List<ApprovedApplicantList> applicant= new ArrayList<ApprovedApplicantList>();
+			
+			try {
+			 List<Applicant> app=appRepo.AllApprovedAppplicat(encdec.decryptnew(usrPayload.getUser_id()));
+			
+				if (app==null) {
+					
+				response="Approved applicant details not available"	;
+				}
+				else
+				{
+					int i=0;
+					for( Applicant apps:app) {
+							ApprovedApplicantList userss= new ApprovedApplicantList();
+							if(app.get(i).getApplicant_firstname()!=null) {
+							
+						userss.setApplicant_firstname(encdec.encryptnew( app.get(i).getApplicant_firstname()));}
+							if(((Applicant) app).getApplicant_lastname()!=null) {
+								
+						userss.setApplicant_lastname(encdec.encryptnew( app.get(i).getApplicant_lastname()));}
+							if( app.get(i).getApplicant_email_id()!=null) {
+								userss.setApplicant_email_id(encdec.encryptnew("NA"));
+							}else {
+						userss.setApplicant_email_id(encdec.encryptnew(app.get(i).getApplicant_email_id()));}
+							if(((Applicant) app).getApplicant_mobile_no()!=null) {
+								
+						userss.setApplicant_mobile_no(encdec.encryptnew( app.get(i).getApplicant_mobile_no()));}
+							String applicant_id=String.valueOf(app.get(i).getApplicant_id());
+							userss.setApplicant_id(encdec.encryptnew(applicant_id));
+					applicant.add(i, userss);
+					i++;
+					}
+					response="Approved Applicant detail is retrieved successfully";
+					
+				}
+				status="true";
+				httpstatus=HttpStatus.OK;
+				}
+						
+			catch (Exception e) {
+				LOGGER.error("Error While retreiving user" + e.getMessage());
+				response="Error While retreiving  user" + e.getMessage();
+				status="false";
+				httpstatus=HttpStatus.BAD_REQUEST;
+			}
+			return ResponseEntity.status(httpstatus).body(new ApprovedApplicantResponse
+					(applicant,encdec.encryptnew(response),encdec.encryptnew(status)));
 		}
 
 	}
@@ -678,4 +744,3 @@ public class ApplicantController {
 
 	}*/
 
-}

@@ -29,6 +29,8 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
 	@Query("SELECT a FROM Applicant a  ")
 	public List<Applicant> findAllApplicant();
+	@Query("select a from Applicant a where SH_approval='Y' and user_id_str=?1")
+	List<Applicant> AllApprovedAppplicat(String user_id_str);
 	
 @Transactional
 @Modifying(clearAutomatically = false) 
