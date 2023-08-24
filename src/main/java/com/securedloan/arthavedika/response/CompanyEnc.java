@@ -43,6 +43,7 @@ public String getCompnay_address() {
 public void setCompnay_address(String compnay_address) {
 	this.compnay_address = compnay_address;
 }
-
-
 }
+
+
+

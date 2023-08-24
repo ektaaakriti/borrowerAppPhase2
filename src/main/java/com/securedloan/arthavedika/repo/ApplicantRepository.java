@@ -29,9 +29,26 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 
 	@Query("SELECT a FROM Applicant a  ")
 	public List<Applicant> findAllApplicant();
-	@Query("select a from Applicant a where SH_approval='Y' and user_id_str=?1")
-	List<Applicant> AllApprovedAppplicat(String user_id_str);
-	
+	@Query("select a from Applicant a where SH_approval='Y' ")
+	List<Applicant> AllApprovedAppplicat();
+	@Transactional
+	@Modifying
+	@Query("update Applicant a set a.vehicle_no=?1,a.company_name=?2,a.applicant_firstname=?3,a.applicant_date_of_birth=?4,a.age=?5,maritalstatus=?6,"
+			+ "a.nominee_name=?7,a.nominee_dob=?8,a.nominee_age=?9,a.nominee_relation=?10,a.spouse_name=?11,a.applicant_father_firstname=?12,a.religion=?13,a.applicant_qualification=?14,"
+			+ "a.applicant_employment_type=?15,a.applicant_address_line_1=?16,a.applicant_city_name=?17,a.applicant_PIN=?18,"
+			+ "a.applicant_mobile_no=?19,a.no_of_family_member=?20,a.no_of_earning_member=?21,a.house_type=?22,	a.ration_card=?23,a.medical_insurance=?24,"
+			+ "a.current_loan_outstanding_principal=?25,a.current_loan_outstanding_interest=?26,a.applicant_income=?27"
+			+ ",a.income_from_other_sources=?28,a.food_expenses=?29,a.houserent=?30,a.house_renovation_expenses=?31,"
+			+ "a.total_monthly_bill_payment=?32,a.applicant_expense_monthly=?33,a.updated_by=?34,a.datamoddt=?35 where applicant_id=?36")
+	public void updateTruckersDetails(String vehicle_no,String company_name,String applicant_firstname,Date applicant_date_of_birth ,int age,
+			String maritalstatus,String nominee_name,Date nominee_dob,int nominee_age,String nominee_relation,String spouse_name,
+			String applicant_father_firstname,String religion,String applicant_qualification,String applicant_employment_type,
+			String applicant_address_line_1,String applicant_city_name,int applicant_pin, Long applicant_mobile_no,
+			int no_of_family_member,int no_of_earning_member,String house_type,String Ration_Card,
+			String medical_insurance,Float current_loan_outstanding_principal,Float current_loan_outstanding_interest,
+			Float applicant_income,Float income_from_other_sources,Float food_expenses,Float houserent,
+			Float house_renovation_expenses,Float total_monthly_bill_payment,Float applicant_expense_monthly,String created_by, Date datamoddt,
+			Long applicant_id);
 @Transactional
 @Modifying(clearAutomatically = false) 
 	@Query("update Applicant a set a.AV_approval=?1, a.authorisation_status=1, a.av_approval_date=?2 where a.applicant_id=?3")

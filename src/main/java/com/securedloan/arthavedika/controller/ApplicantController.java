@@ -1,5 +1,7 @@
 package com.securedloan.arthavedika.controller;
 
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import com.securedloan.arthavedika.payload.*;
 import java.util.ArrayList;
@@ -45,6 +47,7 @@ import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.ApplicantInfo1;
 import com.securedloan.arthavedika.response.ApplicantInfos;
 import com.securedloan.arthavedika.response.ApprovedApplicantResponse;
+import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.GroupResponse;
 //import com.securedloan.arthavedika.response.Prediction;
 import com.securedloan.arthavedika.response.Response;
@@ -148,7 +151,7 @@ public class ApplicantController {
 		@RequestMapping(value = { "/GetApprovedApplicant" }, method = RequestMethod.POST, produces = {
 				MediaType.APPLICATION_JSON_VALUE })
 		@ResponseStatus(value = HttpStatus.OK)
-		public ResponseEntity<com.securedloan.arthavedika.response.ApprovedApplicantResponse> GetApprovedApplicant(@RequestBody UserPayload usrPayload) {
+		public ResponseEntity<com.securedloan.arthavedika.response.ApprovedApplicantResponse> GetApprovedApplicant() {
 			LOGGER.info("get  user  by id api has been called !!! Start Of Method get  user by id");
 			
 			HttpStatus httpstatus=null;
@@ -158,38 +161,58 @@ public class ApplicantController {
 			List<ApprovedApplicantList> applicant= new ArrayList<ApprovedApplicantList>();
 			
 			try {
-			 List<Applicant> app=appRepo.AllApprovedAppplicat(encdec.decryptnew(usrPayload.getUser_id()));
-			
+			 List<Applicant> app=appRepo.AllApprovedAppplicat();
+			System.out.println("details retrived successfully");
 				if (app==null) {
 					
 				response="Approved applicant details not available"	;
 				}
 				else
 				{
+					System.out.println("encyption of list");
 					int i=0;
-					for( Applicant apps:app) {
+					for(i=0;i<app.size();i++) {
+						System.out.println("for loop");
 							ApprovedApplicantList userss= new ApprovedApplicantList();
 							if(app.get(i).getApplicant_firstname()!=null) {
-							
-						userss.setApplicant_firstname(encdec.encryptnew( app.get(i).getApplicant_firstname()));}
-							if(((Applicant) app).getApplicant_lastname()!=null) {
-								
-						userss.setApplicant_lastname(encdec.encryptnew( app.get(i).getApplicant_lastname()));}
+								System.out.println("dummy21");
+						//userss.setApplicant_firstname(encdec.encryptnew( app.get(i).getApplicant_firstname()));
+								userss.setApplicant_firstname(app.get(i).getApplicant_firstname());
+						System.out.println("dummy22");}
+							if(app.get(i).getApplicant_lastname()!=null) {
+								System.out.println("dummy25");	
+						//userss.setApplicant_lastname(encdec.encryptnew( app.get(i).getApplicant_lastname()));
+								userss.setApplicant_lastname(app.get(i).getApplicant_lastname());
+						System.out.println("dummy26");}
 							if( app.get(i).getApplicant_email_id()!=null) {
-								userss.setApplicant_email_id(encdec.encryptnew("NA"));
-							}else {
-						userss.setApplicant_email_id(encdec.encryptnew(app.get(i).getApplicant_email_id()));}
-							if(((Applicant) app).getApplicant_mobile_no()!=null) {
-								
-						userss.setApplicant_mobile_no(encdec.encryptnew( app.get(i).getApplicant_mobile_no()));}
+								System.out.println("dummy27");
+							
+								System.out.println("dummy28");
+							
+						//userss.setApplicant_email_id(encdec.encryptnew(app.get(i).getApplicant_email_id()));
+								userss.setApplicant_email_id(app.get(i).getApplicant_email_id());
+						System.out.println("dummy29");}
+							if(app.get(i).getApplicant_mobile_no()!=null) {
+								System.out.println("dummy210");	
+						//userss.setApplicant_mobile_no(encdec.encryptnew( app.get(i).getApplicant_mobile_no()));
+								userss.setApplicant_mobile_no(app.get(i).getApplicant_mobile_no());
+						System.out.println("dummy211");}
 							String applicant_id=String.valueOf(app.get(i).getApplicant_id());
-							userss.setApplicant_id(encdec.encryptnew(applicant_id));
-					applicant.add(i, userss);
-					i++;
+							System.out.println("dummy212");
+							//userss.setApplicant_id(encdec.encryptnew(applicant_id));
+							userss.setApplicant_id(applicant_id);
+							System.out.println("dummy213");
+							System.out.println("dummy24"+userss.getApplicant_email_id());
+							applicant.add(i, userss);
+					//applicant.add(i, userss);
+					System.out.println("dummy1");
+					//i++;
 					}
+					System.out.println("dummy2");
 					response="Approved Applicant detail is retrieved successfully";
 					
 				}
+				System.out.println("dummy3");
 				status="true";
 				httpstatus=HttpStatus.OK;
 				}
@@ -201,10 +224,10 @@ public class ApplicantController {
 				httpstatus=HttpStatus.BAD_REQUEST;
 			}
 			return ResponseEntity.status(httpstatus).body(new ApprovedApplicantResponse
-					(applicant,encdec.encryptnew(response),encdec.encryptnew(status)));
+					(applicant,(response),(status)));
 		}
 
-	}
+	
 /*
 	@RequestMapping(value = { "/register/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -743,4 +766,130 @@ public class ApplicantController {
 		}
 
 	}*/
+@RequestMapping(value = { "/modifyTruckersDetails/v1" }, method = RequestMethod.POST, produces = {
+		MediaType.APPLICATION_JSON_VALUE })
+@ResponseStatus(value = HttpStatus.OK)
+public ResponseEntity<GeneralResponse> modifyTruckersDetail(@RequestBody UpdateTruckersDetails updateTruckersDetails) {
+	LOGGER.info("Modify Applicant api has been called !!! Start Of Method Modify Applicant");
+	HttpStatus httpstatus=null;
+	String response="";
+	String status=null;
+	try {String vehicle_no=null;String company_name=null; String applicant_firstname=null;
+	
+	Date applicant_date_of_birth =null; int age=0; 
+	
+		String maritalstatus=null; String nominee_name=null; Date nominee_dob=null; int nominee_age=0;
+		String nominee_relation=null; String spouse_name=null; 
+		String applicant_father_firstname=null; String religion=null; String applicant_qualification=null; String applicant_employment_type=null; 
+		String applicant_address_line_1=null; String applicant_city_name=null; int applicant_pin=0;
+		Long applicant_mobile_no=null; 
+		int no_of_family_member=0;
+		int no_of_earning_member=0; String house_type=null; String Ration_Card=null; 
+		String medical_insurance=null; Float current_loan_outstanding_principal=null;
+		Float current_loan_outstanding_interest=null; 
+		Float applicant_income=null; Float income_from_other_sources=null; Float food_expenses=null; Float houserent=null; 
+		Float house_renovation_expenses=null; Float total_monthly_bill_payment=null; Float applicant_expense_monthly=null; 
+		Long applicant_id=null;
+		String updated_by=null;
+		Date datamoddt=new Date();
+		  SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+		if(!updateTruckersDetails.getVehicle_no().isEmpty()) {
+	 vehicle_no=encdec.decryptnew(updateTruckersDetails.getVehicle_no());}
+		
+		if(!updateTruckersDetails.getCompany_name().isEmpty())
+		{ company_name=encdec.decryptnew(updateTruckersDetails.getCompany_name());}
+		
+		if(!updateTruckersDetails.getApplicant_firstname().isEmpty())
+		{ applicant_firstname=encdec.decryptnew(updateTruckersDetails.getApplicant_firstname());}
+	
+	if(!updateTruckersDetails.getApplicant_date_of_birth().isEmpty()) {
+		String applicant=encdec.decryptnew(updateTruckersDetails.getApplicant_date_of_birth()) ;
+		 applicant_date_of_birth = sdf1.parse(applicant);
+	}
+	
+	if(!updateTruckersDetails.getAge().isEmpty()) {
+		 age=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getAge()));}
+	if(!updateTruckersDetails.getMaritalstatus().isEmpty()) {
+		 maritalstatus=encdec.decryptnew(updateTruckersDetails.getMaritalstatus());}
+	
+	if(!updateTruckersDetails.getNominee_name().isEmpty())
+		{ nominee_name=encdec.decryptnew(updateTruckersDetails.getNominee_name());}
+	if(!updateTruckersDetails.getNominee_dob().isEmpty())
+		{String dob=encdec.decryptnew(updateTruckersDetails.getNominee_dob());
+		 nominee_dob=sdf1.parse(dob);
+		}
+	if(!updateTruckersDetails.getNominee_age().isEmpty())
+	{ nominee_age=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNominee_age()));}				
+		if(!updateTruckersDetails.getNominee_relation().isEmpty() ) {
+			nominee_relation=encdec.decryptnew(updateTruckersDetails.getNominee_relation());
+		}
+		if(!updateTruckersDetails.getSpouse_name().isEmpty())
+		{spouse_name=encdec.decryptnew(updateTruckersDetails.getSpouse_name());}
+		if(!updateTruckersDetails.getApplicant_father_firstname().isEmpty())
+			applicant_father_firstname=encdec.decryptnew(updateTruckersDetails.getApplicant_father_firstname());
+		if(!updateTruckersDetails.getReligion().isEmpty())
+		{religion=encdec.decryptnew(updateTruckersDetails.getReligion());}
+	if(!updateTruckersDetails.getApplicant_qualification().isEmpty()) {
+		applicant_qualification=encdec.decryptnew(updateTruckersDetails.getApplicant_qualification());}
+	if(!updateTruckersDetails.getApplicant_employment_type().isEmpty())	{
+	applicant_employment_type=encdec.decryptnew(updateTruckersDetails.getApplicant_employment_type());}
+	if(!updateTruckersDetails.getApplicant_address_line_1().isEmpty()) {
+	 applicant_address_line_1=encdec.decryptnew(updateTruckersDetails.getApplicant_address_line_1());}
+	if(!updateTruckersDetails.getApplicant_city_name().isEmpty()) {
+		 applicant_city_name=encdec.decryptnew(updateTruckersDetails.getApplicant_city_name());}
+	if(!updateTruckersDetails.getApplicant_pin().isEmpty()) {
+		 applicant_pin=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getApplicant_pin()));}
+	if(!updateTruckersDetails.getApplicant_mobile_no().isEmpty()) {
+		 applicant_mobile_no=Long.parseLong(encdec.decryptnew(updateTruckersDetails.getApplicant_mobile_no()));}
+	if(!updateTruckersDetails.getNo_of_family_member().isEmpty()) {
+		 no_of_family_member=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNo_of_family_member()));}
+	if(!updateTruckersDetails.getNo_of_earning_member().isEmpty()) {
+		no_of_earning_member=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNo_of_earning_member()));}
+	if(!updateTruckersDetails.getHouse_type().isEmpty()) {
+		house_type=encdec.decryptnew(updateTruckersDetails.getHouse_type());}
+	if(!updateTruckersDetails.getRation_Card().isEmpty()) {	
+	Ration_Card=encdec.decryptnew(updateTruckersDetails.getRation_Card());}
+	if(!updateTruckersDetails.getMedical_insurance().isEmpty()) {
+	medical_insurance=encdec.decryptnew(updateTruckersDetails.getMedical_insurance());}
+	if(!updateTruckersDetails.getCurrent_loan_outstanding_principal().isEmpty()) {
+		 current_loan_outstanding_principal=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_principal()));}
+	if(!updateTruckersDetails.getCurrent_loan_outstanding_Stringerest().isEmpty()) {	
+	 current_loan_outstanding_interest=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_Stringerest()));}
+	if(!updateTruckersDetails.getApplicant_income().isEmpty())	{
+	applicant_income=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getApplicant_income()));}
+	if(!updateTruckersDetails.getIncome_from_other_sources().isEmpty()) {
+		income_from_other_sources=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getIncome_from_other_sources()));}
+	if(!updateTruckersDetails.getFood_expenses().isEmpty())	{
+	food_expenses=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getFood_expenses()));}
+	if(!updateTruckersDetails.getHouserent().isEmpty()) {
+		 houserent=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getHouserent()));}
+	if(!updateTruckersDetails.getHouse_renovation_expenses().isEmpty()) {
+	 house_renovation_expenses=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getHouse_renovation_expenses()));}
+	if(!updateTruckersDetails.getTotal_monthly_bill_payment().isEmpty()) {
+		 total_monthly_bill_payment=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getTotal_monthly_bill_payment()));}
+	if(!updateTruckersDetails.getApplicant_expense_monthly().isEmpty()) {
+		 applicant_expense_monthly=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getApplicant_expense_monthly()));}
+	if(!updateTruckersDetails.getApplicant_id().isEmpty()) {
+	 applicant_id=Long.parseLong(encdec.decryptnew(updateTruckersDetails.getApplicant_id()));
+	 }
+	if(!updateTruckersDetails.getUpdated_by().isEmpty()) {
+		updated_by=encdec.decryptnew(updateTruckersDetails.getUpdated_by());
+	}
+	 appRepo.updateTruckersDetails(vehicle_no,company_name,applicant_firstname,applicant_date_of_birth,age,maritalstatus,nominee_name,nominee_dob,nominee_age,nominee_relation,spouse_name,applicant_father_firstname,religion,applicant_qualification,applicant_employment_type,applicant_address_line_1,applicant_city_name,applicant_pin,applicant_mobile_no,no_of_family_member,no_of_earning_member,house_type,	Ration_Card,medical_insurance,current_loan_outstanding_principal,current_loan_outstanding_interest,applicant_income,income_from_other_sources,food_expenses,houserent,house_renovation_expenses,total_monthly_bill_payment,applicant_expense_monthly,updated_by,datamoddt,applicant_id);    
+	  httpstatus=HttpStatus.OK;
+		 response="updated successfully";
+		 status="true";	
+	} catch (Exception e) {
+		 httpstatus=HttpStatus.BAD_REQUEST;
+		 response="error in updation";
+		 status="false";	
+		LOGGER.error("Error While updating the truckers Applicant" + e.getMessage());
+	
+
+	}
+	return ResponseEntity.status(httpstatus)
+			.body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
+}
+}
+
 

@@ -29,7 +29,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Applicant {
 
 	private @GeneratedValue(strategy = GenerationType.AUTO, generator = "port_gen") @Id @NotNull long applicant_id;
-	// @OneToOne(cascade = CascadeType.ALL,orphanRemoval = true)
+	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
@@ -136,6 +136,17 @@ public void setCompany_code(String company_code) {
 
 	// latest added fields
 	private boolean submited;
+	private String ration_card;
+	public String getRation_card() {
+		return ration_card;
+	}
+
+	public void setRation_card(String ration_card) {
+		this.ration_card = ration_card;
+	}
+
+
+
 	private  @NotNull int no_of_family_member;
 	private  @NotNull int no_of_earning_member;
 	private  @NotNull int no_of_children;
@@ -217,6 +228,114 @@ public void setCompany_code(String company_code) {
 	private Date av_approval_date;
 	private Date mk_approval_date;
 	private Date sh_approval_date;
+	int age;
+	String religion;
+	Date nominee_dob;
+	String nominee_name;
+	String nominee_relation;
+	int nominee_age;
+	Float total_monthly_bill_payment;
+	String medical_insurance;
+	Float current_loan_outstanding_principal;
+	String vehicle_no;
+	Float income_from_other_sources;
+	Float current_loan_outstanding_interest;
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public String getReligion() {
+		return religion;
+	}
+
+	public void setReligion(String religion) {
+		this.religion = religion;
+	}
+
+	public Date getNominee_dob() {
+		return nominee_dob;
+	}
+
+	public void setNominee_dob(Date nominee_dob) {
+		this.nominee_dob = nominee_dob;
+	}
+
+	public String getNominee_name() {
+		return nominee_name;
+	}
+
+	public void setNominee_name(String nominee_name) {
+		this.nominee_name = nominee_name;
+	}
+
+	public String getNominee_relation() {
+		return nominee_relation;
+	}
+
+	public void setNominee_relation(String nominee_relation) {
+		this.nominee_relation = nominee_relation;
+	}
+
+	public int getNominee_age() {
+		return nominee_age;
+	}
+
+	public void setNominee_age(int nominee_age) {
+		this.nominee_age = nominee_age;
+	}
+
+	public Float getTotal_monthly_bill_payment() {
+		return total_monthly_bill_payment;
+	}
+
+	public void setTotal_monthly_bill_payment(Float total_monthly_bill_payment) {
+		this.total_monthly_bill_payment = total_monthly_bill_payment;
+	}
+
+	public String getMedical_insurance() {
+		return medical_insurance;
+	}
+
+	public void setMedical_insurance(String medical_insurance) {
+		this.medical_insurance = medical_insurance;
+	}
+
+	public Float getCurrent_loan_outstanding_principal() {
+		return current_loan_outstanding_principal;
+	}
+
+	public void setCurrent_loan_outstanding_principal(Float current_loan_outstanding_principal) {
+		this.current_loan_outstanding_principal = current_loan_outstanding_principal;
+	}
+
+	public String getVehicle_no() {
+		return vehicle_no;
+	}
+
+	public void setVehicle_no(String vehicle_no) {
+		this.vehicle_no = vehicle_no;
+	}
+
+	public Float getIncome_from_other_sources() {
+		return income_from_other_sources;
+	}
+
+	public void setIncome_from_other_sources(Float income_from_other_sources) {
+		this.income_from_other_sources = income_from_other_sources;
+	}
+
+	public Float getCurrent_loan_outstanding_interest() {
+		return current_loan_outstanding_interest;
+	}
+
+	public void setCurrent_loan_outstanding_interest(Float current_loan_outstanding_interest) {
+		this.current_loan_outstanding_interest = current_loan_outstanding_interest;
+	}
+
 	public Date getAv_approval_date() {
 		return av_approval_date;
 	}
@@ -251,21 +370,25 @@ public void setCompany_code(String company_code) {
 	
  
 
+
+	String created_by;
+	String updated_by;
 	public Applicant(@NotNull long applicant_id, User user, @NotNull String userIdStr, @NotNull String loanAmount,
 			@NotNull String purposeOfLoan, @NotNull long groupId, boolean anygroup, boolean published,
 			String spouse_name, String mother_name, String aadhar_no, String pan_no, String account_no,
-			@NotNull LocalDate dataentdt, @NotNull LocalDate datamoddt, @NotNull String applicant_address_line_1,
-			@NotNull String applicant_address_line_2, @NotNull String applicant_address_line_3,
-			@NotNull String applicant_state, @NotNull long applicant_PIN, @NotNull String applicant_firstname,
-			@NotNull String applicant_middle_name, @NotNull String applicant_lastname,
-			@NotNull String applicant_email_id, @NotNull String applicant_mobile_no,
+			String eligible_loan_amount, @NotNull LocalDate dataentdt, @NotNull LocalDate datamoddt,
+			@NotNull String applicant_address_line_1, @NotNull String applicant_address_line_2,
+			@NotNull String applicant_address_line_3, @NotNull String applicant_state, @NotNull long applicant_PIN,
+			@NotNull String applicant_firstname, @NotNull String applicant_middle_name,
+			@NotNull String applicant_lastname, @NotNull String applicant_email_id, @NotNull String applicant_mobile_no,
 			@NotNull String applicant_family_mobile_no, @NotNull Date applicant_date_of_birth, @NotNull String gender,
 			@NotNull String applicant_father_firstname, @NotNull String applicant_father_middle_name,
 			@NotNull String applicant_father_lastname, @NotNull String applicant_city_name, boolean submited,
-			@NotNull int no_of_family_member, @NotNull int no_of_earning_member, @NotNull int no_of_children,
-			@NotNull int no_of_children_studying, @NotNull String education_expenses_on_children,
-			@NotNull int no_of_sick_members, boolean family_covered_under_aayushman_or_similar_scheme,
-			boolean applicant_alcoholic, boolean applicant_tobacco_smoking_or_chewing, @NotNull String friend1_name,
+			String ration_card, @NotNull int no_of_family_member, @NotNull int no_of_earning_member,
+			@NotNull int no_of_children, @NotNull int no_of_children_studying,
+			@NotNull String education_expenses_on_children, @NotNull int no_of_sick_members,
+			boolean family_covered_under_aayushman_or_similar_scheme, boolean applicant_alcoholic,
+			boolean applicant_tobacco_smoking_or_chewing, @NotNull String friend1_name,
 			@NotNull String friend1_mobile_no, @NotNull String friend1_job, @NotNull String friend2_name,
 			@NotNull String friend2_mobile_no, @NotNull String friend2_job, @NotNull String house_locality,
 			@NotNull String house_rent_type, @NotNull String house_type, boolean applicant_agr_land_owned,
@@ -293,8 +416,12 @@ public void setCompany_code(String company_code) {
 			@NotNull float transport_expenses, @NotNull float clothing_expenses,
 			@NotNull float house_renovation_expenses, @NotNull float functions_expenses,
 			@NotNull float land_area_inacres, @NotNull String appl_main_income_src, @NotNull String aV_approval,
-			@NotNull String mK_approval, @NotNull String sH_approval, @NotNull int authorisation_status,
-			@NotNull String company_name, @NotNull String company_code, boolean psycho_page, String prediciton,
+			@NotNull String mK_approval, @NotNull String sH_approval, Date av_approval_date, Date mk_approval_date,
+			Date sh_approval_date, int age, String religion, Date nominee_dob, String nominee_name,
+			String nominee_relation, int nominee_age, Float total_monthly_bill_payment, String medical_insurance,
+			Float current_loan_outstanding_principal, String vehicle_no, Float income_from_other_sources,
+			Float current_loan_outstanding_interest, @NotNull int authorisation_status, @NotNull String company_name,
+			@NotNull String company_code, String created_by, String updated_by, boolean psycho_page, String prediciton,
 			String latitude, String longitude, List<PsyAns> psyAns, boolean is_having_cell) {
 		super();
 		this.applicant_id = applicant_id;
@@ -310,6 +437,7 @@ public void setCompany_code(String company_code) {
 		this.aadhar_no = aadhar_no;
 		this.pan_no = pan_no;
 		this.account_no = account_no;
+		this.eligible_loan_amount = eligible_loan_amount;
 		this.dataentdt = dataentdt;
 		this.datamoddt = datamoddt;
 		this.applicant_address_line_1 = applicant_address_line_1;
@@ -330,6 +458,7 @@ public void setCompany_code(String company_code) {
 		this.applicant_father_lastname = applicant_father_lastname;
 		this.applicant_city_name = applicant_city_name;
 		this.submited = submited;
+		this.ration_card = ration_card;
 		this.no_of_family_member = no_of_family_member;
 		this.no_of_earning_member = no_of_earning_member;
 		this.no_of_children = no_of_children;
@@ -408,9 +537,26 @@ public void setCompany_code(String company_code) {
 		AV_approval = aV_approval;
 		MK_approval = mK_approval;
 		SH_approval = sH_approval;
+		this.av_approval_date = av_approval_date;
+		this.mk_approval_date = mk_approval_date;
+		this.sh_approval_date = sh_approval_date;
+		this.age = age;
+		this.religion = religion;
+		this.nominee_dob = nominee_dob;
+		this.nominee_name = nominee_name;
+		this.nominee_relation = nominee_relation;
+		this.nominee_age = nominee_age;
+		this.total_monthly_bill_payment = total_monthly_bill_payment;
+		this.medical_insurance = medical_insurance;
+		this.current_loan_outstanding_principal = current_loan_outstanding_principal;
+		this.vehicle_no = vehicle_no;
+		this.income_from_other_sources = income_from_other_sources;
+		this.current_loan_outstanding_interest = current_loan_outstanding_interest;
 		this.authorisation_status = authorisation_status;
 		this.company_name = company_name;
 		this.company_code = company_code;
+		this.created_by = created_by;
+		this.updated_by = updated_by;
 		this.psycho_page = psycho_page;
 		this.prediciton = prediciton;
 		this.latitude = latitude;
@@ -420,6 +566,22 @@ public void setCompany_code(String company_code) {
 	}
 
 	// ends here
+
+	public String getCreated_by() {
+		return created_by;
+	}
+
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+
+	public String getUpdated_by() {
+		return updated_by;
+	}
+
+	public void setUpdated_by(String updated_by) {
+		this.updated_by = updated_by;
+	}
 
 	public int getAuthorisation_status() {
 		return authorisation_status;
