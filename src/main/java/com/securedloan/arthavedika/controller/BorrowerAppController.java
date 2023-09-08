@@ -3,7 +3,7 @@ package com.securedloan.arthavedika.controller;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+import com.securedloan.arthavedika.model.Applicant_approval_details;
 import javax.validation.Valid;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +36,7 @@ import com.securedloan.arthavedika.payload.Dashboard;
 import com.securedloan.arthavedika.payload.DashboardRequest;
 import com.securedloan.arthavedika.payload.FindAllApplicantPagination;
 import com.securedloan.arthavedika.payload.FindAllApplicantPayload;
+import com.securedloan.arthavedika.repo.ApplicantApprovalDetailsRepo;
 import com.securedloan.arthavedika.repo.ApplicantPaginationRepo;
 import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
@@ -59,6 +60,8 @@ public class BorrowerAppController {
 	ApplicantPaginationRepo applicantRepo;
 	@Autowired
 	CompanyRepo companyRepo;
+	@Autowired
+	ApplicantApprovalDetailsRepo approvalRepo;
 	EncryptionDecryptionClass encdec=new EncryptionDecryptionClass();
 	private final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 	@Autowired
@@ -126,11 +129,12 @@ public class BorrowerAppController {
 		String status=null;
 		try {
 			httpstatus=HttpStatus.OK;
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 			Date date = sdf.parse(sdf.format(new Date()));
 			response="Applicant authorisation status is submitted succesfully";
 			 status="true";
 			LOGGER.info("company_code is"+authorizeApplicantPayload.getCompany_code());
+			System.out.println("company code"+encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));
 			Long applicant_id=Long.parseLong(encdec.decryptnew(authorizeApplicantPayload.getApplicant_id()));
 			LOGGER.info(" applicant id is"+applicant_id);
 			switch(encdec.decryptnew(authorizeApplicantPayload.getCompany_code())) {
@@ -144,7 +148,14 @@ public class BorrowerAppController {
 				if(company!=null)
 				{Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
 				companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}
+				Applicant_approval_details approvaldtls=new Applicant_approval_details();
+				approvaldtls.setAv_authorisation_by(encdec.decryptnew(authorizeApplicantPayload.getApproval_by()));
+				approvaldtls.setAv_comment(encdec.decryptnew(authorizeApplicantPayload.getComment()));
+				approvaldtls.setAv_authorisation_status(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));
+				approvaldtls.setAv_authorisation_datetime(date);
+				approvalRepo.save(approvaldtls);
 				break;	
+				
 			}
 			case"MK":
 			{
@@ -154,19 +165,27 @@ public class BorrowerAppController {
 			if(company!=null)
 			{	Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
 			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}	
+
+			approvalRepo.updateMkverifyDetails(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),
+					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
+			, date, applicant_id);
 			break;
+			
 			}
 			case"SH":
 			{LOGGER.info("status of SH_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
-			appRepo.SHauthoriseApplicant(authorizeApplicantPayload.getApproval_status(), date, applicant_id);
+			appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date, applicant_id);
 			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 			if(company!=null)
 			{Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
 			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}
-				break;
+			approvalRepo.updateshapprovalDetails(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),
+					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
+			, date, applicant_id);	
+			break;
 			}
 			}
-			
+			System.out.print(response);
 
 				//	return ResponseEntity.status(HttpStatu).body(new BorrowerResponse("Applicant authorisation status is submitted succesfully", Boolean.TRUE));
 		
@@ -223,20 +242,24 @@ public class BorrowerAppController {
 	        System.out.println("today date is"+date);
 			Integer total=appRepo.total_applicant();
 			dash.setTotal_applicants(encdec.encryptnew(total.toString()));
-			if(dashboardPayload.getCompany_code().equals("AV"))
+			System.out.println(dashboardPayload.getCompany_code());
+			if(encdec.decryptnew(dashboardPayload.getCompany_code()).equals("AV"))
 			{
 			dash.setTotal_verified(encdec.encryptnew(String.valueOf(appRepo.av_approval())));
+			System.out.println(String.valueOf(appRepo.av_approval()));
 			dash.setTotal_rejected(encdec.encryptnew(String.valueOf(appRepo.av_rejection())));
+			System.out.println(String.valueOf(appRepo.av_rejection()));
 			dash.setPending_for_verification(encdec.encryptnew(String.valueOf(appRepo.av_pending())));
+			System.out.println(String.valueOf(appRepo.av_pending()));
 			dash.setVerified_today(encdec.encryptnew(String.valueOf(appRepo.today_av_approval(date))));
 			}
-			if(dashboardPayload.getCompany_code().equals("MK")){
+			if(encdec.decryptnew(dashboardPayload.getCompany_code()).equals("MK")){
 				dash.setTotal_verified(encdec.encryptnew(String.valueOf(appRepo.mk_approval())));
 				dash.setTotal_rejected(encdec.encryptnew(String.valueOf(appRepo.MK_rejection())));
 				dash.setPending_for_verification(encdec.encryptnew(String.valueOf(appRepo.MK_pending())));
 				dash.setVerified_today(encdec.encryptnew(String.valueOf(appRepo.today_mk_approval(date))));
 			}
-			if(dashboardPayload.getCompany_code().equals("SH")){
+			if(encdec.decryptnew(dashboardPayload.getCompany_code()).equals("SH")){
 				dash.setTotal_verified(encdec.encryptnew(String.valueOf(appRepo.Sh_approval())));
 				dash.setTotal_rejected(encdec.encryptnew(String.valueOf(appRepo.SH_rejection())));
 				dash.setPending_for_verification(encdec.encryptnew(String.valueOf(appRepo.Sh_pending())));

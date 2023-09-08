@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Table(name = "advance_request")
 public class AdvanceRequest {
 	@Id
-String applicant_id;
+Long applicant_id;
 String from_location ;
 String to_location ;
 Date start_date_journey;
@@ -28,12 +28,12 @@ String account_no;
 String ifsc_code;
 Float approved_amount;
 String comment_by_mk;
-String commenyt_by_sh;
+String comment_by_sh;
 String approval_status ;
-public String getApplicant_id() {
+public Long getApplicant_id() {
 	return applicant_id;
 }
-public void setApplicant_id(String applicant_id) {
+public void setApplicant_id(Long applicant_id) {
 	this.applicant_id = applicant_id;
 }
 public String getFrom_location() {
@@ -127,10 +127,10 @@ public void setComment_by_mk(String comment_by_mk) {
 	this.comment_by_mk = comment_by_mk;
 }
 public String getCommenyt_by_sh() {
-	return commenyt_by_sh;
+	return comment_by_sh;
 }
-public void setCommenyt_by_sh(String commenyt_by_sh) {
-	this.commenyt_by_sh = commenyt_by_sh;
+public void setCommenyt_by_sh(String comment_by_sh) {
+	this.comment_by_sh = comment_by_sh;
 }
 public String getApproval_status() {
 	return approval_status;

@@ -1,6 +1,7 @@
 package com.securedloan.arthavedika.controller;
 
 import java.sql.PreparedStatement;
+import com.securedloan.arthavedika.model.Applicant_approval_details;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import com.securedloan.arthavedika.payload.*;
@@ -8,10 +9,14 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
+import javax.servlet.http.HttpServletResponse;
+import org.supercsv.io.CsvBeanWriter;
+import org.supercsv.io.ICsvBeanWriter;
+import org.supercsv.prefs.CsvPreference;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +46,7 @@ import com.securedloan.arthavedika.model.PsyQstn;
 import com.securedloan.arthavedika.model.User;
 import com.securedloan.arthavedika.payload.GetApplicantPayload;
 import com.securedloan.arthavedika.payload.UserPayload;
+import com.securedloan.arthavedika.repo.ApplicantApprovalDetailsRepo;
 import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.PsyAnsRepo;
@@ -64,6 +71,8 @@ import com.securedloan.arthavedika.service.GroupDataService;
 public class ApplicantController {
 	private final Logger LOGGER = LoggerFactory.getLogger(ApplicantController.class);
 	EncryptionDecryptionClass encdec=new EncryptionDecryptionClass();
+	@Autowired
+	ApplicantApprovalDetailsRepo approvalRepo;
 	@Autowired
 	ApplicantRepository appRepo;
 	@Autowired
@@ -98,12 +107,16 @@ public class ApplicantController {
 		LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
 		List<Applicant> applicant=null;
 		List<FileDB> document=null;
+		Optional<Applicant_approval_details> approval_details=null;
 		HttpStatus httpstatus=null;
 		String response="";
 		Boolean status=null;
 		try {
+			LOGGER.info("getApplicant api has been called !!! Start Of Method getApplicant");
 			 document=fileStorageService.documentById(newApplicant.getApplicant_id());
 			applicant = applicantService.findById(newApplicant.getApplicant_id());
+			approval_details=approvalRepo.findById(newApplicant.getApplicant_id());
+			
 			 httpstatus=HttpStatus.OK;
 			 status=true;
 			if (applicant != null) {
@@ -125,7 +138,7 @@ public class ApplicantController {
 
 		}
 		return ResponseEntity.status(httpstatus)
-						.body(new ApplicantInfo(response, status, applicant,document));
+						.body(new ApplicantInfo(response, status, applicant,document,approval_details));
 
 	}
 	@RequestMapping(value = { "/getapplicant/v1" }, method = RequestMethod.GET, produces = {
@@ -890,6 +903,29 @@ public ResponseEntity<GeneralResponse> modifyTruckersDetail(@RequestBody UpdateT
 	return ResponseEntity.status(httpstatus)
 			.body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));
 }
+@GetMapping(path = "/downloadTruckerscsv")
+public void getAllEmployeesInCsv(HttpServletResponse servletResponse)  {
+    try{servletResponse.setContentType("text/csv");
+    //Agent_msg_dtls msg=new Agent_msg_dtls();
+    servletResponse.addHeader("Content-Disposition","attachment; filename=\"TruckersDetails.csv\"");
+   List<Applicant> lst= appRepo.findAll();
+   ICsvBeanWriter csvwriter=new CsvBeanWriter(servletResponse.getWriter(),CsvPreference.STANDARD_PREFERENCE);
+   String[] csvHeader =  {"Applicant_id","VEHICLE NO","COMPANY NAME","TRUCK_DRIVER_NAME","DATE_OF_BIRTH (DD/MM/YY)","AGE","MARRIED/UN MARRIED/WIDOW/WIDOWER/DIVORCED","NOMINEE_NAME","NOMINEE_DOB (DD/MM/YYYY)","NOMINEE_AGE","NOMINEE_RELATION","SPOUSE NAME","FATHER NAME","RELIGION","Education 1. Upto Class 10, Class 12. Graduate and avove","Permanent/Contract Job","ADDRESS","VILLAGE_NAME/ CITY","PINCODE","Contact N os Phone / Mobile","Nos Of Family Members","Nos of working Members",	"House Own/ Rented",	"Ration Card Y/N",	"Mrdical Insurance Y/N",	"CURRENT A|LAON OUTSTANDING_PRINCIPAL (IF ANY)","CURRENT LOAN OUTSTANDING_INTEREST",	"TRUCK_INCOME",	"INCOME FROM OTHER SOURCES",	"Monthly Food Expenditure","Rent",	"House Repair",	"Total Monthly Bill Payment (Elec, Water etyc.)",	"Total Monthly Expenses","created_by","Date of entry"};
+		   
+  // String[] nameMapping = {"Scan_Date","System_Make","System_form_Factor","system_model_no","system_serial_no","Product_Type",	"system_ip","System_Hostname","System_OS_type","OS_License_details","OS_Version","OS_Key","Total_RAM","RAM_Available","RAM_Used","HD_Make","HD_Model","HD_Serial_Number","HD_Capacity","proccessor","MBD_Make","MBD_Model","mbd_serial_no","Type_of_Chipset","Monitor_Make","Monitor_Model","Monitor_Serial_Number","Monitor_Screen_Size","Assets_Status","Retired_Date","Software_list_with_version_and_installed_Date","Procured_Date","Procument_ID","Warranty_AMC","Warranty_AMC_Vendor_Name","Warrenty_AMC_From","Warrenty_AMC_To","username","Department_Name","Site_Name","Sub_Department_Name","Aforesight_Agent_ID","MS_Office_2010", "MS_Office_2013", "MS_Office_2016","Adobe_Reader", "Java8", "Symantec_Antivirus", "Mcafee_Antivirus", "Trend_Micro_Antivirus", "Microsoft_Teams", "MS_Office_2007", "Anydesk", "OneDrive","zip7","Mozilla_Firefox", "Google_Chrome","Team_Viewer","Zoom","Webex","AutoCad","Winrar"};
+  String[] nameMapping= {"Applicant_id","vehicle_no","company_name","applicant_firstname","applicant_date_of_birth","age","maritalstatus","nominee_name","nominee_dob","nominee_age","nominee_relation","spouse_name","applicant_father_firstname","religion","applicant_qualification","applicant_employment_type","applicant_address_line_1","applicant_city_name","applicant_pin","applicant_mobile_no","no_of_family_member","no_of_earning_member","house_type",	"Ration_Card","medical_insurance","current_loan_outstanding_principal","current_loan_outstanding_interest","applicant_income","income_from_other_sources","food_expenses","houserent","house_renovation_expenses","total_monthly_bill_payment","applicant_expense_monthly","created_by","dataentdt"};
+   csvwriter.writeHeader(csvHeader);
+for (Applicant msg:lst) {
+	
+	 
+	 csvwriter.write(msg, nameMapping);
+}
+csvwriter.close();
+
+}
+catch (Exception e) {
+	 LOGGER.error("error while downloading truckers data"+e.getMessage());
+}}
 }
 
 

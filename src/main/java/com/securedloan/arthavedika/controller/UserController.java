@@ -44,7 +44,7 @@ import com.securedloan.arthavedika.service.ResetPassword;
 import com.securedloan.arthavedika.service.UserService;
 import com.securedloan.arthavedika.utility.Utility;
 
-@CrossOrigin()
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -409,9 +409,9 @@ public class UserController {
 						
 				userss.setLastname(encdec.encryptnew(users.getLastname()));}
 					if(users.getEmail_id()!=null) {
-						userss.setEmail_id(encdec.encryptnew("NA"));
+						userss.setEmail_id(encdec.encryptnew(users.getEmail_id()));
 					}else {
-				userss.setEmail_id(encdec.encryptnew(users.getEmail_id()));}
+				userss.setEmail_id(encdec.encryptnew("NA"));}
 					if(users.getMobile_no()!=null) {
 						
 				userss.setMobile_no(encdec.encryptnew(users.getMobile_no()));}
@@ -570,34 +570,44 @@ public class UserController {
 		HttpStatus httpstatus=null;
 		String response="";
 		String status=null;
-		
+		User users=null;
 		try {
-		User users =  userRepo.findUserByUser_Id(encdec.decryptnew(addmodifyUserPayload.getUser_id()));
+			if(!addmodifyUserPayload.getUser_id().isEmpty())
+			{ users =  userRepo.findUserByUser_Id(encdec.decryptnew(addmodifyUserPayload.getUser_id()));}
 			if (users==null) {
 				User usr=new User();
 				usr.setFirstname(encdec.decryptnew(addmodifyUserPayload.getFirstname()));
+				System.out.println(usr.getFirstname());
 				usr.setLastname(encdec.decryptnew(addmodifyUserPayload.getLastname()));
+				System.out.println(usr.getFirstname());
 				usr.setEmail_id(encdec.decryptnew(addmodifyUserPayload.getEmail_id()));
+				System.out.println(usr.getFirstname());
 				usr.setMobile_no(encdec.decryptnew(addmodifyUserPayload.getMobile_no()));
+				System.out.println(usr.getFirstname());
 				//usr.setCompanyName(addmodifyUserPayload.getCompany_name());
 				//usr.setUser_id(addmodifyUserPayload.getUser_id());
 				usr.setRole(encdec.decryptnew(addmodifyUserPayload.getRole()));
+				System.out.println(usr.getRole());
 				Random random = new Random();
 				String token = String.format("%04d", random.nextInt(10000));
 				usr.setPassword(token);
 				usr.setIs_first_login("Y");
 				usr.setDelete_status("N");
-				
+				System.out.println("1");
 				usr.setCompany_code(encdec.decryptnew(addmodifyUserPayload.getCompany_code()));
 				List<Company>company=companyrepo.company_name();
 				for(int i=0;i<company.size();i++) {
+					System.out.println("if statement");
+System.out.print(encdec.decryptnew(addmodifyUserPayload.getCompany_code()));
+System.out.print((company.get(i).getCompany_code()));
 					if (encdec.decryptnew(addmodifyUserPayload.getCompany_code()).equals(company.get(i).getCompany_code())) {
 						System.out.println("company name is"+company.get(i).getCompanyName());
 						usr.setCompanyName(company.get(i).getCompanyName());
 					}
 				}
-				
+				System.out.print("before saving");
 				userRepo.save(usr);
+				System.out.print("after saving");
 				User user_details=userRepo.findByEmailNMobile(encdec.decryptnew(addmodifyUserPayload.getEmail_id()),(encdec.decryptnew(addmodifyUserPayload.getMobile_no())));
 				System.out.println("password is"+user_details.getPassword());
 				mail.sendEmailForPassword(user_details);
@@ -605,22 +615,28 @@ public class UserController {
 			}
 			else
 			{
-				String company_name = null;
-				List<Company>company=companyrepo.company_name();
+								List<Company>company=companyrepo.company_name();
+								String Company_name = null;
+System.out.println("modify user");
 				for(int i=0;i<company.size();i++) {
+					System.out.println("in for loop");
+					System.out.println("payload company code"+encdec.decryptnew(addmodifyUserPayload.getCompany_code()));
+					System.out.println("froim db company code"+(company.get(i).getCompany_code()));
 					if (encdec.decryptnew(addmodifyUserPayload.getCompany_code()).equals(company.get(i).getCompany_code())) {
 						System.out.println("company name is"+company.get(i).getCompanyName());
-					 company_name=(company.get(i).getCompanyName());
+					 Company_name=(company.get(i).getCompanyName());
 					}
 				}
+				System.out.println("email"+encdec.decryptnew(addmodifyUserPayload.getEmail_id()));
 				userRepo.updateUser(encdec.decryptnew(addmodifyUserPayload.getMobile_no()), (encdec.decryptnew(addmodifyUserPayload.getFirstname())), (encdec.decryptnew(addmodifyUserPayload.getLastname())),
 						(encdec.decryptnew(addmodifyUserPayload.getEmail_id())),(encdec.decryptnew( addmodifyUserPayload.getCompany_code())), (encdec.decryptnew(addmodifyUserPayload.getRole())),
-								company_name,(encdec.decryptnew(addmodifyUserPayload.getUser_id())));
+								Company_name,(encdec.decryptnew(addmodifyUserPayload.getUser_id())));
 				//userRepo.updateUser(addmodifyUserPayload.getMobile_no(), addmodifyUserPayload.getFirstname(), addmodifyUserPayload.getLastname(),
 				//		addmodifyUserPayload.getEmail_id(), addmodifyUserPayload.getCompany_code(), addmodifyUserPayload.getRole(),
 				//		company,addmodifyUserPayload.getUser_id());
 				
 				response="User modified successfully";
+				System.out.println(response);
 				
 			}
 			status="true";

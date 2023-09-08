@@ -17,7 +17,7 @@ import com.securedloan.arthavedika.response.GeoIP;
 @Service
 @Transactional
 public class GeoIPLocationService {
-
+/*
 	private final Logger LOGGER = LoggerFactory.getLogger(GeoIPLocationService .class);
 	private DatabaseReader dbReader;
 
@@ -45,5 +45,5 @@ public class GeoIPLocationService {
 		LOGGER.error("Error While Finding location" + e.getMessage());
 		  return new GeoIP(null,null,null,null,null);
 	
-    }}
+    }}*/
 }

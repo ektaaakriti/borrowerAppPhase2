@@ -58,7 +58,8 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 @Modifying(clearAutomatically = false) 
 	@Query("update Applicant a set a.MK_approval=?1, a.authorisation_status=2, a.mk_approval_date=?2 where a.applicant_id=?3")
 	public void MKauthoriseApplicant(String MK_approval, Date mk_approval_date,Long applicant_id);
-
+@Query("select a from Applicant a where a.SH_approval='Y'")
+public List<Applicant> getMKVerifiedApplicant();
 @Transactional
 @Modifying(clearAutomatically = false) 
 	@Query("update Applicant a set a.SH_approval=?1, a.authorisation_status=3, a.sh_approval_date=?2 where a.applicant_id=?3")

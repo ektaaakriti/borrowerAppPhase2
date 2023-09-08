@@ -373,6 +373,10 @@ public void setCompany_code(String company_code) {
 
 	String created_by;
 	String updated_by;
+	String predicted_score;
+	Float estimated_income;
+	
+
 	public Applicant(@NotNull long applicant_id, User user, @NotNull String userIdStr, @NotNull String loanAmount,
 			@NotNull String purposeOfLoan, @NotNull long groupId, boolean anygroup, boolean published,
 			String spouse_name, String mother_name, String aadhar_no, String pan_no, String account_no,
@@ -421,8 +425,9 @@ public void setCompany_code(String company_code) {
 			String nominee_relation, int nominee_age, Float total_monthly_bill_payment, String medical_insurance,
 			Float current_loan_outstanding_principal, String vehicle_no, Float income_from_other_sources,
 			Float current_loan_outstanding_interest, @NotNull int authorisation_status, @NotNull String company_name,
-			@NotNull String company_code, String created_by, String updated_by, boolean psycho_page, String prediciton,
-			String latitude, String longitude, List<PsyAns> psyAns, boolean is_having_cell) {
+			@NotNull String company_code, String created_by, String updated_by, String predicted_score,
+			Float estimated_income, boolean psycho_page, String prediciton, String latitude, String longitude,
+			List<PsyAns> psyAns, boolean is_having_cell) {
 		super();
 		this.applicant_id = applicant_id;
 		this.user = user;
@@ -557,6 +562,8 @@ public void setCompany_code(String company_code) {
 		this.company_code = company_code;
 		this.created_by = created_by;
 		this.updated_by = updated_by;
+		this.predicted_score = predicted_score;
+		this.estimated_income = estimated_income;
 		this.psycho_page = psycho_page;
 		this.prediciton = prediciton;
 		this.latitude = latitude;
@@ -566,6 +573,22 @@ public void setCompany_code(String company_code) {
 	}
 
 	// ends here
+
+	public String getPredicted_score() {
+		return predicted_score;
+	}
+
+	public void setPredicted_score(String predicted_score) {
+		this.predicted_score = predicted_score;
+	}
+
+	public Float getEstimated_income() {
+		return estimated_income;
+	}
+
+	public void setEstimated_income(Float estimated_income) {
+		this.estimated_income = estimated_income;
+	}
 
 	public String getCreated_by() {
 		return created_by;

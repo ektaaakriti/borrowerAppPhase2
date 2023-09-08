@@ -21,21 +21,6 @@ public class UpdateTruckersDetails {
 	String applicant_city_name;
 	String applicant_pin;
 	String applicant_mobile_no;
-	public String getApplicant_Date_of_birth() {
-		return applicant_Date_of_birth;
-	}
-	public void setApplicant_Date_of_birth(String applicant_Date_of_birth) {
-		this.applicant_Date_of_birth = applicant_Date_of_birth;
-	}
-	public String getUpdated_by() {
-		return updated_by;
-	}
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
-	}
-	public void setCurrent_loan_outstanding_Stringerest(String current_loan_outstanding_Stringerest) {
-		this.current_loan_outstanding_Stringerest = current_loan_outstanding_Stringerest;
-	}
 	String no_of_family_member;
 	String no_of_earning_member;
 	String house_type;
@@ -52,6 +37,22 @@ String updated_by;
 	String total_monthly_bill_payment;
 	String applicant_expense_monthly;
 	String applicant_id;
+	public String getApplicant_Date_of_birth() {
+		return applicant_Date_of_birth;
+	}
+	public void setApplicant_Date_of_birth(String applicant_Date_of_birth) {
+		this.applicant_Date_of_birth = applicant_Date_of_birth;
+	}
+	public String getUpdated_by() {
+		return updated_by;
+	}
+	public void setUpdated_by(String updated_by) {
+		this.updated_by = updated_by;
+	}
+	public void setCurrent_loan_outstanding_Stringerest(String current_loan_outstanding_Stringerest) {
+		this.current_loan_outstanding_Stringerest = current_loan_outstanding_Stringerest;
+	}
+	
 	public String getVehicle_no() {
 		return vehicle_no;
 	}

@@ -8,6 +8,20 @@ String company_code;
 String approval_status;
 String loan_amount;
 String applicant_company_code;
+String comment;
+String approval_by;
+public String getComment() {
+	return comment;
+}
+public void setComment(String comment) {
+	this.comment = comment;
+}
+public String getApproval_by() {
+	return approval_by;
+}
+public void setApproval_by(String approval_by) {
+	this.approval_by = approval_by;
+}
 public String getApplicant_company_code() {
 	return applicant_company_code;
 }
