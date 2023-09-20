@@ -38,6 +38,7 @@ import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.UserRepository;
 import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.Response;
+import com.securedloan.arthavedika.response.ResponseOld;
 import com.securedloan.arthavedika.response.Result;
 import com.securedloan.arthavedika.service.Mail;
 import com.securedloan.arthavedika.service.ResetPassword;
@@ -228,11 +229,11 @@ public class UserController {
 		}
 
 	}
-/*
+
 	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<Response> loginUser(@RequestParam("mobile_no") String mobile_no,
+	public ResponseEntity<ResponseOld> loginUser(@RequestParam("mobile_no") String mobile_no,
 			@RequestParam("password") String password, @Valid User user) {
 		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
 		try {
@@ -256,23 +257,23 @@ public class UserController {
 					users.get(0).setLoggedIn(Boolean.TRUE);
 					// return new Response("Login Success", Boolean.TRUE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response(loginSuccess, Boolean.TRUE, users.get(0)));
+							.body(new ResponseOld(loginSuccess, Boolean.TRUE, users.get(0)));
 
 				} else {
 					// return new Response("Account not verified!!!", Boolean.FALSE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response(accountNtVerified, Boolean.FALSE, new User()));
+							.body(new ResponseOld(accountNtVerified, Boolean.FALSE, new User()));
 
 				}
 			} else {
 				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new Response(loginFailed, Boolean.FALSE,new User()));
+						.body(new ResponseOld(loginFailed, Boolean.FALSE,new User()));
 
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error While Login" + e.getMessage());
-			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new User()));
+			return ResponseEntity.badRequest().body(new ResponseOld(e.getMessage(), Boolean.FALSE, new User()));
 		}
 
 	}
@@ -351,7 +352,7 @@ public class UserController {
 			LOGGER.error("Error While Reset the Password" + e.getMessage());
 			return ResponseEntity.badRequest().body(new Result(e.getMessage(), Boolean.FALSE));
 		}
-	}*/
+	}
 
 	// @GetMapping("/logout/v1")
 	@RequestMapping(value = { "/logout/v1" }, method = RequestMethod.GET, produces = {

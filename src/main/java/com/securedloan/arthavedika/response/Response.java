@@ -15,6 +15,57 @@ public class Response {
 	private String message;
 	private String status;
 	private User user;
+	private Boolean status1;
+	public Response(String message, Boolean status1, List<PsyQstn> psyQstnList, Applicant applicant) {
+		super();
+		this.message = message;
+		this.status1 = status1;
+		PsyQstnList = psyQstnList;
+		this.applicant = applicant;
+	}
+
+
+
+	public Response(String message, Boolean status1, Applicant applicant) {
+		super();
+		this.message = message;
+		this.status1 = status1;
+		this.applicant = applicant;
+	}
+
+
+
+	public Response(String message, Boolean status1, User user) {
+		super();
+		this.message = message;
+		this.user = user;
+		this.status1 = status1;
+	}
+
+
+
+	public Boolean getStatus1() {
+		return status1;
+	}
+
+
+
+	public void setStatus1(Boolean status1) {
+		this.status1 = status1;
+	}
+
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+
+	public String getImageResultStatus() {
+		return imageResultStatus;
+	}
+
 	private CompanyEnc company;
 	private List<EKYC> EkycList;
 	private List<PsyQstn> PsyQstnList;

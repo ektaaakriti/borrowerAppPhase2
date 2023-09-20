@@ -52,6 +52,12 @@ public class ApplicantInfo {
 		this.document = document;
 		this.approval_details = approval_details;
 	}
+	public ApplicantInfo(String message, boolean status, List<Applicant> applicant) {
+		super();
+		this.message = message;
+		this.status = status;
+		this.applicant = applicant;
+	}
 	
 
 	

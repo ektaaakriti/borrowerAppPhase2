@@ -43,7 +43,7 @@ public ResponseEntity<MetaResponse_Response> save_metadataResponse(@RequestBody 
 	try {
 		 MetaDataResponse mt=new MetaDataResponse();
 		mt.setApplicant_id(Long.parseLong(encdec.decryptnew(metaPayload.getApplicant_id())));
-		mt.setApplicant_response(encdec.decryptnew(metaPayload.getApplicant_id()));
+		mt.setApplicant_response(encdec.decryptnew(metaPayload.getResponse()));
 		mt.setUser_pin(encdec.decryptnew(metaPayload.getUser_pin()));
 		 Date date = new Date();
 		mt.setDatetime_of_response(date);

@@ -59,6 +59,7 @@ import com.securedloan.arthavedika.response.GroupResponse;
 //import com.securedloan.arthavedika.response.Prediction;
 import com.securedloan.arthavedika.response.Response;
 import com.securedloan.arthavedika.response.ResponseMessage;
+import com.securedloan.arthavedika.response.ResponseOld;
 import com.securedloan.arthavedika.service.ApplicantService;
 import com.securedloan.arthavedika.service.EkycFileStorageService;
 import com.securedloan.arthavedika.service.FileStorageService;
@@ -241,18 +242,18 @@ public class ApplicantController {
 		}
 
 	
-/*
+
 	@RequestMapping(value = { "/register/v1" }, method = RequestMethod.POST, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
-	public ResponseEntity<Response> registerApplicant(@RequestBody Applicant applicantInput) {
+	public ResponseEntity<ResponseOld> registerApplicant(@RequestBody Applicant applicantInput) {
 		LOGGER.info("Register api has been called with post !!! Start Of Method registerApplicant");
 		System.out.println("monthlin income is");
 		try {
 
 			if (applicantInput.getUserIdStr() == null) {
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new Response(mandatoryField, Boolean.FALSE, new Applicant()));
+						.body(new ResponseOld(mandatoryField, Boolean.FALSE, new Applicant()));
 			}
 			Applicant applicants = applicantService.findByApplicant_mobile_no(applicantInput.getApplicant_mobile_no());
             System.out.println("applicants is"+applicants); 
@@ -286,7 +287,7 @@ public class ApplicantController {
 				Applicant applicant = applicantService.saveApplicant(applicantInput);
 				LOGGER.info("End Of Method registerApplicant");
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new Response(registerSuccess, Boolean.TRUE, applicant));
+						.body(new ResponseOld(registerSuccess, Boolean.TRUE, applicant));
 			} else if (applicants != null) {
 				if (applicants.getApplicant_id() == applicantInput.getApplicant_id()) {
 					List<PsyQstn> res = new ArrayList<>();
@@ -380,19 +381,19 @@ public class ApplicantController {
 
 					LOGGER.info("End Of Method registerApplicant");
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new Response("Applicant Registered Successfully", Boolean.TRUE, res,applicant));
+							.body(new ResponseOld("Applicant Registered Successfully", Boolean.TRUE, res,applicant));
 				}
 			}
 			LOGGER.info("End Of Method registerApplicant");
 			return ResponseEntity.status(HttpStatus.OK)
-					.body(new Response("Already Registered", Boolean.FALSE, new Applicant()));
+					.body(new ResponseOld("Already Registered", Boolean.FALSE, new Applicant()));
 
 		} catch (Exception e) {
 			LOGGER.error("Error While Registering the Applicant" + e.getMessage());
 			System.out.println("in error"+e.getMessage());
-			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new Applicant()));
+			return ResponseEntity.badRequest().body(new ResponseOld(e.getMessage(), Boolean.FALSE, new Applicant()));
 		}
-	}*/
+	}
 
 	//commented  by rajeev to make similar as kosh
 //	public ResponseEntity<Response> registerApplicant(@RequestBody Applicant applicantInput) {
