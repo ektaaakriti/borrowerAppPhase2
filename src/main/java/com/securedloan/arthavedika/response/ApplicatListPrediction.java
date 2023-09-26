@@ -1,7 +1,6 @@
-package com.securedloan.arthavedika.payload;
+package com.securedloan.arthavedika.response;
 
-
-public class UpdateTruckersDetails {
+public class ApplicatListPrediction {
 	String vehicle_no;
 	String company_name;
 	String applicant_firstname;
@@ -38,30 +37,68 @@ String updated_by;
 	String applicant_expense_monthly;
 	String applicant_id;
 	String created_by;
-
-	
-	public String getCreated_by() {
-		return created_by;
+	String created_date;
+	String prediction;
+	String predicted_score;
+	String estimated_income;
+	String applcnt_default_prob_number;
+	String dataFetched;
+	String submitted;
+	//applcnt_default_prob_number, estimated_income,predicted_score,
+	String eligible_loan_amount;
+	String stress_one;
+	String stress_two;
+	String stress_five;
+	String stress_three;
+	String stress_four;
+	public String getDataFetched() {
+		return dataFetched;
 	}
-	public void setCreated_by(String created_by) {
-		this.created_by = created_by;
+	public void setDataFetched(String dataFetched) {
+		this.dataFetched = dataFetched;
 	}
-	public String getApplicant_Date_of_birth() {
-		return applicant_Date_of_birth;
+	public String getSubmitted() {
+		return submitted;
 	}
-	public void setApplicant_Date_of_birth(String applicant_Date_of_birth) {
-		this.applicant_Date_of_birth = applicant_Date_of_birth;
+	public void setSubmitted(String submitted) {
+		this.submitted = submitted;
 	}
-	public String getUpdated_by() {
-		return updated_by;
+	public String getEligible_loan_amount() {
+		return eligible_loan_amount;
 	}
-	public void setUpdated_by(String updated_by) {
-		this.updated_by = updated_by;
+	public void setEligible_loan_amount(String eligible_loan_amount) {
+		this.eligible_loan_amount = eligible_loan_amount;
 	}
-	public void setCurrent_loan_outstanding_Stringerest(String current_loan_outstanding_Stringerest) {
-		this.current_loan_outstanding_Stringerest = current_loan_outstanding_Stringerest;
+	public String getStress_one() {
+		return stress_one;
 	}
-	
+	public void setStress_one(String stress_one) {
+		this.stress_one = stress_one;
+	}
+	public String getStress_two() {
+		return stress_two;
+	}
+	public void setStress_two(String stress_two) {
+		this.stress_two = stress_two;
+	}
+	public String getStress_five() {
+		return stress_five;
+	}
+	public void setStress_five(String stress_five) {
+		this.stress_five = stress_five;
+	}
+	public String getStress_three() {
+		return stress_three;
+	}
+	public void setStress_three(String stress_three) {
+		this.stress_three = stress_three;
+	}
+	public String getStress_four() {
+		return stress_four;
+	}
+	public void setStress_four(String stress_four) {
+		this.stress_four = stress_four;
+	}
 	public String getVehicle_no() {
 		return vehicle_no;
 	}
@@ -80,11 +117,11 @@ String updated_by;
 	public void setApplicant_firstname(String applicant_firstname) {
 		this.applicant_firstname = applicant_firstname;
 	}
-	public String getApplicant_date_of_birth() {
+	public String getApplicant_Date_of_birth() {
 		return applicant_Date_of_birth;
 	}
-	public void setApplicant_date_of_birth(String applicant_date_of_birth) {
-		this.applicant_Date_of_birth= applicant_date_of_birth;
+	public void setApplicant_Date_of_birth(String applicant_Date_of_birth) {
+		this.applicant_Date_of_birth = applicant_Date_of_birth;
 	}
 	public String getAge() {
 		return age;
@@ -215,8 +252,8 @@ String updated_by;
 	public String getCurrent_loan_outstanding_Stringerest() {
 		return current_loan_outstanding_Stringerest;
 	}
-	public void setCurrent_loan_outstanding_interest(String current_loan_outstanding_interest) {
-		this.current_loan_outstanding_Stringerest = current_loan_outstanding_interest;
+	public void setCurrent_loan_outstanding_Stringerest(String current_loan_outstanding_Stringerest) {
+		this.current_loan_outstanding_Stringerest = current_loan_outstanding_Stringerest;
 	}
 	public String getApplicant_income() {
 		return applicant_income;
@@ -248,6 +285,12 @@ String updated_by;
 	public void setHouse_renovation_expenses(String house_renovation_expenses) {
 		this.house_renovation_expenses = house_renovation_expenses;
 	}
+	public String getUpdated_by() {
+		return updated_by;
+	}
+	public void setUpdated_by(String updated_by) {
+		this.updated_by = updated_by;
+	}
 	public String getTotal_monthly_bill_payment() {
 		return total_monthly_bill_payment;
 	}
@@ -265,5 +308,41 @@ String updated_by;
 	}
 	public void setApplicant_id(String applicant_id) {
 		this.applicant_id = applicant_id;
+	}
+	public String getCreated_by() {
+		return created_by;
+	}
+	public void setCreated_by(String created_by) {
+		this.created_by = created_by;
+	}
+	public String getCreated_date() {
+		return created_date;
+	}
+	public void setCreated_date(String created_date) {
+		this.created_date = created_date;
+	}
+	public String getPrediction() {
+		return prediction;
+	}
+	public void setPrediction(String prediction) {
+		this.prediction = prediction;
+	}
+	public String getPredicted_score() {
+		return predicted_score;
+	}
+	public void setPredicted_score(String predicted_score) {
+		this.predicted_score = predicted_score;
+	}
+	public String getEstimated_income() {
+		return estimated_income;
+	}
+	public void setEstimated_income(String estimated_income) {
+		this.estimated_income = estimated_income;
+	}
+	public String getApplcnt_default_prob_number() {
+		return applcnt_default_prob_number;
+	}
+	public void setApplcnt_default_prob_number(String applcnt_default_prob_number) {
+		this.applcnt_default_prob_number = applcnt_default_prob_number;
 	}
 }

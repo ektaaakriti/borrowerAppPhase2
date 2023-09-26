@@ -25,7 +25,7 @@ import com.securedloan.arthavedika.model.Company;
 import com.securedloan.arthavedika.payload.AdvanceRequestPayload;
 import com.securedloan.arthavedika.payload.ApplicantPayload;
 import com.securedloan.arthavedika.response.ApplicantInfo;
-import com.securedloan.arthavedika.response.ApplicantInfos;
+/*import com.securedloan.arthavedika.response.ApplicantInfos;
 import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.GetPredictionResponse;
 
@@ -146,5 +146,5 @@ List<Applicant> applicant=null;
 	}
 	return ResponseEntity.status(httpstatus).body(new GeneralResponse((response),(status)));	
 	}
-}
+}*/
 
