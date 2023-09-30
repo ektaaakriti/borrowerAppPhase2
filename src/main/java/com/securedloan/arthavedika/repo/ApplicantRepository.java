@@ -43,11 +43,11 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 	public void updateTruckersDetails(String vehicle_no,String company_name,String applicant_firstname,Date applicant_date_of_birth ,int age,
 			String maritalstatus,String nominee_name,Date nominee_dob,int nominee_age,String nominee_relation,String spouse_name,
 			String applicant_father_firstname,String religion,String applicant_qualification,String applicant_employment_type,
-			String applicant_address_line_1,String applicant_city_name,int applicant_pin, Long applicant_mobile_no,
+			String applicant_address_line_1,String applicant_city_name,Long applicant_pin, String applicant_mobile_no,
 			int no_of_family_member,int no_of_earning_member,String house_type,String Ration_Card,
 			String medical_insurance,Float current_loan_outstanding_principal,Float current_loan_outstanding_interest,
-			Float applicant_income,Float income_from_other_sources,Float food_expenses,Float houserent,
-			Float house_renovation_expenses,Float total_monthly_bill_payment,Float applicant_expense_monthly,String created_by, Date datamoddt,
+			String applicant_income,Float income_from_other_sources,Float food_expenses,String houserent,
+			Float house_renovation_expenses,Float total_monthly_bill_payment,String applicant_expense_monthly,String created_by, LocalDate datamoddt,
 			Long applicant_id);
 @Transactional
 @Modifying(clearAutomatically = false) 

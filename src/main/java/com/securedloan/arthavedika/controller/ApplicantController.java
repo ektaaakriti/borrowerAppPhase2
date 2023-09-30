@@ -44,8 +44,6 @@ import com.securedloan.arthavedika.model.GroupData;
 import com.securedloan.arthavedika.model.PsyAns;
 import com.securedloan.arthavedika.model.PsyQstn;
 import com.securedloan.arthavedika.model.User;
-import com.securedloan.arthavedika.payload.GetApplicantPayload;
-import com.securedloan.arthavedika.payload.UserPayload;
 import com.securedloan.arthavedika.repo.ApplicantApprovalDetailsRepo;
 import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
@@ -53,6 +51,8 @@ import com.securedloan.arthavedika.repo.PsyAnsRepo;
 import com.securedloan.arthavedika.response.ApplicantInfo;
 import com.securedloan.arthavedika.response.ApplicantInfo1;
 import com.securedloan.arthavedika.response.ApplicantInfos;
+import com.securedloan.arthavedika.response.ApplicantPredictionListResponse;
+import com.securedloan.arthavedika.response.ApplicatListPrediction;
 import com.securedloan.arthavedika.response.ApprovedApplicantResponse;
 import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.GroupResponse;
@@ -795,107 +795,145 @@ public ResponseEntity<GeneralResponse> modifyTruckersDetail(@RequestBody UpdateT
 		String maritalstatus=null; String nominee_name=null; Date nominee_dob=null; int nominee_age=0;
 		String nominee_relation=null; String spouse_name=null; 
 		String applicant_father_firstname=null; String religion=null; String applicant_qualification=null; String applicant_employment_type=null; 
-		String applicant_address_line_1=null; String applicant_city_name=null; int applicant_pin=0;
-		Long applicant_mobile_no=null; 
+		String applicant_address_line_1=null; String applicant_city_name=null; int applicant_pin=0;long applicant_pin1=0;
+		String applicant_mobile_no=null; 
 		int no_of_family_member=0;
 		int no_of_earning_member=0; String house_type=null; String Ration_Card=null; 
 		String medical_insurance=null; Float current_loan_outstanding_principal=null;
 		Float current_loan_outstanding_interest=null; 
-		Float applicant_income=null; Float income_from_other_sources=null; Float food_expenses=null; Float houserent=null; 
-		Float house_renovation_expenses=null; Float total_monthly_bill_payment=null; Float applicant_expense_monthly=null; 
+		String applicant_income=null; Float income_from_other_sources=null; Float food_expenses=null; String houserent=null; 
+		Float house_renovation_expenses=null; Float total_monthly_bill_payment=null; String applicant_expense_monthly=null; 
 		Long applicant_id=null;
 		String updated_by=null;
-		Date datamoddt=new Date();
+		LocalDate datamoddt=LocalDate.now(); 
 		  SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+		  System.out.print("dummy1");
 		if(!updateTruckersDetails.getVehicle_no().isEmpty()) {
 	 vehicle_no=encdec.decryptnew(updateTruckersDetails.getVehicle_no());}
-		
+		System.out.print("dummy12");
 		if(!updateTruckersDetails.getCompany_name().isEmpty())
 		{ company_name=encdec.decryptnew(updateTruckersDetails.getCompany_name());}
-		
+		System.out.print("dummy13");
 		if(!updateTruckersDetails.getApplicant_firstname().isEmpty())
 		{ applicant_firstname=encdec.decryptnew(updateTruckersDetails.getApplicant_firstname());}
+		System.out.print("dummy4");
+	/*if(!updateTruckersDetails.getApplicant_date_of_birth().isEmpty()) {
+		String applicantdob=encdec.decryptnew(updateTruckersDetails.getApplicant_date_of_birth()) ;
+		System.out.print(applicantdob);
+		 applicant_date_of_birth = sdf1.parse(applicantdob);
+		 System.out.print(applicant_date_of_birth);
+	}*/
+	System.out.print("dummy5");
 	
-	if(!updateTruckersDetails.getApplicant_date_of_birth().isEmpty()) {
-		String applicant=encdec.decryptnew(updateTruckersDetails.getApplicant_date_of_birth()) ;
-		 applicant_date_of_birth = sdf1.parse(applicant);
-	}
-	
-	if(!updateTruckersDetails.getAge().isEmpty()) {
+	if(!encdec.decryptnew(updateTruckersDetails.getAge()).isEmpty()) {
 		 age=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getAge()));}
-	if(!updateTruckersDetails.getMaritalstatus().isEmpty()) {
+	System.out.print("dummy16");
+	if(!encdec.decryptnew(updateTruckersDetails.getMaritalstatus()).isEmpty()) {
 		 maritalstatus=encdec.decryptnew(updateTruckersDetails.getMaritalstatus());}
-	
-	if(!updateTruckersDetails.getNominee_name().isEmpty())
+	System.out.print("dummy17");
+	if(!encdec.decryptnew(updateTruckersDetails.getNominee_name()).isBlank())
 		{ nominee_name=encdec.decryptnew(updateTruckersDetails.getNominee_name());}
-	if(!updateTruckersDetails.getNominee_dob().isEmpty())
+	System.out.println("dummy18");
+	/*if(!updateTruckersDetails.getNominee_dob().contains(""))
 		{String dob=encdec.decryptnew(updateTruckersDetails.getNominee_dob());
+		System.out.print(dob);
 		 nominee_dob=sdf1.parse(dob);
-		}
-	if(!updateTruckersDetails.getNominee_age().isEmpty())
-	{ nominee_age=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNominee_age()));}				
-		if(!updateTruckersDetails.getNominee_relation().isEmpty() ) {
+		 System.out.print(nominee_dob);
+		}*/
+	System.out.println("dummy19");
+	if(!encdec.decryptnew(updateTruckersDetails.getNominee_age()).isEmpty())
+	{ System.out.println("nominee"+updateTruckersDetails.getNominee_age());
+	System.out.println("nominee"+(encdec.decryptnew(updateTruckersDetails.getNominee_age())));
+		nominee_age=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNominee_age()));
+		System.out.println("nominee"+nominee_age);
+		}	
+	System.out.println("dummy10");
+		if(!encdec.decryptnew(updateTruckersDetails.getNominee_relation()).isEmpty() ) {
 			nominee_relation=encdec.decryptnew(updateTruckersDetails.getNominee_relation());
 		}
-		if(!updateTruckersDetails.getSpouse_name().isEmpty())
+		System.out.print("dummy111");
+		if(!encdec.decryptnew(updateTruckersDetails.getSpouse_name()).isEmpty())
 		{spouse_name=encdec.decryptnew(updateTruckersDetails.getSpouse_name());}
-		if(!updateTruckersDetails.getApplicant_father_firstname().isEmpty())
-			applicant_father_firstname=encdec.decryptnew(updateTruckersDetails.getApplicant_father_firstname());
-		if(!updateTruckersDetails.getReligion().isEmpty())
+		System.out.print("dummy112");
+		if(!encdec.decryptnew(updateTruckersDetails.getApplicant_father_firstname()).isEmpty())
+			{applicant_father_firstname=encdec.decryptnew(updateTruckersDetails.getApplicant_father_firstname());}
+		System.out.print("dummy113");
+		if(!encdec.decryptnew(updateTruckersDetails.getReligion()).isEmpty())
 		{religion=encdec.decryptnew(updateTruckersDetails.getReligion());}
-	if(!updateTruckersDetails.getApplicant_qualification().isEmpty()) {
+		System.out.print("dummy114");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_qualification()).isEmpty()) {
 		applicant_qualification=encdec.decryptnew(updateTruckersDetails.getApplicant_qualification());}
-	if(!updateTruckersDetails.getApplicant_employment_type().isEmpty())	{
+	System.out.print("dummy115");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_employment_type()).isEmpty())	{
 	applicant_employment_type=encdec.decryptnew(updateTruckersDetails.getApplicant_employment_type());}
-	if(!updateTruckersDetails.getApplicant_address_line_1().isEmpty()) {
+	System.out.print("dummy116");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_address_line_1()).isEmpty()) {
 	 applicant_address_line_1=encdec.decryptnew(updateTruckersDetails.getApplicant_address_line_1());}
-	if(!updateTruckersDetails.getApplicant_city_name().isEmpty()) {
+	System.out.print("dummy117");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_city_name()).isEmpty()) {
 		 applicant_city_name=encdec.decryptnew(updateTruckersDetails.getApplicant_city_name());}
-	if(!updateTruckersDetails.getApplicant_pin().isEmpty()) {
-		 applicant_pin=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getApplicant_pin()));}
-	if(!updateTruckersDetails.getApplicant_mobile_no().isEmpty()) {
-		 applicant_mobile_no=Long.parseLong(encdec.decryptnew(updateTruckersDetails.getApplicant_mobile_no()));}
-	if(!updateTruckersDetails.getNo_of_family_member().isEmpty()) {
+	System.out.println("dummy118");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_pin()).isEmpty()) {
+		// applicant_pin=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getApplicant_pin()));
+		 applicant_pin1=Long.parseLong(encdec.decryptnew(updateTruckersDetails.getApplicant_pin()));}
+	System.out.println("dummy119");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_mobile_no()).isEmpty()) {
+		 applicant_mobile_no=(encdec.decryptnew(updateTruckersDetails.getApplicant_mobile_no()));}
+	System.out.println("dummy120");
+	if(!encdec.decryptnew(updateTruckersDetails.getNo_of_family_member()).isEmpty()) {
 		 no_of_family_member=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNo_of_family_member()));}
-	if(!updateTruckersDetails.getNo_of_earning_member().isEmpty()) {
+	System.out.println("dummy121");
+	if(!encdec.decryptnew(updateTruckersDetails.getNo_of_earning_member()).isEmpty()) {
 		no_of_earning_member=Integer.parseInt(encdec.decryptnew(updateTruckersDetails.getNo_of_earning_member()));}
-	if(!updateTruckersDetails.getHouse_type().isEmpty()) {
+	if(!encdec.decryptnew(updateTruckersDetails.getHouse_type()).isEmpty()) {
 		house_type=encdec.decryptnew(updateTruckersDetails.getHouse_type());}
-	if(!updateTruckersDetails.getRation_Card().isEmpty()) {	
+	System.out.println("dummy122");
+	if(!encdec.decryptnew(updateTruckersDetails.getRation_Card()).isEmpty()) {	
 	Ration_Card=encdec.decryptnew(updateTruckersDetails.getRation_Card());}
-	if(!updateTruckersDetails.getMedical_insurance().isEmpty()) {
+	System.out.print("dummy123");
+	if(!encdec.decryptnew(updateTruckersDetails.getMedical_insurance()).isEmpty()) {
 	medical_insurance=encdec.decryptnew(updateTruckersDetails.getMedical_insurance());}
-	if(!updateTruckersDetails.getCurrent_loan_outstanding_principal().isEmpty()) {
+	System.out.print("dummy124");
+	if(!encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_principal()).isEmpty()) {
 		 current_loan_outstanding_principal=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_principal()));}
-	if(!updateTruckersDetails.getCurrent_loan_outstanding_Stringerest().isEmpty()) {	
+	System.out.print("dummy125");
+	if(!encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_Stringerest()).isEmpty()) {	
 	 current_loan_outstanding_interest=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getCurrent_loan_outstanding_Stringerest()));}
-	if(!updateTruckersDetails.getApplicant_income().isEmpty())	{
-	applicant_income=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getApplicant_income()));}
-	if(!updateTruckersDetails.getIncome_from_other_sources().isEmpty()) {
+	System.out.print("dummy126");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_income()).isEmpty())	{
+	applicant_income=(encdec.decryptnew(updateTruckersDetails.getApplicant_income()));}
+	System.out.print("dummy127");
+	if(!encdec.decryptnew(updateTruckersDetails.getIncome_from_other_sources()).isEmpty()) {
 		income_from_other_sources=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getIncome_from_other_sources()));}
-	if(!updateTruckersDetails.getFood_expenses().isEmpty())	{
+	if(!encdec.decryptnew(updateTruckersDetails.getFood_expenses()).isEmpty())	{
 	food_expenses=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getFood_expenses()));}
-	if(!updateTruckersDetails.getHouserent().isEmpty()) {
-		 houserent=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getHouserent()));}
-	if(!updateTruckersDetails.getHouse_renovation_expenses().isEmpty()) {
+	System.out.print("dummy128");
+	if(!encdec.decryptnew(updateTruckersDetails.getHouserent()).isEmpty()) {
+		 houserent=(encdec.decryptnew(updateTruckersDetails.getHouserent()));}
+	System.out.print("dummy129");
+	if(!encdec.decryptnew(updateTruckersDetails.getHouse_renovation_expenses()).isEmpty()) {
 	 house_renovation_expenses=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getHouse_renovation_expenses()));}
-	if(!updateTruckersDetails.getTotal_monthly_bill_payment().isEmpty()) {
+	if(!encdec.decryptnew(updateTruckersDetails.getTotal_monthly_bill_payment()).isEmpty()) {
+		System.out.println("total monthly bill"+encdec.decryptnew(updateTruckersDetails.getTotal_monthly_bill_payment()));
 		 total_monthly_bill_payment=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getTotal_monthly_bill_payment()));}
-	if(!updateTruckersDetails.getApplicant_expense_monthly().isEmpty()) {
-		 applicant_expense_monthly=Float.parseFloat(encdec.decryptnew(updateTruckersDetails.getApplicant_expense_monthly()));}
-	if(!updateTruckersDetails.getApplicant_id().isEmpty()) {
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_expense_monthly()).isEmpty()) {
+		 applicant_expense_monthly=(encdec.decryptnew(updateTruckersDetails.getApplicant_expense_monthly()));}
+	System.out.print("dummy130");
+	if(!encdec.decryptnew(updateTruckersDetails.getApplicant_id()).isEmpty()) {
 	 applicant_id=Long.parseLong(encdec.decryptnew(updateTruckersDetails.getApplicant_id()));
 	 }
-	if(!updateTruckersDetails.getUpdated_by().isEmpty()) {
+	System.out.print("dummy131");
+	if(!encdec.decryptnew(updateTruckersDetails.getUpdated_by()).isEmpty()) {
 		updated_by=encdec.decryptnew(updateTruckersDetails.getUpdated_by());
 	}
-	 appRepo.updateTruckersDetails(vehicle_no,company_name,applicant_firstname,applicant_date_of_birth,age,maritalstatus,nominee_name,nominee_dob,nominee_age,nominee_relation,spouse_name,applicant_father_firstname,religion,applicant_qualification,applicant_employment_type,applicant_address_line_1,applicant_city_name,applicant_pin,applicant_mobile_no,no_of_family_member,no_of_earning_member,house_type,	Ration_Card,medical_insurance,current_loan_outstanding_principal,current_loan_outstanding_interest,applicant_income,income_from_other_sources,food_expenses,houserent,house_renovation_expenses,total_monthly_bill_payment,applicant_expense_monthly,updated_by,datamoddt,applicant_id);    
+	System.out.print("dummy132");
+	 appRepo.updateTruckersDetails(vehicle_no,company_name,applicant_firstname,applicant_date_of_birth,age,maritalstatus,nominee_name,nominee_dob,nominee_age,nominee_relation,spouse_name,applicant_father_firstname,religion,applicant_qualification,applicant_employment_type,applicant_address_line_1,applicant_city_name,applicant_pin1,applicant_mobile_no,no_of_family_member,no_of_earning_member,house_type,	Ration_Card,medical_insurance,current_loan_outstanding_principal,current_loan_outstanding_interest,applicant_income,income_from_other_sources,food_expenses,houserent,house_renovation_expenses,total_monthly_bill_payment,applicant_expense_monthly,updated_by,datamoddt,applicant_id);    
 	  httpstatus=HttpStatus.OK;
 		 response="updated successfully";
 		 status="true";	
 	} catch (Exception e) {
 		 httpstatus=HttpStatus.BAD_REQUEST;
-		 response="error in updation";
+		 response="error in updation"+e;
 		 status="false";	
 		LOGGER.error("Error While updating the truckers Applicant" + e.getMessage());
 	
@@ -927,6 +965,147 @@ csvwriter.close();
 catch (Exception e) {
 	 LOGGER.error("error while downloading truckers data"+e.getMessage());
 }}
+@RequestMapping(value = { "/GetApplicantListenc" }, method = RequestMethod.POST, produces = {
+		MediaType.APPLICATION_JSON_VALUE })
+@ResponseStatus(value = HttpStatus.OK)
+public ResponseEntity<com.securedloan.arthavedika.response.ApplicantPredictionListResponse> GetApplicantPrediction(@RequestBody ApplicantPayload appPayload) {
+	LOGGER.info("get  applicant   by id api has been called !!! Start Of Method get applicant by id");
+	
+	HttpStatus httpstatus=null;
+	String response="";
+	String status=null;
+	
+	List<ApplicatListPrediction> applicant= new ArrayList<ApplicatListPrediction>();
+	System.out.println("details retrived before");
+	try {
+		System.out.println("details retrived successfully1");
+	 List<Applicant> applicantDetails=appRepo.findByApplicant_id(Long.parseLong(encdec.decryptnew(appPayload.getApplicant_id())));
+	System.out.println("details retrived successfully");
+		if (applicantDetails==null) {
+			
+		response=" applicant details not available"	;
+		}
+		else
+		{ 
+			System.out.println("encyption of list");
+			int i=0;
+			for(i=0;i<applicantDetails.size();i++) {
+				System.out.println("for loop");
+					ApplicatListPrediction app= new ApplicatListPrediction();
+					System.out.println("encyption of list1");
+						 SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+							if(!( applicantDetails).get(i).getVehicle_no().isEmpty()) {
+								app.setVehicle_no(encdec.encryptnew(( applicantDetails).get(i).getVehicle_no()));
+							}
+							System.out.println("encyption of list2");
+							if(!( applicantDetails.get(i).getCompany_name().isEmpty())) {
+								app.setCompany_name(encdec.encryptnew(( applicantDetails).get(i).getCompany_name()));
+							}
+							System.out.println("encyption of list3");
+							if(!( applicantDetails).get(i).getApplicant_firstname().isEmpty()) {
+								app.setApplicant_firstname(encdec.encryptnew(( applicantDetails).get(i).getApplicant_firstname()));
+							}
+							System.out.println("encyption of list4");
+							/*if(!(  applicantDetails.get(i).getApplicant_date_of_birth()).isEmpty()) {
+								String dob=sdf1.format(( applicantDetails).get(i).getApplicant_date_of_birth()) ;
+								 app.setApplicant_Date_of_birth(encdec.encryptnew(dob));
+							}*/
+							System.out.println("encyption of list5");
+							if(!(( applicantDetails).get(i).getAge()==0)) {
+								String age= (String.valueOf(applicantDetails.get(i).getAge()));
+								 app.setAge(encdec.encryptnew(age));}
+							if(!applicantDetails.get(i).getMaritalstatus().isEmpty()) {
+								 app.setMaritalstatus(encdec.encryptnew(applicantDetails.get(i).getMaritalstatus()));}
+							
+							if(!applicantDetails.get(i).getNominee_name().isEmpty())
+								{ app.setNominee_name(encdec.encryptnew(applicantDetails.get(i).getNominee_name()));}
+							/*if(applicantDetails.get(i).getNominee_dob() != null)
+								{String dob=(encdec.encryptnew(sdf1.format(applicantDetails.get(i).getNominee_dob())));
+								 app.setNominee_dob((dob));
+								}*/
+							System.out.println("encyption of list6");
+							if(!(applicantDetails.get(i).getNominee_age()==0))
+							{ app.setNominee_age(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getNominee_age())));}				
+								if(!applicantDetails.get(i).getNominee_relation().isEmpty() ) {
+									app.setNominee_relation(encdec.encryptnew(applicantDetails.get(i).getNominee_relation()));
+								}
+								System.out.println("encyption of list7");
+								if(!applicantDetails.get(i).getSpouse_name().isEmpty())
+								{app.setSpouse_name(encdec.encryptnew(applicantDetails.get(i).getSpouse_name()));}
+								if(!applicantDetails.get(i).getApplicant_father_firstname().isEmpty())
+									app.setApplicant_father_firstname(encdec.encryptnew(applicantDetails.get(i).getApplicant_father_firstname()));
+								if(!applicantDetails.get(i).getReligion().isEmpty())
+								{app.setReligion(encdec.encryptnew(applicantDetails.get(i).getReligion()));}
+								System.out.println("encyption of list8");
+							if(!applicantDetails.get(i).getApplicant_qualification().isEmpty()) {
+								app.setApplicant_qualification(encdec.encryptnew(applicantDetails.get(i).getApplicant_qualification()));}
+							if(!applicantDetails.get(i).getApplicant_employment_type().isEmpty())	{
+							app.setApplicant_employment_type(encdec.encryptnew(applicantDetails.get(i).getApplicant_employment_type()));}
+							if(!applicantDetails.get(i).getApplicant_address_line_1().isEmpty()) {
+							 app.setApplicant_address_line_1(encdec.encryptnew(applicantDetails.get(i).getApplicant_address_line_1()));}
+							if(!applicantDetails.get(i).getApplicant_city_name().isEmpty()) {
+								 app.setApplicant_city_name(encdec.encryptnew(applicantDetails.get(i).getApplicant_city_name()));}
+							if(!(applicantDetails.get(i).getApplicant_PIN()==0)) {
+								 app.setApplicant_pin(
+										 (encdec.encryptnew(String.valueOf(applicantDetails.get(i).getApplicant_PIN()))));}
+							System.out.println("encyption of list9");
+							if(!applicantDetails.get(i).getApplicant_mobile_no().isEmpty()) {
+								 app.setApplicant_mobile_no((encdec.encryptnew(applicantDetails.get(i).getApplicant_mobile_no())));}
+							if(!(applicantDetails.get(i).getNo_of_family_member()==0)) {
+								 app.setNo_of_family_member(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getNo_of_family_member())));}
+							System.out.println("encyption of list10");
+							if(!(applicantDetails.get(i).getNo_of_earning_member()==0) ){
+								app.setNo_of_earning_member(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getNo_of_earning_member())));}
+							if(!applicantDetails.get(i).getHouse_type().isEmpty()) {
+								app.setHouse_type(encdec.encryptnew(applicantDetails.get(i).getHouse_type()));}
+							if(!applicantDetails.get(i).getRation_card().isEmpty()) {	
+							app.setRation_Card(encdec.encryptnew(applicantDetails.get(i).getRation_card()));}
+							if(!applicantDetails.get(i).getMedical_insurance().isEmpty()) {
+							app.setMedical_insurance(encdec.encryptnew(applicantDetails.get(i).getMedical_insurance()));}
+							if(!(applicantDetails.get(i).getCurrent_loan_outstanding_principal()==0)) {
+								 app.setCurrent_loan_outstanding_principal(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getCurrent_loan_outstanding_principal())));}
+							if(!(applicantDetails.get(i).getCurrent_loan_outstanding_interest()==0)) {	
+							 app.setCurrent_loan_outstanding_Stringerest(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getCurrent_loan_outstanding_interest())));}
+							if(!applicantDetails.get(i).getApplicant_income().isEmpty())	{
+							app.setApplicant_income((encdec.encryptnew(applicantDetails.get(i).getApplicant_income())));}
+							if(!(applicantDetails.get(i).getIncome_from_other_sources()==0)) {
+								app.setIncome_from_other_sources(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getIncome_from_other_sources())));}
+							System.out.println("encyption of list11");
+							if(!(applicantDetails.get(i).getFood_expenses()==0))	{
+							app.setFood_expenses(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getFood_expenses())));}
+							if(!applicantDetails.get(i).getHouserent().isEmpty()) {
+								 app.setHouserent((encdec.encryptnew(applicantDetails.get(i).getHouserent())));}
+							System.out.println("encyption of list12");
+							if(!(applicantDetails.get(i).getHouse_renovation_expenses()==0)) {
+							 app.setHouse_renovation_expenses(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getHouse_renovation_expenses())));}
+							System.out.println("encyption of list13");
+							if(!(applicantDetails.get(i).getTotal_monthly_bill_payment()==0)) {
+								 app.setTotal_monthly_bill_payment(encdec.encryptnew(String.valueOf(applicantDetails.get(i).getTotal_monthly_bill_payment())));}
+							if(!applicantDetails.get(i).getApplicant_expense_monthly().isEmpty()) {
+								System.out.println("encyption of list14");
+								app.setApplicant_expense_monthly((encdec.encryptnew(applicantDetails.get(i).getApplicant_expense_monthly())));}
+							System.out.println("encyption of list15");
+							applicant.add(i, app);
+							
+			}
+			//System.out.println("dummy2");
+			response=" Applicant detail is retrieved successfully";
+			
+		}
+		System.out.println("dummy3");
+		status="true";
+		httpstatus=HttpStatus.OK;
+		}
+				
+	catch (Exception e) {
+		LOGGER.error("Error While retreiving user" + e.getMessage());
+		response="Error While retreiving  user" + e.getMessage();
+		status="false";
+		httpstatus=HttpStatus.BAD_REQUEST;
+	}
+	return ResponseEntity.status(httpstatus).body(new ApplicantPredictionListResponse
+			(applicant,(response),(status)));
+}
 }
 
 
