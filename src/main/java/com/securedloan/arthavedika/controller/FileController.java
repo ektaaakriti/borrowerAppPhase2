@@ -54,18 +54,7 @@ public class FileController {
 		String message = "";
 		try {
 			storageService.store(file, applicant, docName,doc );
-			String company_name = null;
-			List<Company>company=companyrepo.company_name();
-			for(int i=0;i<company.size();i++) {
-				if (applicant.getCompany_code().equals(company.get(i).getCompany_code())) {
-					System.out.println("company name is"+company.get(i).getCompanyName());
-				 company_name=(company.get(i).getCompanyName());
-				}}
-			applicant.setCompany_name(company_name);
-			if(applicant.getCompany_code().equals("MK")) {
-				applicant.setAV_approval("Y");
-				applicant.setAuthorisation_status(1);
-			}
+			
 		
 			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 			LOGGER.info("End Of Method uploadFile !!!");

@@ -611,7 +611,16 @@ System.out.print((company.get(i).getCompany_code()));
 				System.out.print("after saving");
 				User user_details=userRepo.findByEmailNMobile(encdec.decryptnew(addmodifyUserPayload.getEmail_id()),(encdec.decryptnew(addmodifyUserPayload.getMobile_no())));
 				System.out.println("password is"+user_details.getPassword());
-				mail.sendEmailForPassword(user_details);
+				try{
+					mail.sendEmailForPassword(user_details);}
+				catch(Exception e){
+				response="error while sending mail";
+				LOGGER.error("Error While sending mail to new user " + e.getMessage());
+				response="Error While sending mail to new user" + e.getMessage();
+				status="false";
+				httpstatus=HttpStatus.BAD_REQUEST;
+				throw e;
+				}
 			response="User is added successfully. Please check your mail for further details"	;
 			}
 			else

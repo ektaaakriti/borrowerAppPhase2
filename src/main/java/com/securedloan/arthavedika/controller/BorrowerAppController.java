@@ -139,21 +139,30 @@ public class BorrowerAppController {
 			LOGGER.info(" applicant id is"+applicant_id);
 			switch(encdec.decryptnew(authorizeApplicantPayload.getCompany_code())) {
 			case "AV":
-			{
+			{System.out.println("av approval before");
 				LOGGER.info("status of av_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
 				//Long applicant_id=Long.parseLong(encdec.decryptnew(authorizeApplicantPayload.getApplicant_id()));
+				System.out.println("av approval before1");
 				appRepo.AVauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),date, applicant_id);
+				System.out.println("av approval before12");
+
+				/*System.out.println("applicant company code is"+encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 				Company company=companyRepo.company_details(encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 				System.out.println("Applicant company"+company);
+				System.out.println("av approval before2");
 				if(company!=null)
 				{Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
-				companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}
+				companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}*/
 				Applicant_approval_details approvaldtls=new Applicant_approval_details();
+				System.out.println("av approval before123");
+				approvaldtls.setApplicant_id(applicant_id);
 				approvaldtls.setAv_authorisation_by(encdec.decryptnew(authorizeApplicantPayload.getApproval_by()));
 				approvaldtls.setAv_comment(encdec.decryptnew(authorizeApplicantPayload.getComment()));
 				approvaldtls.setAv_authorisation_status(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));
 				approvaldtls.setAv_authorisation_datetime(date);
 				approvalRepo.save(approvaldtls);
+				System.out.println("av approval before1234");
+
 				break;	
 				
 			}
@@ -161,32 +170,39 @@ public class BorrowerAppController {
 			{
 				LOGGER.info("status of MK_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
 			appRepo.MKauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,applicant_id);
-			Company company=companyRepo.company_details(encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
+		/*	Company company=companyRepo.company_details(encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 			if(company!=null)
 			{	Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
-			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}	
-
+			System.out.println("Mk approval before1");
+			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}*/	
+			System.out.println("Mk approval before2");
 			approvalRepo.updateMkverifyDetails(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),
 					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
 			, date, applicant_id);
+			System.out.println("Mk approval after");
 			break;
 			
 			}
 			case"SH":
 			{LOGGER.info("status of SH_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
 			appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date, applicant_id);
-			Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
+			System.out.println("sh approval before");
+		/*	Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 			if(company!=null)
-			{Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
-			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}
+			{System.out.println("sh approval before12");
+				Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
+			companyRepo.updateCurrentAmount(current_amount, encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));}*/
+			System.out.println("sh approval before2");
 			approvalRepo.updateshapprovalDetails(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),
 					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
 			, date, applicant_id);	
+			System.out.println("sh approval after");
 			break;
 			}
 			}
-			System.out.print(response);
-
+			
+response="Applicant authorisation status is submitted succesfully";
+System.out.print("response is"+response);
 				//	return ResponseEntity.status(HttpStatu).body(new BorrowerResponse("Applicant authorisation status is submitted succesfully", Boolean.TRUE));
 		
 		} catch (Exception e) {

@@ -26,6 +26,15 @@ public class FileStorageService {
 
 		return fileDBRepository.save(FileDB);
 	}
+	public FileDB storeTruckers(MultipartFile file, Long applicant_id, String document, String documentname) throws IOException {
+		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		//applicant.setApplicant_id(applicant_id);
+		Applicant app=new Applicant();
+		app.setApplicant_id(applicant_id);
+		FileDB FileDB = new FileDB(fileName, file.getContentType(), document,documentname, app, file.getBytes());
+
+		return fileDBRepository.save(FileDB);
+	}
 
 	public FileDB getFile(String id) {
 		return fileDBRepository.findById(id).get();

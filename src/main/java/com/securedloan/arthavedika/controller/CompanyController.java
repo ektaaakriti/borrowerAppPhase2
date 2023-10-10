@@ -106,7 +106,9 @@ public class CompanyController {
 			if (comp==null) {
 				Company company=new Company();
 				company.setCompany_code(encdec.decryptnew(addmodifyCompanyPayload.getCompany_code()));
-				company.setCompanyName(encdec.decryptnew(addmodifyCompanyPayload.getCompany_name()));
+				String company_name=encdec.decryptnew(addmodifyCompanyPayload.getCompany_name());
+				company_name=company_name.replace(" ", "_");
+				company.setCompanyName(company_name);
 				
 				company.setCompany_address(encdec.decryptnew(addmodifyCompanyPayload.getCompany_address()));
 				company.setAllowed_amount(amount);
@@ -118,8 +120,10 @@ public class CompanyController {
 			
 			else
 			{
-				companyRepo.updateCompany(addmodifyCompanyPayload.getCompany_code(),addmodifyCompanyPayload.getCompany_name(),
-						addmodifyCompanyPayload.getCompany_address(),amount,addmodifyCompanyPayload.getCompany_id());
+				String company_name=encdec.decryptnew(addmodifyCompanyPayload.getCompany_name());
+				company_name=company_name.replace(" ", "_");
+				companyRepo.updateCompany(encdec.decryptnew(addmodifyCompanyPayload.getCompany_code()),company_name,
+						encdec.decryptnew(addmodifyCompanyPayload.getCompany_address()),amount,encdec.decryptnew(addmodifyCompanyPayload.getCompany_id()));
 				
 				response="Company modified successfully";
 				

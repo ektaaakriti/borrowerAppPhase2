@@ -13,6 +13,7 @@ public class Applicant_approval_details {
 	String	av_authorisation_status;
 	String av_authorisation_by;
 	String av_comment;
+	
 	Date av_authorisation_datetime;
 	String mk_verified_status;
 	String mk_verified_by;

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.EncryptionDecryptionClass;
 import com.securedloan.arthavedika.model.*;
+import com.securedloan.arthavedika.payload.ApplicantPayload;
 import com.securedloan.arthavedika.payload.CompanyPayload;
 import com.securedloan.arthavedika.payload.MetaDataResponsePayload;
 import com.securedloan.arthavedika.repo.MetadataResponseRepo;
@@ -46,7 +47,10 @@ public ResponseEntity<MetaResponse_Response> save_metadataResponse(@RequestBody 
 		mt.setApplicant_response(encdec.decryptnew(metaPayload.getResponse()));
 		mt.setUser_pin(encdec.decryptnew(metaPayload.getUser_pin()));
 		 Date date = new Date();
-		mt.setDatetime_of_response(date);
+		
+		mt.setRequest_type("response");
+		
+		mt.setDatetime_of_request(date);
 		metaDataRepo.save(mt);
 				
 			response="response saved successfully for applicant id"+Long.parseLong(encdec.decryptnew(metaPayload.getApplicant_id()));
@@ -63,4 +67,39 @@ public ResponseEntity<MetaResponse_Response> save_metadataResponse(@RequestBody 
 	}
 	return ResponseEntity.status(httpstatus).body(new MetaResponse_Response (encdec.encryptnew(response),encdec.encryptnew(status)));
 }
+@RequestMapping(value = { "/request" }, method = RequestMethod.POST, produces = {
+		MediaType.APPLICATION_JSON_VALUE })
+@ResponseStatus(value = HttpStatus.OK)
+public ResponseEntity<MetaResponse_Response> save_metadataRequest(@RequestBody  ApplicantPayload metaPayload) {
+	LOGGER.info("save MetaData Request api has been called !!! Start Of Method save metadata request");
+	
+	HttpStatus httpstatus=null;
+	String response="";
+	String status=null;
+	
+	try {
+		 MetaDataResponse mt=new MetaDataResponse();
+		mt.setApplicant_id(Long.parseLong(encdec.decryptnew(metaPayload.getApplicant_id())));
+		mt.setRequest_type("request");
+		
+		 Date date = new Date();
+		
+		mt.setDatetime_of_request(date);
+		metaDataRepo.save(mt);
+				
+			response="resquest time saved successfully for applicant id"+Long.parseLong(encdec.decryptnew(metaPayload.getApplicant_id()));
+				status="true";
+		httpstatus=HttpStatus.OK;
+		}
+				
+	catch (Exception e) {
+		
+		response="Error While saving metadata request" + e.getMessage();
+		LOGGER.error(response + e.getMessage());
+		status="false";
+		httpstatus=HttpStatus.BAD_REQUEST;
+	}
+	return ResponseEntity.status(httpstatus).body(new MetaResponse_Response (encdec.encryptnew(response),encdec.encryptnew(status)));
 }
+}
+
