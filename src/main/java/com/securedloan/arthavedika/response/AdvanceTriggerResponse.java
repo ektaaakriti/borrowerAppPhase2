@@ -2,16 +2,18 @@ package com.securedloan.arthavedika.response;
 
 import java.util.List;
 
+import com.securedloan.arthavedika.payload.AdvanceRequestList;
 import com.securedloan.arthavedika.payload.AdvanceRequestPayload;
 
 public class AdvanceTriggerResponse {
-	List<AdvanceRequestPayload> list;
+	List<AdvanceRequestList> list;
 	String message;
 	String status;
-	public List<AdvanceRequestPayload> getList() {
+	
+	public List<AdvanceRequestList> getList() {
 		return list;
 	}
-	public void setList(List<AdvanceRequestPayload> list) {
+	public void setList(List<AdvanceRequestList> list) {
 		this.list = list;
 	}
 	public String getMessage() {
@@ -26,7 +28,7 @@ public class AdvanceTriggerResponse {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public AdvanceTriggerResponse(List<AdvanceRequestPayload> list, String message, String status) {
+	public AdvanceTriggerResponse(List<AdvanceRequestList> list, String message, String status) {
 		super();
 		this.list = list;
 		this.message = message;

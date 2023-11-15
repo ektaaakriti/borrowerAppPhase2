@@ -1,8 +1,6 @@
 package com.securedloan.arthavedika.payload;
 
-import java.util.Date;
-
-public class AdvanceRequestPayload {
+public class AdvanceRequestList {
 	String applicant_id;
 	String from_location ;
 	String to_location ;
@@ -12,16 +10,30 @@ public class AdvanceRequestPayload {
 	String return_date_amount_expected;
 	String truck_number;
 	String raised_user_id;
-	//String approved_user_id ;
+	String approved_user_id ;
 	String account_no;
 	String ifsc_code;
-	//String approved_amount;
-	//String comment_by_mk;
-	//String commenyt_by_sh;
-	//String approval_status ;
+	String approved_amount;
+	String comment_by_mk;
+	String commenyt_by_sh;
+	String approval_status ;
 	String Loan_id;
-	//String av_approval;
-	//String comment_by_av;
+	String av_approval;
+	String comment_by_av;
+	String disbursement_ifsc;
+	String disbursement_account_no;
+	public String getDisbursement_ifsc() {
+		return disbursement_ifsc;
+	}
+	public void setDisbursement_ifsc(String disbursement_ifsc) {
+		this.disbursement_ifsc = disbursement_ifsc;
+	}
+	public String getDisbursement_account_no() {
+		return disbursement_account_no;
+	}
+	public void setDisbursement_account_no(String disbursement_account_no) {
+		this.disbursement_account_no = disbursement_account_no;
+	}
 	public String getApplicant_id() {
 		return applicant_id;
 	}
@@ -76,6 +88,12 @@ public class AdvanceRequestPayload {
 	public void setRaised_user_id(String raised_user_id) {
 		this.raised_user_id = raised_user_id;
 	}
+	public String getApproved_user_id() {
+		return approved_user_id;
+	}
+	public void setApproved_user_id(String approved_user_id) {
+		this.approved_user_id = approved_user_id;
+	}
 	public String getAccount_no() {
 		return account_no;
 	}
@@ -88,11 +106,47 @@ public class AdvanceRequestPayload {
 	public void setIfsc_code(String ifsc_code) {
 		this.ifsc_code = ifsc_code;
 	}
+	public String getApproved_amount() {
+		return approved_amount;
+	}
+	public void setApproved_amount(String approved_amount) {
+		this.approved_amount = approved_amount;
+	}
+	public String getComment_by_mk() {
+		return comment_by_mk;
+	}
+	public void setComment_by_mk(String comment_by_mk) {
+		this.comment_by_mk = comment_by_mk;
+	}
+	public String getCommenyt_by_sh() {
+		return commenyt_by_sh;
+	}
+	public void setCommenyt_by_sh(String commenyt_by_sh) {
+		this.commenyt_by_sh = commenyt_by_sh;
+	}
+	public String getApproval_status() {
+		return approval_status;
+	}
+	public void setApproval_status(String approval_status) {
+		this.approval_status = approval_status;
+	}
 	public String getLoan_id() {
 		return Loan_id;
 	}
 	public void setLoan_id(String loan_id) {
 		Loan_id = loan_id;
 	}
-	
+	public String getAv_approval() {
+		return av_approval;
 	}
+	public void setAv_approval(String av_approval) {
+		this.av_approval = av_approval;
+	}
+	public String getComment_by_av() {
+		return comment_by_av;
+	}
+	public void setComment_by_av(String comment_by_av) {
+		this.comment_by_av = comment_by_av;
+	}
+	
+}

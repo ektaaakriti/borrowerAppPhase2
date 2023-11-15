@@ -24,7 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.securedloan.arthavedika.model.Applicant;
 import com.securedloan.arthavedika.model.Company;
+import com.securedloan.arthavedika.model.FileDB;
 import com.securedloan.arthavedika.repo.CompanyRepo;
+import com.securedloan.arthavedika.repo.FileDBRepository;
 import com.securedloan.arthavedika.response.ResponseMessage;
 import com.securedloan.arthavedika.service.FileStorageService;
 import com.securedloan.arthavedika.service.ReportService;
@@ -43,6 +45,8 @@ public class FileController {
 	private ReportService reportService;
 	@Autowired
 	private CompanyRepo companyrepo;
+	@Autowired
+	private FileDBRepository fileRepo;
 
 	// @PostMapping("/upload/v1")
 	@RequestMapping(value = { "/upload/v1" }, method = RequestMethod.POST, produces = {
@@ -53,8 +57,18 @@ public class FileController {
 		LOGGER.info("Upload api has been called !!! Start Of Method uploadFile");
 		String message = "";
 		try {
-			storageService.store(file, applicant, docName,doc );
-			
+			System.out.println("doc is "+doc);
+			FileDB document=fileRepo.documentByIdnDocName(applicant.getApplicant_id(), doc);
+			System.out.println("document is "+document);
+			if(document==null)
+			{System.out.println("document is null"+document);
+				storageService.store(file, applicant, docName,doc );
+				//storageService.storeTruckers(file, applicant.getApplicant_id(), docName,doc );
+			}
+			else {
+				System.out.println("document is not null"+document);
+				fileRepo.updateDocument(file.getOriginalFilename(),file.getBytes(),file.getContentType(),docName, applicant.getApplicant_id(), doc);
+			}
 		
 			message = "Uploaded the file successfully: " + file.getOriginalFilename();
 			LOGGER.info("End Of Method uploadFile !!!");

@@ -86,8 +86,9 @@ public class GeneralController {
 		//	List<LicenseDetails> list1=new ArrayList<>();
 		
 		InputStream inputstream=file.getInputStream();
-		String name=file.getName();
+		String name=file.getOriginalFilename();
 		System.out.println("inputstream size is"+inputstream.toString());
+		System.out.println("name of file is"+name);
 		String target=writeToFile(inputstream,name);
 		response="Applicant File uploaded successfully to path"+target;
 		status="True";

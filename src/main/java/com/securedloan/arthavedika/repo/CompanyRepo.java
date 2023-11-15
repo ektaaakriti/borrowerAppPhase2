@@ -19,6 +19,7 @@ List<Company> company_name();
 void updateCurrentAmount(Float current_amount,String company_code);
 @Query("select a from Company a where a.company_code=?1 and a.delete_status='N' ")
 Company company_details(String company_code);
+
 @Query("select a from Company a where a.company_id=?1 and a.delete_status='N' ")
 public Company getcompanyById(String Company_id);
 @Modifying

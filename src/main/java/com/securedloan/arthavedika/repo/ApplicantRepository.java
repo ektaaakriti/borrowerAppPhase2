@@ -21,7 +21,8 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 	
 	@Query("SELECT a FROM Applicant a WHERE a.applicant_id=?1")
 	public List<Applicant> findByApplicant_id(long applicant_id);
-
+	@Query("SELECT a.company_code FROM Applicant a WHERE a.applicant_id=?1")
+	public String company_codeByApplicant_id(long applicant_id);
 	@Query("SELECT a FROM Applicant a WHERE a.applicant_id=?1")
 	public Applicant findByApplicant_ids(long applicant_id);
 	@Query("SELECT a FROM Applicant a WHERE a.dataentdt between ?1 and ?2")

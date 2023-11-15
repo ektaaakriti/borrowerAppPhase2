@@ -230,10 +230,65 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
+	/*@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
 	public ResponseEntity<ResponseOld> loginUser(@RequestParam("mobile_no") String mobile_no,
+			@RequestParam("password") String password, @Valid User user) {
+		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
+		try {
+			System.out.println("mobile no"+user.getMobile_no());
+			System.out.println("password no"+user.getPassword());
+			List<User> users = (List<User>) userService.findUsers(user.getMobile_no(), user.getPassword());
+			System.out.println("user is"+users);
+			if (users.size() > 0) {
+				System.out.println("user is not null");
+				if (users.get(0).isVerified() == Boolean.TRUE) {
+					System.out.println("user verified");
+					List<LoginDetail> login = userService.findUserByUserNative(users.get(0).getUser_id());
+					if (login.size() > 0) {
+						System.out.println("login size is more than 1");
+						LoginDetail currentLoginDetail = login.get(0);
+						currentLoginDetail.setLogged_in_date(new Date());
+						currentLoginDetail.setLogin_ip(request.getRemoteHost());
+						userService.saveLogin(currentLoginDetail); // will update the login date time
+					} else {
+						System.out.println("login size is less than 1");
+						LoginDetail loginDetail = new LoginDetail(request.getRemoteHost(), new Date(), null,
+								users.get(0));
+						userService.saveLogin(loginDetail);// new login
+
+					}
+					LOGGER.info("End Of Method loginUser");
+					users.get(0).setLoggedIn(Boolean.TRUE);
+					// return new Response("Login Success", Boolean.TRUE, users.get(0));
+					return ResponseEntity.status(HttpStatus.OK)
+							.body(new ResponseOld(loginSuccess, Boolean.TRUE, users.get(0)));
+
+				} else {
+					System.out.println("not verified");
+					// return new Response("Account not verified!!!", Boolean.FALSE, users.get(0));
+					return ResponseEntity.status(HttpStatus.OK)
+							.body(new ResponseOld(accountNtVerified, Boolean.FALSE, new User()));
+
+				}
+			} else {
+				System.out.println("login has failed");
+				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new ResponseOld(loginFailed, Boolean.FALSE,new User()));
+
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error While Login" + e.getMessage());
+			return ResponseEntity.badRequest().body(new ResponseOld(e.getMessage(), Boolean.FALSE, new User()));
+		}
+
+	}*/
+	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<Response> loginUser(@RequestParam("mobile_no") String mobile_no,
 			@RequestParam("password") String password, @Valid User user) {
 		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
 		try {
@@ -257,23 +312,23 @@ public class UserController {
 					users.get(0).setLoggedIn(Boolean.TRUE);
 					// return new Response("Login Success", Boolean.TRUE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new ResponseOld(loginSuccess, Boolean.TRUE, users.get(0)));
+							.body(new Response(loginSuccess, Boolean.TRUE, users.get(0)));
 
 				} else {
 					// return new Response("Account not verified!!!", Boolean.FALSE, users.get(0));
 					return ResponseEntity.status(HttpStatus.OK)
-							.body(new ResponseOld(accountNtVerified, Boolean.FALSE, new User()));
+							.body(new Response(accountNtVerified, Boolean.FALSE, new User()));
 
 				}
 			} else {
 				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
 				return ResponseEntity.status(HttpStatus.OK)
-						.body(new ResponseOld(loginFailed, Boolean.FALSE,new User()));
+						.body(new Response(loginFailed, Boolean.FALSE,new User()));
 
 			}
 		} catch (Exception e) {
 			LOGGER.error("Error While Login" + e.getMessage());
-			return ResponseEntity.badRequest().body(new ResponseOld(e.getMessage(), Boolean.FALSE, new User()));
+			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new User()));
 		}
 
 	}

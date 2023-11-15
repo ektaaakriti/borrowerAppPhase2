@@ -1,5 +1,6 @@
 package com.securedloan.arthavedika.payload;
 
+import java.util.List;
 
 public class UpdateTruckersDetails {
 	String vehicle_no;
@@ -38,7 +39,11 @@ String updated_by;
 	String applicant_expense_monthly;
 	String applicant_id;
 	String created_by;
-
+	/*List<Document> POI;
+	List<Document> POA;
+	List<Document> applicantPhoto;*/
+		
+	
 	
 	public String getCreated_by() {
 		return created_by;
@@ -266,4 +271,5 @@ String updated_by;
 	public void setApplicant_id(String applicant_id) {
 		this.applicant_id = applicant_id;
 	}
+	
 }

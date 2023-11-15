@@ -948,8 +948,8 @@ public class ApplicantController {
 @RequestMapping(value = { "/modifyTruckersDetailsDocument/v1" }, method = RequestMethod.POST, produces = {
 		MediaType.APPLICATION_JSON_VALUE })
 @ResponseStatus(value = HttpStatus.OK)
-public ResponseEntity<GeneralResponse> modifyTruckersDetailDocument(@RequestBody UpdateTruckersDetails updateTruckersDetails,@RequestParam("file") MultipartFile file,
-		 @RequestParam("docName") String docName,@RequestParam("doc") String doc) {
+public ResponseEntity<GeneralResponse> modifyTruckersDetailDocument(@RequestBody UpdateTruckersDetails updateTruckersDetails
+		 ) {
 	LOGGER.info("Modify Applicant api has been called !!! Start Of Method Modify Applicant");
 	HttpStatus httpstatus=null;
 	String response="";
@@ -1094,10 +1094,19 @@ public ResponseEntity<GeneralResponse> modifyTruckersDetailDocument(@RequestBody
 	}
 	System.out.print("dummy132");
 	 appRepo.updateTruckersDetails(vehicle_no,company_name,applicant_firstname,applicant_date_of_birth,age,maritalstatus,nominee_name,nominee_dob,nominee_age,nominee_relation,spouse_name,applicant_father_firstname,religion,applicant_qualification,applicant_employment_type,applicant_address_line_1,applicant_city_name,applicant_pin1,applicant_mobile_no,no_of_family_member,no_of_earning_member,house_type,	Ration_Card,medical_insurance,current_loan_outstanding_principal,current_loan_outstanding_interest,applicant_income,income_from_other_sources,food_expenses,houserent,house_renovation_expenses,total_monthly_bill_payment,applicant_expense_monthly,updated_by,datamoddt,applicant_id);    
-	 storageService.storeTruckers(file, applicant_id, docName,doc );
-		
-		
-		System.out.println("Uploaded the file successfully: " + file.getOriginalFilename());
+	// storageService.storeTruckers, docName,doc );
+/*		if(!(updateTruckersDetails.getPOI()==null))
+		{storageService.storeTruckers(updateTruckersDetails.getPOI().get(0).getFile(), applicant_id,(updateTruckersDetails.getPOI().get(0).getDocument()),updateTruckersDetails.getPOI().get(0).getDocName());
+		System.out.println(" Uploaded the POI file successfully: " + updateTruckersDetails.getPOI().get(0).getFile().getOriginalFilename());
+		}
+		if(!(updateTruckersDetails.getPOA()==null))
+		{storageService.storeTruckers(updateTruckersDetails.getPOA().get(0).getFile(), applicant_id,updateTruckersDetails.getPOA().get(0).getDocument(),updateTruckersDetails.getPOA().get(0).getDocName());
+		System.out.println(" Uploaded the POA file successfully: " + updateTruckersDetails.getPOA().get(0).getFile().getOriginalFilename());
+		}
+		if(!(updateTruckersDetails.getApplicantPhoto()==null))
+		{storageService.storeTruckers(updateTruckersDetails.getApplicantPhoto().get(0).getFile(), applicant_id,updateTruckersDetails.getApplicantPhoto().get(0).getDocument(),updateTruckersDetails.getApplicantPhoto().get(0).getDocName());
+		System.out.println(" Uploaded the ApplicantPhoto file successfully: " + updateTruckersDetails.getApplicantPhoto().get(0).getFile().getOriginalFilename());
+		}*/
 		LOGGER.info("End Of Method uploadFile !!!");
 	 httpstatus=HttpStatus.OK;
 	  

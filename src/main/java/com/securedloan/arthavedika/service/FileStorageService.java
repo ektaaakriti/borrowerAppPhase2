@@ -26,14 +26,25 @@ public class FileStorageService {
 
 		return fileDBRepository.save(FileDB);
 	}
-	public FileDB storeTruckers(MultipartFile file, Long applicant_id, String document, String documentname) throws IOException {
+	public void storeTruckers(MultipartFile file, Long applicant_id, String document, String documentname) throws IOException {
 		String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+		System.out.println("document is"+document);
+		FileDB DocDB=fileDBRepository.documentByIdnDocName(applicant_id, document);
+		System.out.println("document from db is"+DocDB);
 		//applicant.setApplicant_id(applicant_id);
 		Applicant app=new Applicant();
 		app.setApplicant_id(applicant_id);
-		FileDB FileDB = new FileDB(fileName, file.getContentType(), document,documentname, app, file.getBytes());
-
-		return fileDBRepository.save(FileDB);
+		System.out.println("applicant id"+applicant_id);
+		if(DocDB==null)
+		{System.out.println("document from db is null"+DocDB);
+			FileDB FileDB = new FileDB(fileName, file.getContentType(), document,documentname, app, file.getBytes());
+//String name, String type, String docName, String document, Applicant applicant, byte[] data
+		 fileDBRepository.save(FileDB);}
+		else {
+			System.out.println("document from db is not null"+DocDB);
+			fileDBRepository.updateDocument(file.getOriginalFilename(),file.getBytes(),file.getContentType(),documentname, applicant_id, document);
+		
+		}
 	}
 
 	public FileDB getFile(String id) {

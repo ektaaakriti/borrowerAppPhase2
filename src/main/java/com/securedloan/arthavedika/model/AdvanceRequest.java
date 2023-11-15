@@ -3,15 +3,49 @@ package com.securedloan.arthavedika.model;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
 
 
 
 @Entity
 @Table(name = "advance_request")
 public class AdvanceRequest {
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "Advance_seq")
+    @GenericGenerator(
+        name = "Advance_seq", 
+        strategy = "com.securedloan.arthavedika.model.StringPrefixedSequenceIdGenerator", 
+        parameters = {
+            @Parameter(name = StringPrefixedSequenceIdGenerator.INCREMENT_PARAM, value = "10"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.VALUE_PREFIX_PARAMETER, value = "Adv_"),
+            @Parameter(name = StringPrefixedSequenceIdGenerator.NUMBER_FORMAT_PARAMETER, value = "%03d") })
 	@Id
+	String Loan_id;
+public String getLoan_id() {
+		return Loan_id;
+	}
+	public void setLoan_id(String loan_id) {
+		Loan_id = loan_id;
+	}
+	String disbursement_ifsc;
+	String disbursement_account_no;
+public String getDisbursement_ifsc() {
+		return disbursement_ifsc;
+	}
+	public void setDisbursement_ifsc(String disbursement_ifsc) {
+		this.disbursement_ifsc = disbursement_ifsc;
+	}
+	public String getDisbursement_account_no() {
+		return disbursement_account_no;
+	}
+	public void setDisbursement_account_no(String disbursement_account_no) {
+		this.disbursement_account_no = disbursement_account_no;
+	}
 Long applicant_id;
 String from_location ;
 String to_location ;
@@ -30,6 +64,41 @@ Float approved_amount;
 String comment_by_mk;
 String comment_by_sh;
 String approval_status ;
+String av_approval;
+String comment_by_av;
+Date date_of_disbursemnt;
+String transaction_id;
+
+public Date getDate_of_disbursemnt() {
+	return date_of_disbursemnt;
+}
+public void setDate_of_disbursemnt(Date date_of_disbursemnt) {
+	this.date_of_disbursemnt = date_of_disbursemnt;
+}
+public String getTransaction_id() {
+	return transaction_id;
+}
+public void setTransaction_id(String transaction_id) {
+	this.transaction_id = transaction_id;
+}
+public String getComment_by_sh() {
+	return comment_by_sh;
+}
+public void setComment_by_sh(String comment_by_sh) {
+	this.comment_by_sh = comment_by_sh;
+}
+public String getAv_approval() {
+	return av_approval;
+}
+public void setAv_approval(String av_approval) {
+	this.av_approval = av_approval;
+}
+public String getComment_by_av() {
+	return comment_by_av;
+}
+public void setComment_by_av(String comment_by_av) {
+	this.comment_by_av = comment_by_av;
+}
 public Long getApplicant_id() {
 	return applicant_id;
 }
