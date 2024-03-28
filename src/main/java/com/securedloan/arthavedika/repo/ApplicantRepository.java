@@ -21,6 +21,8 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 	
 	@Query("SELECT a FROM Applicant a WHERE a.applicant_id=?1")
 	public List<Applicant> findByApplicant_id(long applicant_id);
+	@Query("select a from Applicant a where a.applicant_id in (?1)")
+	public List<Applicant> findMultipleApplicant(List applicant_id);
 	@Query("SELECT a.company_code FROM Applicant a WHERE a.applicant_id=?1")
 	public String company_codeByApplicant_id(long applicant_id);
 	@Query("SELECT a FROM Applicant a WHERE a.applicant_id=?1")
@@ -40,7 +42,7 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 			+ "a.applicant_mobile_no=?19,a.no_of_family_member=?20,a.no_of_earning_member=?21,a.house_type=?22,	a.ration_card=?23,a.medical_insurance=?24,"
 			+ "a.current_loan_outstanding_principal=?25,a.current_loan_outstanding_interest=?26,a.applicant_income=?27"
 			+ ",a.income_from_other_sources=?28,a.food_expenses=?29,a.houserent=?30,a.house_renovation_expenses=?31,"
-			+ "a.total_monthly_bill_payment=?32,a.applicant_expense_monthly=?33,a.updated_by=?34,a.datamoddt=?35 where applicant_id=?36")
+			+ "a.total_monthly_bill_payment=?32,a.applicant_expense_monthly=?33,a.updated_by=?34,a.datamoddt=?35,a.authorisation_status=0 where applicant_id=?36")
 	public void updateTruckersDetails(String vehicle_no,String company_name,String applicant_firstname,Date applicant_date_of_birth ,int age,
 			String maritalstatus,String nominee_name,Date nominee_dob,int nominee_age,String nominee_relation,String spouse_name,
 			String applicant_father_firstname,String religion,String applicant_qualification,String applicant_employment_type,
@@ -52,19 +54,19 @@ public interface ApplicantRepository extends JpaRepository<Applicant, Long> {
 			Long applicant_id);
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.AV_approval=?1, a.authorisation_status=1, a.av_approval_date=?2 where a.applicant_id=?3")
-	public void AVauthoriseApplicant(String AV_approval,Date av_approval_date, Long applicant_id);
+	@Query("update Applicant a set a.AV_approval=?1, a.av_approval_date=?2,a.authorisation_status=?3 where a.applicant_id=?4")
+	public void AVauthoriseApplicant(String AV_approval,Date av_approval_date,int authorisation_status, Long applicant_id);
 
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.MK_approval=?1, a.authorisation_status=2, a.mk_approval_date=?2 where a.applicant_id=?3")
-	public void MKauthoriseApplicant(String MK_approval, Date mk_approval_date,Long applicant_id);
+	@Query("update Applicant a set a.MK_approval=?1, a.mk_approval_date=?2, a.authorisation_status=?3 where a.applicant_id=?4")
+	public void MKauthoriseApplicant(String MK_approval, Date mk_approval_date,int authorisation_status,Long applicant_id);
 @Query("select a from Applicant a where a.SH_approval='Y'")
 public List<Applicant> getMKVerifiedApplicant();
 @Transactional
 @Modifying(clearAutomatically = false) 
-	@Query("update Applicant a set a.SH_approval=?1, a.authorisation_status=3, a.sh_approval_date=?2 where a.applicant_id=?3")
-	public void SHauthoriseApplicant(String SH_approval,Date sh_approval_date, Long applicant_id);
+	@Query("update Applicant a set a.SH_approval=?1,  a.sh_approval_date=?2,a.authorisation_status=?3,a.eligible_loan_amount=?4 where a.applicant_id=?5")
+	public void SHauthoriseApplicant(String SH_approval,Date sh_approval_date,int authorisation_status,Float eligible_loan_amount, Long applicant_id);
 @Query("select count(u) from Applicant u")
 public int total_applicant();
 @Query("select count(u) from Applicant u where u.AV_approval='Y'")
@@ -85,12 +87,14 @@ public int today_av_approval(Date av_aproval_date);
 public int today_mk_approval(Date mk_aproval_date);
 @Query("select count(u) from Applicant u where u.SH_approval='Y' and u.sh_approval_date=?1")
 public int today_sh_approval(Date sh_aproval_date);
-@Query("select count(u) from Applicant u where u.MK_approval is null")
+@Query("select count(u) from Applicant u where u.MK_approval is null and u.AV_approval='Y'")
 public int MK_pending();
-@Query("select count(u) from Applicant u where u.SH_approval is null")
+@Query("select count(u) from Applicant u where u.SH_approval is null and u.MK_approval='Y'")
 public int Sh_pending();
 @Query("select count(u) from Applicant u where u.AV_approval is null")
 public int av_pending();
+@Query("select u.eligible_loan_amount from Applicant u where u.applicant_id=?1")
+Float elible_limitById(Long applicant_id);
 }
 //
 //	@Query("SELECT a FROM Applicant a WHERE a.applicant_id =?1")

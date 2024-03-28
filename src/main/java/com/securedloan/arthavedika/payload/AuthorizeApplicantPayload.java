@@ -10,6 +10,13 @@ String loan_amount;
 String applicant_company_code;
 String comment;
 String approval_by;
+String eligible_loan_amount;
+public String getEligible_loan_amount() {
+	return eligible_loan_amount;
+}
+public void setEligible_loan_amount(String eligible_loan_amount) {
+	this.eligible_loan_amount = eligible_loan_amount;
+}
 public String getComment() {
 	return comment;
 }

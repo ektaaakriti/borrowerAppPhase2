@@ -24,17 +24,22 @@ public List<AdvanceRequest> ListDtlsByLoanId(String Loan_id);
 AdvanceRequest getRequestByApplicant(Long Applicant_id);
 @Query("select a from AdvanceRequest a where applicant_id=?1")
 List<AdvanceRequest> getAdvanceRequestByApplicant_id(Long Applicant_id);
+@Query("select a.Loan_id from AdvanceRequest a where a.approval_status='Y' ")
+List<String> getAllLoanId();
 @Modifying
 @Transactional
 @Query("update AdvanceRequest a set a.date_of_disbursemnt=?1, a.comment_by_sh=?2, a.transaction_id=?3,a.approved_amount=?4,a.disbursement_ifsc=?5,a.disbursement_account_no=?6 where a.Loan_id=?7")
 public void SHDisbursemntDtls(Date date_of_disbursement,String comment_by_sh,String transaction_id,Float approval_amount,String disbursement_ifsc,String disbursement_account_no, String Loan_id);
 @Modifying
 @Transactional
-@Query("update AdvanceRequest a set a.approval_status=?1, a.approved_amount=?2,a.approved_date_time=?3, a.approved_user_id=?4, a.comment_by_sh=?5 where a.applicant_id=?6")
-public void approveAdvance(String approval_status, Float approval_amount, Date approved_date_time, String approved_user_id, String comment_by_sh, Long applicant_id);
+@Query("update AdvanceRequest a set a.approval_status=?1, a.approved_amount=?2,a.approved_date_time=?3, a.approved_user_id=?4, a.comment_by_sh=?5,a.return_date_amount_expected=?6 where a.applicant_id=?7")
+public void approveAdvance(String approval_status, Float approval_amount, Date approved_date_time, String approved_user_id, String comment_by_sh,Date return_date_amount_expected, Long applicant_id);
 @Modifying
 @Transactional
 @Query("update AdvanceRequest a set a.av_approval=?1, comment_by_av=?2 where a.Loan_id=?3")
 public void updateAvApprovalDtls(String av_aproval,String comment_by_av, String Loan_id);
-
+@Modifying
+@Transactional
+@Query("update AdvanceRequest a set a.laon_amount_returned=?1, a.loan_amount_pending=?2, a.next_date_loan_return=?3 where a.Loan_id=?4")
+public void updateRepaymentDtls(Float laon_amount_returned ,Float loan_amount_pending ,Date next_date_loan_return, String Loan_id);
 }

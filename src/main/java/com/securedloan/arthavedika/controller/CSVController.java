@@ -17,8 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.securedloan.arthavedika.service.CSVService;
-
-@CrossOrigin()
+//@CrossOrigin()
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @Controller
 @RequestMapping("/api/csv")
 public class CSVController {

@@ -6,6 +6,13 @@ String approval_status;
 String approved_amount;
 String approved_username;
 String comment_by_sh;
+String return_date_amount_expected;
+public String getReturn_date_amount_expected() {
+	return return_date_amount_expected;
+}
+public void setReturn_date_amount_expected(String return_date_amount_expected) {
+	this.return_date_amount_expected = return_date_amount_expected;
+}
 public String getApplicant_id() {
 	return applicant_id;
 }

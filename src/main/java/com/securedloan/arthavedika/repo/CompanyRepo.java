@@ -28,6 +28,10 @@ public Company getcompanyById(String Company_id);
 void deleteCompany(String company_id);
 @Modifying
 @Transactional
-@Query("update Company a set a.company_code=?1, a.companyName=?2, a.company_address=?3, a.allowed_amount=?4 where a.company_id=?5 ")
-public void updateCompany(String company_code,String companyName,String company_address,Float allowed_amount,String company_id);
+@Query("update Company a set a.company_code=?1, a.companyName=?2, a.company_address=?3, a.allowed_amount=?4,a.current_amount=?5,a.contact_person1=?6,a.contact_person_mobile1=?7,a.contact_person_designation1=?8, a.contact_person_email1=?9 where a.company_id=?10") 
+public void updateCompany(String company_code,String companyName,String company_address,Float allowed_amount,Float current_amount,String contact_person1,
+Long contact_person_mobile1,
+String contact_person_designation1 ,
+String  contact_person_email1,
+String company_id);
 }

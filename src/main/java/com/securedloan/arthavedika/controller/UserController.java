@@ -37,6 +37,7 @@ import com.securedloan.arthavedika.payload.UserPayload;
 import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.repo.UserRepository;
 import com.securedloan.arthavedika.response.GeneralResponse;
+import com.securedloan.arthavedika.response.LoginResponse;
 import com.securedloan.arthavedika.response.Response;
 import com.securedloan.arthavedika.response.ResponseOld;
 import com.securedloan.arthavedika.response.Result;
@@ -44,8 +45,9 @@ import com.securedloan.arthavedika.service.Mail;
 import com.securedloan.arthavedika.service.ResetPassword;
 import com.securedloan.arthavedika.service.UserService;
 import com.securedloan.arthavedika.utility.Utility;
-
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin()
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("user")
 public class UserController {
@@ -284,7 +286,7 @@ public class UserController {
 			return ResponseEntity.badRequest().body(new ResponseOld(e.getMessage(), Boolean.FALSE, new User()));
 		}
 
-	}*/
+	}
 	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(value = HttpStatus.OK)
@@ -331,7 +333,65 @@ public class UserController {
 			return ResponseEntity.badRequest().body(new Response(e.getMessage(), Boolean.FALSE, new User()));
 		}
 
+	}*/
+	@RequestMapping(value = { "/login/v1" }, method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(value = HttpStatus.OK)
+	public ResponseEntity<LoginResponse> loginUser(@RequestParam("mobile_no") String mobile_no,
+			@RequestParam("password") String password
+			//@Valid User user
+			) {
+		System.out.println("login api");
+		LOGGER.info("LognIn api has been called !!! Start Of Method loginUser");
+		try {
+		//	List<User> users = (List<User>) userService.findUsers(user.getMobile_no(), user.getPassword());
+			List<User> users = (List<User>) userService.findUsers(mobile_no, password);
+			System.out.println("user is matched"+users);
+			if (users.size() > 0) {
+				System.out.println("user is matched");
+				if (users.get(0).isVerified() == Boolean.TRUE) {
+					System.out.println("user is verified");
+					List<LoginDetail> login = userService.findUserByUserNative(users.get(0).getUser_id());
+					if (login.size() > 0) {
+						System.out.println("saving login details");
+						LoginDetail currentLoginDetail = login.get(0);
+						currentLoginDetail.setLogged_in_date(new Date());
+						currentLoginDetail.setLogin_ip(request.getRemoteHost());
+						userService.saveLogin(currentLoginDetail); // will update the login date time
+					} else {
+						LoginDetail loginDetail = new LoginDetail(request.getRemoteHost(), new Date(), null,
+								users.get(0));
+						userService.saveLogin(loginDetail);// new login
+
+					}
+					LOGGER.info("End Of Method loginUser");
+					users.get(0).setLoggedIn(Boolean.TRUE);
+					// return new Response("Login Success", Boolean.TRUE, users.get(0));
+					System.out.println(loginSuccess);
+					return ResponseEntity.status(HttpStatus.OK)
+							.body(new LoginResponse(loginSuccess, Boolean.TRUE, users.get(0)));
+
+				} else {
+					System.out.println(accountNtVerified);
+					// return new Response("Account not verified!!!", Boolean.FALSE, users.get(0));
+					return ResponseEntity.status(HttpStatus.OK)
+							.body(new LoginResponse(accountNtVerified, Boolean.FALSE, new User()));
+
+				}
+			} else {
+				System.out.println(loginFailed);
+				// return new Response("Login Failed !!!", Boolean.FALSE, users.get(0));
+				return ResponseEntity.status(HttpStatus.OK)
+						.body(new LoginResponse(loginFailed, Boolean.FALSE,new User()));
+
+			}
+		} catch (Exception e) {
+			LOGGER.error("Error While Login" + e.getMessage());
+			return ResponseEntity.badRequest().body(new LoginResponse(e.getMessage(), Boolean.FALSE, new User()));
+		}
+
 	}
+
 
 	@RequestMapping(value = { "/verify/v1" }, method = RequestMethod.GET, produces = {
 			MediaType.APPLICATION_JSON_VALUE })
@@ -582,7 +642,7 @@ public class UserController {
 						if(users.getLastname()!=null) {
 							
 					userss.setLastname(encdec.encryptnew(users.getLastname()));}
-						if(users.getEmail_id()!=null) {
+						if(users.getEmail_id()==null) {
 							userss.setEmail_id(encdec.encryptnew("NA"));
 						}else {
 					userss.setEmail_id(encdec.encryptnew(users.getEmail_id()));}
@@ -649,6 +709,12 @@ public class UserController {
 				usr.setPassword(token);
 				usr.setIs_first_login("Y");
 				usr.setDelete_status("N");
+				if(addmodifyUserPayload.getRole().equals("A")) {
+					usr.setAdmin(true);
+				}
+				else {
+					usr.setBc_agent(true);
+				}
 				System.out.println("1");
 				usr.setCompany_code(encdec.decryptnew(addmodifyUserPayload.getCompany_code()));
 				List<Company>company=companyrepo.company_name();
@@ -667,16 +733,17 @@ System.out.print((company.get(i).getCompany_code()));
 				User user_details=userRepo.findByEmailNMobile(encdec.decryptnew(addmodifyUserPayload.getEmail_id()),(encdec.decryptnew(addmodifyUserPayload.getMobile_no())));
 				System.out.println("password is"+user_details.getPassword());
 				try{
-					mail.sendEmailForPassword(user_details);}
+					mail.sendEmailForPassword(user_details);
+					}
 				catch(Exception e){
 				response="error while sending mail";
 				LOGGER.error("Error While sending mail to new user " + e.getMessage());
 				response="Error While sending mail to new user" + e.getMessage();
-				status="false";
-				httpstatus=HttpStatus.BAD_REQUEST;
-				throw e;
+				status="True";
+				httpstatus=HttpStatus.OK;
+				
 				}
-			response="User is added successfully. Please check your mail for further details"	;
+			
 			}
 			else
 			{

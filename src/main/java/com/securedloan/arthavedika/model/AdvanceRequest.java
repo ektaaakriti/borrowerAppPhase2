@@ -68,7 +68,29 @@ String av_approval;
 String comment_by_av;
 Date date_of_disbursemnt;
 String transaction_id;
+Float laon_amount_returned;
+Float loan_amount_pending;
+Date next_date_loan_return;
 
+
+public Float getLaon_amount_returned() {
+	return laon_amount_returned;
+}
+public void setLaon_amount_returned(Float laon_amount_returned) {
+	this.laon_amount_returned = laon_amount_returned;
+}
+public Float getLoan_amount_pending() {
+	return loan_amount_pending;
+}
+public void setLoan_amount_pending(Float loan_amount_pending) {
+	this.loan_amount_pending = loan_amount_pending;
+}
+public Date getNext_date_loan_return() {
+	return next_date_loan_return;
+}
+public void setNext_date_loan_return(Date next_date_loan_return) {
+	this.next_date_loan_return = next_date_loan_return;
+}
 public Date getDate_of_disbursemnt() {
 	return date_of_disbursemnt;
 }

@@ -28,19 +28,139 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class Applicant {
 
-	private @GeneratedValue(strategy = GenerationType.AUTO, generator = "port_gen") @Id @NotNull long applicant_id;
+	private @GeneratedValue(strategy = GenerationType.AUTO, generator = "port_gen") @Id   Long applicant_id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	@JsonIgnore
 	private User user;
-	private @NotNull String userIdStr;
+	private  String userIdStr;
     
-	private @NotNull String loanAmount;
-	private @NotNull String purposeOfLoan;
-private @NotNull long groupId;
+	private   String loanAmount;
+	private   String purposeOfLoan;
+private   Long groupId;
 private boolean anygroup;
-	
+@Column(name = "published")
+private boolean published;
+private   String spouse_name;
+private    String mother_name;
+private  String aadhar_no;
+private  String pan_no;
+private  String account_no;
+private Float eligible_loan_amount;
+private    int no_of_family_member;
+private    int no_of_earning_member;
+private    int no_of_children;
+private    int no_of_children_studying;
+private     String education_expenses_on_children;
+private     int no_of_sick_members;
+private boolean Family_covered_under_aayushman_or_similar_scheme;
+private boolean applicant_alcoholic;
+private boolean applicant_tobacco_smoking_or_chewing;
+private     String friend1_name;
+private     String friend1_mobile_no;
+private     String friend1_job;
+private     String friend2_name;
+private     String friend2_mobile_no;
+private     String friend2_job;
+private     String house_locality;
+private     String house_rent_type;
+private     String house_type;
+private boolean applicant_agr_land_owned;
+private     String applicant_land_area;
+private boolean applicant_shop_owned;
+private     String applicant_qualification;
+private     String applicant_job;
+private     String type_of_income;
+private boolean applicant_income_agriculture;
+private boolean applicant_income_non_agriculture;
+private     String applicant_total_income_agriculture_session;
+private     String applicant_total_income_agriculture_crop;
+private     String applicant_non_agriculture_income_type;
+private     String applicant_role;
+private     String applicant_income;
+private     String applicant_employment_type;
+private boolean applicant_industry_stable;
+private     String applicant_organisation_type;
+private     String applicant_business;
+private     String applicant_business_product;
+private     String applicant_business_turnover;
+private     String applicant_business_income;
+private     String applicant_customer;
+private     String applicant_business_other;
+private     String applicant_rasan_card_type;
+private boolean applicant_hold_bank_account;
+private boolean applicant_invest;
+private boolean applicant_owned_tractor;
+private boolean applicant_owned_car;
+private boolean applicant_owned_scooter_motorcycle;
+private boolean applicant_owned_bicycle;
+private boolean applicant_owned_auto;
+private boolean applicant_bank_loan;
+private boolean applicant_sahukar_loan;
+private     String applicant_loan_amount;
+private     String applicant_loan_amount_sahukar;
+private boolean applicant_have_agriculture_machinery;
+private boolean applicant_have_non_agriculture_machinery;
+private     String applicant_expense_monthly;
+private     String applicant_education_expense_monthly;
+private     String applicant_medical_expense;
+private     String applicant_children_school_type;
+private     String maritalstatus;
+private     String houserent;
+private     String landunit;
+private	    String applicant_bill_amount;
+private     String applicant_bill_paid;
+private     String applicant_kisan_card;
+private     String loanskill;
+private boolean  is_having_livestock ;
+private boolean is_having_electricit ;
+private   float food_expenses ;
+private   float utilities_expenses ;
+private   float transport_expenses;
+private   float clothing_expenses ;
+private   float house_renovation_expenses ;
+private   float functions_expenses ;
+private   float land_area_inacres ;
+private   String appl_main_income_src;
+private   String AV_approval;
+private   String MK_approval;
+private   String SH_approval;
+private Date av_approval_date;
+private Date mk_approval_date;
+private Date sh_approval_date;
+private int age;
+private String religion;
+Date nominee_dob;
+String nominee_name;
+String nominee_relation;
+int nominee_age;
+Float total_monthly_bill_payment;
+String medical_insurance;
+Float current_loan_outstanding_principal;
+String vehicle_no;
+Float income_from_other_sources;
+Float current_loan_outstanding_interest;
+private   LocalDate dataentdt;
+private   LocalDate datamoddt;
+private   String applicant_address_line_1;
+private   String applicant_address_line_2;
+private   String applicant_address_line_3;
+private   String applicant_state;
+private   Long applicant_PIN;
+private   String applicant_firstname;
+private   String applicant_middle_name;
+private   String applicant_lastname;
+private   String applicant_email_id;
+private   String applicant_mobile_no;
+private    String applicant_family_mobile_no;
+private     Date applicant_date_of_birth;
+private    String gender;
+private   String applicant_father_firstname;
+private    String applicant_father_middle_name;
+private   String applicant_father_lastname;
+private   String applicant_city_name;
+
 	public boolean isAnygroup() {
 	return anygroup;
 }
@@ -51,11 +171,11 @@ public void setAnygroup(boolean anygroup) {
 
 
 
-	public long getGroupId() {
+	public Long getGroupId() {
 	return groupId;
 }
 
-public void setGroupId(long groupId) {
+public void setGroupId(Long groupId) {
 	this.groupId = groupId;
 }
 
@@ -79,20 +199,13 @@ public void setCompany_code(String company_code) {
 
 
 
-	@Column(name = "published")
-	private boolean published;
-	private String spouse_name;
-	private String mother_name;
-	private String aadhar_no;
-	private String pan_no;
-	private String account_no;
-	private String eligible_loan_amount;
 	
-	public String getEligible_loan_amount() {
+	
+	public Float getEligible_loan_amount() {
 		return eligible_loan_amount;
 	}
 
-	public void setEligible_loan_amount(String eligible_loan_amount) {
+	public void setEligible_loan_amount(Float eligible_loan_amount) {
 		this.eligible_loan_amount = eligible_loan_amount;
 	}
 
@@ -114,26 +227,7 @@ public void setCompany_code(String company_code) {
 
 
 
-	private @NotNull LocalDate dataentdt;
-	private @NotNull LocalDate datamoddt;
-	private @NotNull String applicant_address_line_1;
-	private @NotNull String applicant_address_line_2;
-	private @NotNull String applicant_address_line_3;
-	private @NotNull String applicant_state;
-	private @NotNull long applicant_PIN;
-	private @NotNull String applicant_firstname;
-	private @NotNull String applicant_middle_name;
-	private @NotNull String applicant_lastname;
-	private @NotNull String applicant_email_id;
-	private @NotNull String applicant_mobile_no;
-	private  @NotNull String applicant_family_mobile_no;
-	private  @NotNull  Date applicant_date_of_birth;
-	private  @NotNull String gender;
-	private @NotNull String applicant_father_firstname;
-	private  @NotNull String applicant_father_middle_name;
-	private @NotNull String applicant_father_lastname;
-	private @NotNull String applicant_city_name;
-
+	
 	// latest added fields
 	private boolean submited;
 	private String ration_card;
@@ -147,99 +241,7 @@ public void setCompany_code(String company_code) {
 
 
 
-	private  @NotNull int no_of_family_member;
-	private  @NotNull int no_of_earning_member;
-	private  @NotNull int no_of_children;
-	private  @NotNull int no_of_children_studying;
-	private  @NotNull  String education_expenses_on_children;
-	private  @NotNull  int no_of_sick_members;
-	private boolean Family_covered_under_aayushman_or_similar_scheme;
-	private boolean applicant_alcoholic;
-	private boolean applicant_tobacco_smoking_or_chewing;
-	private   @NotNull String friend1_name;
-	private   @NotNull String friend1_mobile_no;
-	private   @NotNull String friend1_job;
-	private   @NotNull String friend2_name;
-	private   @NotNull String friend2_mobile_no;
-	private   @NotNull String friend2_job;
-	private   @NotNull String house_locality;
-	private   @NotNull String house_rent_type;
-	private   @NotNull String house_type;
-	private boolean applicant_agr_land_owned;
-	private   @NotNull String applicant_land_area;
-	private boolean applicant_shop_owned;
-	private   @NotNull String applicant_qualification;
-	private   @NotNull String applicant_job;
-	private   @NotNull String type_of_income;
-	private boolean applicant_income_agriculture;
-	private boolean applicant_income_non_agriculture;
-	private   @NotNull String applicant_total_income_agriculture_session;
-	private   @NotNull String applicant_total_income_agriculture_crop;
-	private   @NotNull String applicant_non_agriculture_income_type;
-	private   @NotNull String applicant_role;
-	private   @NotNull String applicant_income;
-	private   @NotNull String applicant_employment_type;
-	private boolean applicant_industry_stable;
-	private   @NotNull String applicant_organisation_type;
-	private   @NotNull String applicant_business;
-	private   @NotNull String applicant_business_product;
-	private   @NotNull String applicant_business_turnover;
-	private   @NotNull String applicant_business_income;
-	private   @NotNull String applicant_customer;
-	private   @NotNull String applicant_business_other;
-	private   @NotNull String applicant_rasan_card_type;
-	private boolean applicant_hold_bank_account;
-	private boolean applicant_invest;
-	private boolean applicant_owned_tractor;
-	private boolean applicant_owned_car;
-	private boolean applicant_owned_scooter_motorcycle;
-	private boolean applicant_owned_bicycle;
-	private boolean applicant_owned_auto;
-	private boolean applicant_bank_loan;
-	private boolean applicant_sahukar_loan;
-	private   @NotNull String applicant_loan_amount;
-	private   @NotNull String applicant_loan_amount_sahukar;
-	private boolean applicant_have_agriculture_machinery;
-	private boolean applicant_have_non_agriculture_machinery;
-	private   @NotNull String applicant_expense_monthly;
-	private   @NotNull String applicant_education_expense_monthly;
-	private   @NotNull String applicant_medical_expense;
-	private   @NotNull String applicant_children_school_type;
-	private   @NotNull String maritalstatus;
-	private   @NotNull String houserent;
-	private   @NotNull String landunit;
-	private	  @NotNull String applicant_bill_amount;
-	private   @NotNull String applicant_bill_paid;
-	private   @NotNull String applicant_kisan_card;
-	private   @NotNull String loanskill;
-	private boolean  is_having_livestock ;
-	private boolean is_having_electricit ;
-	private @NotNull float food_expenses ;
-	private @NotNull float utilities_expenses ;
-	private @NotNull float transport_expenses;
-	private @NotNull float clothing_expenses ;
-	private @NotNull float house_renovation_expenses ;
-	private @NotNull float functions_expenses ;
-	private @NotNull float land_area_inacres ;
-	private @NotNull String appl_main_income_src;
-	private @NotNull String AV_approval;
-	private @NotNull String MK_approval;
-	private @NotNull String SH_approval;
-	private Date av_approval_date;
-	private Date mk_approval_date;
-	private Date sh_approval_date;
-	int age;
-	String religion;
-	Date nominee_dob;
-	String nominee_name;
-	String nominee_relation;
-	int nominee_age;
-	Float total_monthly_bill_payment;
-	String medical_insurance;
-	Float current_loan_outstanding_principal;
-	String vehicle_no;
-	Float income_from_other_sources;
-	Float current_loan_outstanding_interest;
+	
 	public int getAge() {
 		return age;
 	}
@@ -362,9 +364,9 @@ public void setCompany_code(String company_code) {
 
 
 
-	private @NotNull int authorisation_status;
-	private @NotNull String company_name;
-	private @NotNull String company_code;
+	private   int authorisation_status;
+	private   String company_name;
+	private   String company_code;
 
 	
 	
@@ -377,56 +379,56 @@ public void setCompany_code(String company_code) {
 	Float estimated_income;
 	
 
-	public Applicant(@NotNull long applicant_id, User user, @NotNull String userIdStr, @NotNull String loanAmount,
-			@NotNull String purposeOfLoan, @NotNull long groupId, boolean anygroup, boolean published,
+	public Applicant(  Long applicant_id, User user,   String userIdStr,   String loanAmount,
+			  String purposeOfLoan,   Long groupId, boolean anygroup, boolean published,
 			String spouse_name, String mother_name, String aadhar_no, String pan_no, String account_no,
-			String eligible_loan_amount, @NotNull LocalDate dataentdt, @NotNull LocalDate datamoddt,
-			@NotNull String applicant_address_line_1, @NotNull String applicant_address_line_2,
-			@NotNull String applicant_address_line_3, @NotNull String applicant_state, @NotNull long applicant_PIN,
-			@NotNull String applicant_firstname, @NotNull String applicant_middle_name,
-			@NotNull String applicant_lastname, @NotNull String applicant_email_id, @NotNull String applicant_mobile_no,
-			@NotNull String applicant_family_mobile_no, @NotNull Date applicant_date_of_birth, @NotNull String gender,
-			@NotNull String applicant_father_firstname, @NotNull String applicant_father_middle_name,
-			@NotNull String applicant_father_lastname, @NotNull String applicant_city_name, boolean submited,
-			String ration_card, @NotNull int no_of_family_member, @NotNull int no_of_earning_member,
-			@NotNull int no_of_children, @NotNull int no_of_children_studying,
-			@NotNull String education_expenses_on_children, @NotNull int no_of_sick_members,
+			Float eligible_loan_amount,   LocalDate dataentdt,   LocalDate datamoddt,
+			  String applicant_address_line_1,   String applicant_address_line_2,
+			  String applicant_address_line_3,   String applicant_state,   Long applicant_PIN,
+			  String applicant_firstname,   String applicant_middle_name,
+			  String applicant_lastname,   String applicant_email_id,   String applicant_mobile_no,
+			  String applicant_family_mobile_no,   Date applicant_date_of_birth,   String gender,
+			  String applicant_father_firstname,   String applicant_father_middle_name,
+			  String applicant_father_lastname,   String applicant_city_name, boolean submited,
+			String ration_card,   int no_of_family_member,   int no_of_earning_member,
+			  int no_of_children,   int no_of_children_studying,
+			  String education_expenses_on_children,   int no_of_sick_members,
 			boolean family_covered_under_aayushman_or_similar_scheme, boolean applicant_alcoholic,
-			boolean applicant_tobacco_smoking_or_chewing, @NotNull String friend1_name,
-			@NotNull String friend1_mobile_no, @NotNull String friend1_job, @NotNull String friend2_name,
-			@NotNull String friend2_mobile_no, @NotNull String friend2_job, @NotNull String house_locality,
-			@NotNull String house_rent_type, @NotNull String house_type, boolean applicant_agr_land_owned,
-			@NotNull String applicant_land_area, boolean applicant_shop_owned, @NotNull String applicant_qualification,
-			@NotNull String applicant_job, @NotNull String type_of_income, boolean applicant_income_agriculture,
-			boolean applicant_income_non_agriculture, @NotNull String applicant_total_income_agriculture_session,
-			@NotNull String applicant_total_income_agriculture_crop,
-			@NotNull String applicant_non_agriculture_income_type, @NotNull String applicant_role,
-			@NotNull String applicant_income, @NotNull String applicant_employment_type,
-			boolean applicant_industry_stable, @NotNull String applicant_organisation_type,
-			@NotNull String applicant_business, @NotNull String applicant_business_product,
-			@NotNull String applicant_business_turnover, @NotNull String applicant_business_income,
-			@NotNull String applicant_customer, @NotNull String applicant_business_other,
-			@NotNull String applicant_rasan_card_type, boolean applicant_hold_bank_account, boolean applicant_invest,
+			boolean applicant_tobacco_smoking_or_chewing,   String friend1_name,
+			  String friend1_mobile_no,   String friend1_job,   String friend2_name,
+			  String friend2_mobile_no,   String friend2_job,   String house_locality,
+			  String house_rent_type,   String house_type, boolean applicant_agr_land_owned,
+			  String applicant_land_area, boolean applicant_shop_owned,   String applicant_qualification,
+			  String applicant_job,   String type_of_income, boolean applicant_income_agriculture,
+			boolean applicant_income_non_agriculture,   String applicant_total_income_agriculture_session,
+			  String applicant_total_income_agriculture_crop,
+			  String applicant_non_agriculture_income_type,   String applicant_role,
+			  String applicant_income,   String applicant_employment_type,
+			boolean applicant_industry_stable,   String applicant_organisation_type,
+			  String applicant_business,   String applicant_business_product,
+			  String applicant_business_turnover,   String applicant_business_income,
+			  String applicant_customer,   String applicant_business_other,
+			  String applicant_rasan_card_type, boolean applicant_hold_bank_account, boolean applicant_invest,
 			boolean applicant_owned_tractor, boolean applicant_owned_car, boolean applicant_owned_scooter_motorcycle,
 			boolean applicant_owned_bicycle, boolean applicant_owned_auto, boolean applicant_bank_loan,
-			boolean applicant_sahukar_loan, @NotNull String applicant_loan_amount,
-			@NotNull String applicant_loan_amount_sahukar, boolean applicant_have_agriculture_machinery,
-			boolean applicant_have_non_agriculture_machinery, @NotNull String applicant_expense_monthly,
-			@NotNull String applicant_education_expense_monthly, @NotNull String applicant_medical_expense,
-			@NotNull String applicant_children_school_type, @NotNull String maritalstatus, @NotNull String houserent,
-			@NotNull String landunit, @NotNull String applicant_bill_amount, @NotNull String applicant_bill_paid,
-			@NotNull String applicant_kisan_card, @NotNull String loanskill, boolean is_having_livestock,
-			boolean is_having_electricit, @NotNull float food_expenses, @NotNull float utilities_expenses,
-			@NotNull float transport_expenses, @NotNull float clothing_expenses,
-			@NotNull float house_renovation_expenses, @NotNull float functions_expenses,
-			@NotNull float land_area_inacres, @NotNull String appl_main_income_src, @NotNull String aV_approval,
-			@NotNull String mK_approval, @NotNull String sH_approval, Date av_approval_date, Date mk_approval_date,
+			boolean applicant_sahukar_loan,   String applicant_loan_amount,
+			  String applicant_loan_amount_sahukar, boolean applicant_have_agriculture_machinery,
+			boolean applicant_have_non_agriculture_machinery,   String applicant_expense_monthly,
+			  String applicant_education_expense_monthly,   String applicant_medical_expense,
+			  String applicant_children_school_type,   String maritalstatus,   String houserent,
+			  String landunit,   String applicant_bill_amount,   String applicant_bill_paid,
+			  String applicant_kisan_card,   String loanskill, boolean is_having_livestock,
+			boolean is_having_electricit,   float food_expenses,   float utilities_expenses,
+			  float transport_expenses,   float clothing_expenses,
+			  float house_renovation_expenses,   float functions_expenses,
+			  float land_area_inacres,   String appl_main_income_src,   String aV_approval,
+			  String mK_approval,   String sH_approval, Date av_approval_date, Date mk_approval_date,
 			Date sh_approval_date, int age, String religion, Date nominee_dob, String nominee_name,
 			String nominee_relation, int nominee_age, Float total_monthly_bill_payment, String medical_insurance,
 			Float current_loan_outstanding_principal, String vehicle_no, Float income_from_other_sources,
-			Float current_loan_outstanding_interest, @NotNull int authorisation_status, @NotNull String company_name,
-			@NotNull String company_code, String created_by, String updated_by, String predicted_score,
-			Float estimated_income, boolean psycho_page, String prediciton, String latitude, String longitude,
+			Float current_loan_outstanding_interest,   int authorisation_status,   String company_name,
+			  String company_code, String created_by, String updated_by, String predicted_score,
+			Float estimated_income, boolean psycho_page, String prediciton, String latitude, String Longitude,
 			List<PsyAns> psyAns, boolean is_having_cell) {
 		super();
 		this.applicant_id = applicant_id;
@@ -567,7 +569,7 @@ public void setCompany_code(String company_code) {
 		this.psycho_page = psycho_page;
 		this.prediciton = prediciton;
 		this.latitude = latitude;
-		this.longitude = longitude;
+		this.Longitude = Longitude;
 		this.psyAns = psyAns;
 		this.is_having_cell = is_having_cell;
 	}
@@ -675,7 +677,7 @@ public void setCompany_code(String company_code) {
 	
 	//location 
 	private String latitude;
-	private String longitude;
+	private String Longitude;
 	@Transient
 	private List<PsyAns> psyAns=new ArrayList<>();	
 
@@ -717,19 +719,19 @@ public void setCompany_code(String company_code) {
 	}
 
 	public String getLongitude() {
-		return longitude;
+		return Longitude;
 	}
 
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
+	public void setLongitude(String Longitude) {
+		this.Longitude = Longitude;
 	}
 
 	
-	public long getApplicant_id() {
+	public Long getApplicant_id() {
 		return applicant_id;
 	}
 
-	public void setApplicant_id(long applicant_id) {
+	public void setApplicant_id(Long applicant_id) {
 		this.applicant_id = applicant_id;
 	}
 
@@ -781,11 +783,11 @@ public void setCompany_code(String company_code) {
 		this.applicant_state = applicant_state;
 	}
 
-	public long getApplicant_PIN() {
+	public Long getApplicant_PIN() {
 		return applicant_PIN;
 	}
 
-	public void setApplicant_PIN(long applicant_PIN) {
+	public void setApplicant_PIN(Long applicant_PIN) {
 		this.applicant_PIN = applicant_PIN;
 	}
 
@@ -1561,44 +1563,44 @@ public void setCompany_code(String company_code) {
 	}
 	
 /*
-	public Applicant(@NotNull long applicant_id, User user, @NotNull String userIdStr, @NotNull String loanAmount,
-			@NotNull String purposeOfLoan, @NotNull long groupId, boolean anygroup, boolean published,
-			@NotNull LocalDate dataentdt, @NotNull LocalDate datamoddt, @NotNull String applicant_address_line_1,
-			@NotNull String applicant_address_line_2, @NotNull String applicant_address_line_3,
-			@NotNull String applicant_state, @NotNull long applicant_PIN, @NotNull String applicant_firstname,
-			@NotNull String applicant_middle_name, @NotNull String applicant_lastname,
-			@NotNull String applicant_email_id, @NotNull String applicant_mobile_no,
-			@NotNull String applicant_family_mobile_no, @NotNull Date applicant_date_of_birth, @NotNull String gender,
-			@NotNull String applicant_father_firstname, @NotNull String applicant_father_middle_name,
-			@NotNull String applicant_father_lastname, @NotNull String applicant_city_name, boolean submited,
-			@NotNull int no_of_family_member, @NotNull int no_of_earning_member, @NotNull int no_of_children,
-			@NotNull int no_of_children_studying, @NotNull String education_expenses_on_children,
-			@NotNull int no_of_sick_members, boolean family_covered_under_aayushman_or_similar_scheme,
-			boolean applicant_alcoholic, boolean applicant_tobacco_smoking_or_chewing, @NotNull String friend1_name,
-			@NotNull String friend1_mobile_no, @NotNull String friend1_job, @NotNull String friend2_name,
-			@NotNull String friend2_mobile_no, @NotNull String friend2_job, @NotNull String house_locality,
-			@NotNull String house_rent_type, @NotNull String house_type, boolean applicant_agr_land_owned,
-			@NotNull String applicant_land_area, boolean applicant_shop_owned, @NotNull String applicant_qualification,
-			@NotNull String applicant_job, @NotNull String type_of_income, boolean applicant_income_agriculture,
-			boolean applicant_income_non_agriculture, @NotNull String applicant_total_income_agriculture_session,
-			@NotNull String applicant_total_income_agriculture_crop,
-			@NotNull String applicant_non_agriculture_income_type, @NotNull String applicant_role,
-			@NotNull String applicant_income, @NotNull String applicant_employment_type,
-			boolean applicant_industry_stable, @NotNull String applicant_organisation_type,
-			@NotNull String applicant_business, @NotNull String applicant_business_product,
-			@NotNull String applicant_business_turnover, @NotNull String applicant_business_income,
-			@NotNull String applicant_customer, @NotNull String applicant_business_other,
-			@NotNull String applicant_rasan_card_type, boolean applicant_hold_bank_account, boolean applicant_invest,
+	public Applicant(  Long applicant_id, User user,   String userIdStr,   String loanAmount,
+			  String purposeOfLoan,   Long groupId, boolean anygroup, boolean published,
+			  LocalDate dataentdt,   LocalDate datamoddt,   String applicant_address_line_1,
+			  String applicant_address_line_2,   String applicant_address_line_3,
+			  String applicant_state,   Long applicant_PIN,   String applicant_firstname,
+			  String applicant_middle_name,   String applicant_lastname,
+			  String applicant_email_id,   String applicant_mobile_no,
+			  String applicant_family_mobile_no,   Date applicant_date_of_birth,   String gender,
+			  String applicant_father_firstname,   String applicant_father_middle_name,
+			  String applicant_father_lastname,   String applicant_city_name, boolean submited,
+			  int no_of_family_member,   int no_of_earning_member,   int no_of_children,
+			  int no_of_children_studying,   String education_expenses_on_children,
+			  int no_of_sick_members, boolean family_covered_under_aayushman_or_similar_scheme,
+			boolean applicant_alcoholic, boolean applicant_tobacco_smoking_or_chewing,   String friend1_name,
+			  String friend1_mobile_no,   String friend1_job,   String friend2_name,
+			  String friend2_mobile_no,   String friend2_job,   String house_locality,
+			  String house_rent_type,   String house_type, boolean applicant_agr_land_owned,
+			  String applicant_land_area, boolean applicant_shop_owned,   String applicant_qualification,
+			  String applicant_job,   String type_of_income, boolean applicant_income_agriculture,
+			boolean applicant_income_non_agriculture,   String applicant_total_income_agriculture_session,
+			  String applicant_total_income_agriculture_crop,
+			  String applicant_non_agriculture_income_type,   String applicant_role,
+			  String applicant_income,   String applicant_employment_type,
+			boolean applicant_industry_stable,   String applicant_organisation_type,
+			  String applicant_business,   String applicant_business_product,
+			  String applicant_business_turnover,   String applicant_business_income,
+			  String applicant_customer,   String applicant_business_other,
+			  String applicant_rasan_card_type, boolean applicant_hold_bank_account, boolean applicant_invest,
 			boolean applicant_owned_tractor, boolean applicant_owned_car, boolean applicant_owned_scooter_motorcycle,
 			boolean applicant_owned_bicycle, boolean applicant_owned_auto, boolean applicant_bank_loan,
-			boolean applicant_sahukar_loan, @NotNull String applicant_loan_amount,
-			@NotNull String applicant_loan_amount_sahukar, boolean applicant_have_agriculture_machinery,
-			boolean applicant_have_non_agriculture_machinery, @NotNull String applicant_expense_monthly,
-			@NotNull String applicant_education_expense_monthly, @NotNull String applicant_medical_expense,
-			@NotNull String applicant_children_school_type, @NotNull String maritalstatus, @NotNull String houserent,
-			@NotNull String landunit, @NotNull String applicant_bill_amount, @NotNull String applicant_bill_paid,
-			@NotNull String applicant_kisan_card, @NotNull String loanskill, boolean psycho_page, String prediciton,
-			String latitude, String longitude, List<PsyAns> psyAns) {
+			boolean applicant_sahukar_loan,   String applicant_loan_amount,
+			  String applicant_loan_amount_sahukar, boolean applicant_have_agriculture_machinery,
+			boolean applicant_have_non_agriculture_machinery,   String applicant_expense_monthly,
+			  String applicant_education_expense_monthly,   String applicant_medical_expense,
+			  String applicant_children_school_type,   String maritalstatus,   String houserent,
+			  String landunit,   String applicant_bill_amount,   String applicant_bill_paid,
+			  String applicant_kisan_card,   String loanskill, boolean psycho_page, String prediciton,
+			String latitude, String Longitude, List<PsyAns> psyAns) {
 		super();
 		this.applicant_id = applicant_id;
 		this.user = user;
@@ -1696,7 +1698,7 @@ public void setCompany_code(String company_code) {
 		this.psycho_page = psycho_page;
 		this.prediciton = prediciton;
 		this.latitude = latitude;
-		this.longitude = longitude;
+		this.Longitude = Longitude;
 		this.psyAns = psyAns;
 	}
 	*/

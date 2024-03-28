@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.3.final using JasperReports Library version 6.20.3-415f9428cffdb6805c6f85bbb29ebaf18813a2ab  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="arthavedika" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="db63feb5-ee2f-443e-887d-a8310c86fc57">
-	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="shayak.jrdax"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="DataAdaptertest.jrdax"/>
 	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value=""/>
 	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value=""/>
@@ -1288,7 +1288,7 @@
 					<pen lineWidth="1.0" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Left">
-					<font fontName="Batang" size="14" isBold="true"/>
+					<font fontName="Sans serif" size="14" isBold="true"/>
 				</textElement>
 				<text><![CDATA[APPLICATION NO. :]]></text>
 			</staticText>
@@ -1298,7 +1298,7 @@
 					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#FFFFFF"/>
 				</box>
 				<textElement textAlignment="Left">
-					<font fontName="Batang" size="14" isBold="true"/>
+					<font fontName="Sans serif" size="14" isBold="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{applicant_id}]]></textFieldExpression>
 			</textField>
@@ -2785,14 +2785,14 @@
 			<staticText>
 				<reportElement x="-10" y="10" width="570" height="30" forecolor="#FF0703" uuid="8f93c9ad-3286-4e6b-a74d-c5ba4b58e10b"/>
 				<textElement textAlignment="Center" verticalAlignment="Bottom">
-					<font fontName="Batang" isBold="true" isItalic="true"/>
+					<font fontName="Sans serif" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[BANKING THE UNBANKED - FINANCIAL IDENTITY FOR THE MISSING MIDDLE POPULATION]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="-10" y="40" width="570" height="30" forecolor="#FC0703" uuid="0c27091d-ff93-4bd5-a0d8-9ab5eaca8956"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Batang" isBold="true" isItalic="true"/>
+					<font fontName="Sans serif" isBold="true" isItalic="true"/>
 				</textElement>
 				<text><![CDATA[WE ENABLE BANKING LOANS FOR PEOPLE WITH UNDOCUMENTED INCOME USING AI / ML TECHNOLOGIES]]></text>
 			</staticText>

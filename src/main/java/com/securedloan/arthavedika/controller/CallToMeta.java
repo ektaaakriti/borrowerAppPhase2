@@ -16,8 +16,8 @@ import com.securedloan.arthavedika.EncryptionDecryptionClass;
 import com.securedloan.arthavedika.payload.MetaPayload;
 import com.securedloan.arthavedika.response.GeneralResponse;
 
-
-@CrossOrigin()
+//@CrossOrigin()
+@CrossOrigin(origins = "http://4.236.144.236:4200")
 @RestController
 public class CallToMeta {
 	EncryptionDecryptionClass encdec=new EncryptionDecryptionClass();

@@ -13,15 +13,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.securedloan.arthavedika.model.Applicant;
 import com.securedloan.arthavedika.model.Res;
 import com.securedloan.arthavedika.repo.ApplicantRepository;
-
 @Service
-@Transactional
+//@Transactional
+//@Transactional( rollbackOn=Exception.class)
+@Transactional(dontRollbackOn=Exception.class)
 public class ApplicantService {
 	@Autowired
 	private ApplicantRepository applRepo;

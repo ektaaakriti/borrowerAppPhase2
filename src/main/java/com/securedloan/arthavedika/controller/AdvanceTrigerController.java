@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.securedloan.arthavedika.EncryptionDecryptionClass;
@@ -32,8 +33,10 @@ import com.securedloan.arthavedika.payload.AdvanceRequestList;
 import com.securedloan.arthavedika.payload.AdvanceRequestPayload;
 import com.securedloan.arthavedika.payload.ApplicantPayload;
 import com.securedloan.arthavedika.payload.ApproveAdvancePayload;
+import com.securedloan.arthavedika.payload.ApprovedApplicantList;
 import com.securedloan.arthavedika.payload.GetApplicantPayload;
 import com.securedloan.arthavedika.payload.LoadPayload;
+import com.securedloan.arthavedika.payload.RepaymentAdvancePayload;
 import com.securedloan.arthavedika.payload.ShDisbursemntPayload;
 import com.securedloan.arthavedika.payload.ekycPayload;
 import com.securedloan.arthavedika.repo.AdvanceRequestRepo;
@@ -41,14 +44,18 @@ import com.securedloan.arthavedika.repo.ApplicantRepository;
 import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.response.AdvanceTriggerResponse;
 import com.securedloan.arthavedika.response.ApplicantInfos;
+import com.securedloan.arthavedika.response.ApprovedApplicantResponse;
 import com.securedloan.arthavedika.response.GeneralResponse;
+import com.securedloan.arthavedika.response.LoanId;
 import com.securedloan.arthavedika.response.MkVerrifiedList;
 import com.securedloan.arthavedika.response.MkverifiedApplicantResponse;
 
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.client.*;
 import org.apache.http.client.methods.*;
-@CrossOrigin()
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
+//@CrossOrigin()
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/borrower")
 public class AdvanceTrigerController {
@@ -124,7 +131,7 @@ public class AdvanceTrigerController {
 		 * System.out.println("limit after advance"+current_limit);
 		 * companyRepo.updateCurrentAmount(current_limit,"MK");
 		 */
-		response="Details Saved succefuly";
+		response="Advance trigger details are saved successfuly";
 		status="True";
 		 httpstatus=HttpStatus.OK;
 		
@@ -296,12 +303,20 @@ public class AdvanceTrigerController {
 	
 	
 	try {
+		System.out.println("dummy1");
+		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = sdf.parse(sdf.format(new Date()));
+		System.out.println("dummy2");
+		String return_date_amount_expected=encdec.decryptnew(advancePayload.getReturn_date_amount_expected());
+		Date return_date=sdf.parse(return_date_amount_expected);
+		System.out.println("approval status"+encdec.decryptnew(advancePayload.getApproval_status()));
+		System.out.println("approval amount"+Float.valueOf(encdec.decryptnew(advancePayload.getApproved_amount())));
 	advanceRepo.approveAdvance(encdec.decryptnew(advancePayload.getApproval_status()), Float.valueOf(encdec.decryptnew(advancePayload.getApproved_amount())),
-			date, encdec.decryptnew(advancePayload.getApproved_username()),encdec.decryptnew(advancePayload.getComment_by_sh()), Long.valueOf(encdec.decryptnew(advancePayload.getApplicant_id())));
+			date, encdec.decryptnew(advancePayload.getApproved_username()),encdec.decryptnew(advancePayload.getComment_by_sh()),return_date, Long.valueOf(encdec.decryptnew(advancePayload.getApplicant_id())));
 	if(encdec.decryptnew(advancePayload.getApproval_status()).contains("Y")) {	
-	response="Advance Loan of Applicant is approved";}
+	response="Advance Loan of Applicant is approved";
+	System.out.println(response);}
 	else {
 	
 		response="Advance Loan of the applicant is rejected ";
@@ -501,11 +516,12 @@ public void system_approval(Long Applicant_id, Float advance_amount,String compa
 	String rsponse="";
 	String status="";
 	AdvanceRequest adr=advanceRepo.getRequestByApplicant(Applicant_id);
+	Float eligible_limit=applicantRepo.elible_limitById(Applicant_id);
 	Company com=companyRepo.company_details(company);
 	Float limit=com.getCurrent_amount();
 	System.out.println("limit"+limit);
 	
-	if (adr==null&&advance_amount<=limit) {
+	if (adr==null&&advance_amount<=limit&& advance_amount<=eligible_limit) {
 	rsponse=" Granted";	
 	status="Y";
 	}
@@ -519,6 +535,10 @@ public void system_approval(Long Applicant_id, Float advance_amount,String compa
 	}
 	if(!(adr==null)&&!(advance_amount<=limit)) {
 		rsponse="Previous loan is pending and Advance amount is exceeding company limit";
+		status="N";
+	}
+	if(advance_amount>eligible_limit) {
+		rsponse=" Advance amount is exceeding eligible limit";
 		status="N";
 	}
 	advanceRepo.updateAvApprovalDtls(status, rsponse, Loan_id);
@@ -539,10 +559,10 @@ try {
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 	Date date = sdf.parse(sdf.format(new Date()));
 	Float amount=Float.valueOf(encdec.decryptnew(disbusmentPayload.getAmount()));
-	advanceRepo.SHDisbursemntDtls(date,encdec.decryptnew(disbusmentPayload.getRemarks()),encdec.decryptnew(disbusmentPayload.getTransaction_id()),amount,encdec.encryptnew(disbusmentPayload.getDisbursement_ifsc()),encdec.decryptnew(disbusmentPayload.getDisbursement_account_no()),encdec.decryptnew(disbusmentPayload.getLoan_id()));
+	advanceRepo.SHDisbursemntDtls(date,encdec.decryptnew(disbusmentPayload.getRemarks()),encdec.decryptnew(disbusmentPayload.getTransaction_id()),amount,encdec.decryptnew(disbusmentPayload.getDisbursement_ifsc()),encdec.decryptnew(disbusmentPayload.getDisbursement_account_no()),encdec.decryptnew(disbusmentPayload.getLoan_id()));
 
 
-response="Details saved successfuly";
+response="Disbursemnet Details are saved successfuly";
 status="True";
 httpstatus=HttpStatus.OK;
 System.out.print(response);
@@ -575,5 +595,92 @@ System.out.println("amount updated successfully");}
 	catch(Exception e) {
 		System.out.println("error in updating compnay limit"+e);}	
 	}
+@RequestMapping(value = { "/GetAllLoanId" }, method = RequestMethod.POST, produces = {
+		MediaType.APPLICATION_JSON_VALUE })
+@ResponseStatus(value = HttpStatus.OK)
+public ResponseEntity<com.securedloan.arthavedika.response.LoanId> GetAllLoanId() {
+	LOGGER.info("get  user  by id api has been called !!! Start Of Method get  user by id");
+	
+	HttpStatus httpstatus=null;
+	String response="";
+	String status=null;
+	List<String> encList=new ArrayList<String>();
+	
+	
+	try {
+	 List<String> list=advanceRepo.getAllLoanId();
+	System.out.println("details retrived successfully");
+		if (list==null) {
+			
+		response="Approved loan details not available"	;
+		}
+		else
+		{
+			System.out.println("encyption of list");
+			int i=0;
+			for(i=0;i<list.size();i++) {
+				System.out.println("for loop");
+				String loan=encdec.encryptnew(list.get(i));
+				encList.add(i, loan);
+			}
+			System.out.println("dummy2");
+			response="Approved Applicant loan detail is retrieved successfully";
+			
+		}
+		System.out.println("dummy3");
+		status="true";
+		httpstatus=HttpStatus.OK;
+		}
+				
+	catch (Exception e) {
+		LOGGER.error("Error While retreiving user" + e.getMessage());
+		response="Error While retreiving  user" + e.getMessage();
+		status="false";
+		httpstatus=HttpStatus.BAD_REQUEST;
+	}
+	return ResponseEntity.status(httpstatus).body(new LoanId
+			(encList,(response),(status)));
+}
+
+@RequestMapping(value={"/Repayment_AdvanceLoan"}, method = RequestMethod.POST, 
+produces= {MediaType.APPLICATION_JSON_VALUE})
+public ResponseEntity<GeneralResponse> RepaymentAdvanceLoan(@RequestBody RepaymentAdvancePayload repaymentPayload )
+{
+Log.info("repaymen advance of applicant api is called");
+HttpStatus httpstatus=null;
+String response="";
+String status=null;
+
+
+try {
+//System.out.println("dummy1");
+
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+Date date = sdf.parse(sdf.format(new Date()));
+String next_date_amount=encdec.decryptnew(repaymentPayload.getNext_date_loan_return());
+Date return_date=sdf.parse(next_date_amount);
+//System.out.println("approval amount"+Float.valueOf(encdec.decryptnew(advancePayload.getApproved_amount())));
+advanceRepo.updateRepaymentDtls(Float.valueOf(encdec.decryptnew(repaymentPayload.getLaon_amount_returned())),Float.valueOf(encdec.decryptnew(repaymentPayload.getLoan_amount_pending())) , 
+		return_date,encdec.decryptnew(repaymentPayload.getLoan_id()) );
+
+response="Repayment details are saved successfully";
+
+status="True";
+httpstatus=HttpStatus.OK;
+System.out.print(response);
+
+	
+}
+catch(Exception e){
+response="error in repayment advance of applicant by Share india"+e.getMessage();
+System.out.print(response);
+Log.error(response);
+httpstatus=HttpStatus.BAD_REQUEST;
+status="False";
+
+
+}
+return ResponseEntity.status(httpstatus).body(new GeneralResponse(encdec.encryptnew(response),encdec.encryptnew(status)));	
+}
 
 }

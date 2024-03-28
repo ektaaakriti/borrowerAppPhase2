@@ -34,7 +34,9 @@ import com.securedloan.arthavedika.service.ReportService;
 import net.sf.jasperreports.engine.JRException;
 
 @Controller
-@CrossOrigin()
+//@CrossOrigin()
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
 public class FileController {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(FileController.class);

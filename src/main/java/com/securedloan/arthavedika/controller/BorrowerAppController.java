@@ -49,8 +49,9 @@ import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.Result;
 import com.securedloan.arthavedika.service.ApplicantService;
 import com.securedloan.arthavedika.service.UserService;
-
-@CrossOrigin()
+//@CrossOrigin()
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
 @RestController
 @RequestMapping("applicant/borrower")
 public class BorrowerAppController {
@@ -131,7 +132,7 @@ public class BorrowerAppController {
 			httpstatus=HttpStatus.OK;
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 			Date date = sdf.parse(sdf.format(new Date()));
-			response="Applicant authorisation status is submitted succesfully";
+			
 			 status="true";
 			LOGGER.info("company_code is"+authorizeApplicantPayload.getCompany_code());
 			System.out.println("company code"+encdec.decryptnew(authorizeApplicantPayload.getCompany_code()));
@@ -143,9 +144,19 @@ public class BorrowerAppController {
 				LOGGER.info("status of av_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
 				//Long applicant_id=Long.parseLong(encdec.decryptnew(authorizeApplicantPayload.getApplicant_id()));
 				System.out.println("av approval before1");
-				appRepo.AVauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),date, applicant_id);
+				//appRepo.AVauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),date, applicant_id);
 				System.out.println("av approval before12");
-
+				if(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()).contains("Y"))
+				{
+					appRepo.AVauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),date,1, applicant_id);
+					response="Applicant is verified";
+				}
+				else {
+					appRepo.AVauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()),date,4, applicant_id);
+				
+					response="Applicant is rejected";
+				}
+				
 				/*System.out.println("applicant company code is"+encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 				Company company=companyRepo.company_details(encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 				System.out.println("Applicant company"+company);
@@ -169,7 +180,7 @@ public class BorrowerAppController {
 			case"MK":
 			{
 				LOGGER.info("status of MK_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
-			appRepo.MKauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,applicant_id);
+			//appRepo.MKauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,applicant_id);
 		/*	Company company=companyRepo.company_details(encdec.decryptnew(authorizeApplicantPayload.getApplicant_company_code()));
 			if(company!=null)
 			{	Float current_amount=company.getCurrent_amount()-Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getLoan_amount()));
@@ -180,12 +191,20 @@ public class BorrowerAppController {
 					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
 			, date, applicant_id);
 			System.out.println("Mk approval after");
+			if(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()).contains("Y"))
+			{appRepo.MKauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,2,applicant_id);
+				response="Applicant is authorized";
+			}
+			else {
+				appRepo.MKauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,4,applicant_id);
+				response="Applicant is rejected";
+			}
 			break;
 			
 			}
 			case"SH":
 			{LOGGER.info("status of SH_approval is"+encdec.decryptnew(authorizeApplicantPayload.getApproval_status()));	
-			appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date, applicant_id);
+			//appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date, applicant_id);
 			System.out.println("sh approval before");
 		/*	Company company=companyRepo.company_details(authorizeApplicantPayload.getApplicant_company_code());
 			if(company!=null)
@@ -197,11 +216,24 @@ public class BorrowerAppController {
 					encdec.decryptnew(authorizeApplicantPayload.getApproval_by()),encdec.decryptnew(authorizeApplicantPayload.getComment()) 
 			, date, applicant_id);	
 			System.out.println("sh approval after");
+			if(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()).contains("Y"))
+			{
+				System.out.println("loan_limit "+encdec.decryptnew(authorizeApplicantPayload.getEligible_loan_amount()));
+				Float loan_limit=Float.parseFloat(encdec.decryptnew(authorizeApplicantPayload.getEligible_loan_amount()));
+				System.out.println(loan_limit);
+				appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,3,loan_limit, applicant_id);
+				response="Applicant is approved";
+			}
+			else {
+				Float loan_limit=(float) 0;
+				appRepo.SHauthoriseApplicant(encdec.decryptnew(authorizeApplicantPayload.getApproval_status()), date,4,loan_limit, applicant_id);
+				response="Applicant is rejected";
+			}
 			break;
 			}
 			}
 			
-response="Applicant authorisation status is submitted succesfully";
+//response="Applicant pre approval status is submitted succesfully";
 System.out.print("response is"+response);
 				//	return ResponseEntity.status(HttpStatu).body(new BorrowerResponse("Applicant authorisation status is submitted succesfully", Boolean.TRUE));
 		

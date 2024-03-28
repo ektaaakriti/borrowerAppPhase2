@@ -42,21 +42,97 @@ Float allowed_amount;
 Float current_amount;
 String company_address;
 String delete_status;
+String contact_person1;
+Long contact_person_mobile1; 
+String contact_person_designation1 ;
+String  contact_person_email1;
+String contact_person2;
+Long contact_person_mobile2;
+String contact_person_designation2;
+String contact_person_email2;
+public Set<User> getUser() {
+	return user;
+}
+public void setUser(Set<User> user) {
+	this.user = user;
+}
+public String getContact_person1() {
+	return contact_person1;
+}
+public void setContact_person1(String contact_person1) {
+	this.contact_person1 = contact_person1;
+}
+public Long getContact_person_mobile1() {
+	return contact_person_mobile1;
+}
+public void setContact_person_mobile1(Long contact_person_mobile1) {
+	this.contact_person_mobile1 = contact_person_mobile1;
+}
+public String getContact_person_designation1() {
+	return contact_person_designation1;
+}
+public void setContact_person_designation1(String contact_person_designation1) {
+	this.contact_person_designation1 = contact_person_designation1;
+}
+public String getContact_person_email1() {
+	return contact_person_email1;
+}
+public void setContact_person_email1(String contact_person_email1) {
+	this.contact_person_email1 = contact_person_email1;
+}
+public String getContact_person2() {
+	return contact_person2;
+}
+public void setContact_person2(String contact_person2) {
+	this.contact_person2 = contact_person2;
+}
+public Long getContact_person_mobile2() {
+	return contact_person_mobile2;
+}
+public void setContact_person_mobile2(Long contact_person_mobile2) {
+	this.contact_person_mobile2 = contact_person_mobile2;
+}
+public String getContact_person_designation2() {
+	return contact_person_designation2;
+}
+public void setContact_person_designation2(String contact_person_designation2) {
+	this.contact_person_designation2 = contact_person_designation2;
+}
+public String getContact_person_email2() {
+	return contact_person_email2;
+}
+public void setContact_person_email2(String contact_person_email2) {
+	this.contact_person_email2 = contact_person_email2;
+}
 public String getDelete_status() {
 	return delete_status;
 }
 public void setDelete_status(String delete_status) {
 	this.delete_status = delete_status;
 }
-public Company(String company_id, String company_code, String companyName, Float allowed_amount, Float current_amount,
-		String company_address) {
+
+public Company(String company_id, String company_code, Set<User> user, String companyName, Float allowed_amount,
+		Float current_amount, String company_address, String delete_status, String contact_person1,
+		Long contact_person_mobile1, String contact_person_designation1, String contact_person_email1,
+		String contact_person2, Long contact_person_mobile2, String contact_person_designation2,
+		String contact_person_email2) {
 	super();
 	this.company_id = company_id;
 	this.company_code = company_code;
+	this.user = user;
 	this.companyName = companyName;
 	this.allowed_amount = allowed_amount;
 	this.current_amount = current_amount;
 	this.company_address = company_address;
+	this.delete_status = delete_status;
+	this.contact_person1 = contact_person1;
+	this.contact_person_mobile1 = contact_person_mobile1;
+	this.contact_person_designation1 = contact_person_designation1;
+	this.contact_person_email1 = contact_person_email1;
+	this.contact_person2 = contact_person2;
+	this.contact_person_mobile2 = contact_person_mobile2;
+	this.contact_person_designation2 = contact_person_designation2;
+	this.contact_person_email2 = contact_person_email2;
 }
 public String getCompany_id() {
 	return company_id;

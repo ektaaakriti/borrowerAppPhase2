@@ -27,8 +27,9 @@ import com.securedloan.arthavedika.repo.CompanyRepo;
 import com.securedloan.arthavedika.response.CompanyEnc;
 import com.securedloan.arthavedika.response.GeneralResponse;
 import com.securedloan.arthavedika.response.GetCompanyByIdResponse;
-
-@CrossOrigin()
+//@CrossOrigin()
+//@CrossOrigin(origins = "http://4.236.144.236:4200")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("applicant/borrower/company")
 public class CompanyController {
@@ -69,6 +70,30 @@ public class CompanyController {
 				if(com.getCompany_address()!=null) {
 					comp.setCompnay_address(encdec.encryptnew(com.getCompany_address()));
 				}
+				if(com.getContact_person1()!=null) {
+					comp.setContact_person1(encdec.encryptnew(com.getContact_person1()));
+				}
+			//	if(com.getContact_person2()!=null) {
+			//		comp.setContact_person2(encdec.encryptnew(com.getContact_person2()));
+			//	}
+				if(com.getContact_person_mobile1()!=null) {
+					comp.setContact_person_mobile1(encdec.encryptnew(String.valueOf(com.getContact_person_mobile1())));
+				}
+			//	if(com.getContact_person_mobile2()!=null) {
+				//	comp.setContact_person_mobile2(encdec.encryptnew(String.valueOf(com.getContact_person_mobile2())));
+			//	}
+				if(com.getContact_person_email1()!=null) {
+					comp.setContact_person_email1(encdec.encryptnew(com.getContact_person_email1()));
+				}
+				if(com.getContact_person_designation1()!=null) {
+					comp.setContact_person_designation1(encdec.encryptnew(com.getContact_person_designation1()));
+				}
+			//	if(com.getContact_person_email2()!=null) {
+			//		comp.setContact_person_email2(encdec.encryptnew(com.getContact_person_email2()));
+			//	}
+			//	if(com.getContact_person_designation2()!=null) {
+			//		comp.setContact_person_designation2(encdec.encryptnew(com.getContact_person_designation2()));
+			//	}
 				
 					String amount=Float.toString(com.getAllowed_amount());
 					comp.setAllowed_amount(encdec.encryptnew(amount));
@@ -88,6 +113,7 @@ public class CompanyController {
 			status="false";
 			httpstatus=HttpStatus.BAD_REQUEST;
 		}
+		System.out.println(response);
 		return ResponseEntity.status(httpstatus).body(new GetCompanyByIdResponse (comp,encdec.encryptnew(response),encdec.encryptnew(status)));
 	}
 	@RequestMapping(value = { "/add_modify_company" }, method = RequestMethod.POST, produces = {
@@ -115,6 +141,14 @@ public class CompanyController {
 				
 				company.setCurrent_amount(amount);
 				company.setDelete_status("N");
+				company.setContact_person1(encdec.decryptnew(addmodifyCompanyPayload.getContact_person1()));
+			//	company.setContact_person2(encdec.decryptnew(addmodifyCompanyPayload.getContact_person2()));
+				//company.setContact_person_mobile2(Long.parseLong(encdec.decryptnew(addmodifyCompanyPayload.getContact_person_mobile2())));
+				company.setContact_person_mobile1(Long.parseLong(encdec.decryptnew(addmodifyCompanyPayload.getContact_person_mobile1())));
+				//company.setContact_person_email2((encdec.decryptnew(addmodifyCompanyPayload.getContact_person_email2())));
+				company.setContact_person_email1((encdec.decryptnew(addmodifyCompanyPayload.getContact_person_email1())));
+				//company.setContact_person_designation2((encdec.decryptnew(addmodifyCompanyPayload.getContact_person_designation2())));
+				company.setContact_person_designation1((encdec.decryptnew(addmodifyCompanyPayload.getContact_person_designation1())));
 				companyRepo.save(company);
 			response="Company is added successfully.";}
 			
@@ -123,7 +157,16 @@ public class CompanyController {
 				String company_name=encdec.decryptnew(addmodifyCompanyPayload.getCompany_name());
 				company_name=company_name.replace(" ", "_");
 				companyRepo.updateCompany(encdec.decryptnew(addmodifyCompanyPayload.getCompany_code()),company_name,
-						encdec.decryptnew(addmodifyCompanyPayload.getCompany_address()),amount,encdec.decryptnew(addmodifyCompanyPayload.getCompany_id()));
+						encdec.decryptnew(addmodifyCompanyPayload.getCompany_address()),amount,amount,
+						encdec.decryptnew(addmodifyCompanyPayload.getContact_person1()),
+						(Long.parseLong(encdec.decryptnew(addmodifyCompanyPayload.getContact_person_mobile1()))),
+						encdec.decryptnew(addmodifyCompanyPayload.getContact_person_designation1()),
+						encdec.decryptnew(addmodifyCompanyPayload.getContact_person_email1()),
+						//encdec.decryptnew(addmodifyCompanyPayload.getContact_person2()),
+					//	Long.parseLong(encdec.decryptnew(addmodifyCompanyPayload.getContact_person_mobile2())),
+						//encdec.decryptnew(addmodifyCompanyPayload.getContact_person_designation2()),
+					//encdec.decryptnew(addmodifyCompanyPayload.getContact_person_email2()),
+						encdec.decryptnew(addmodifyCompanyPayload.getCompany_id()));
 				
 				response="Company modified successfully";
 				
